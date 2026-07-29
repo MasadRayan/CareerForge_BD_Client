@@ -9,6 +9,7 @@ import ErrorPage from "../Pages/ErrorPage";
 import Profile from "../Components/Dashboard/Profile";
 import Dashboard from "../Components/Dashboard/Dashboard";
 import PrivateRoute from "../Routes/PrivateRoute";
+import UpdateProfile from "../Components/Dashboard/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -28,10 +29,6 @@ const router = createBrowserRouter([
         path: "signup",
         element: <Signup />,
       },
-      {
-        path: "/updateprofile",
-        element: <Profile />,
-      },
     ],
   },
 
@@ -49,6 +46,10 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
+      {
+        path: "updateprofile",
+        Component: UpdateProfile
+      }
     ],
   },
 

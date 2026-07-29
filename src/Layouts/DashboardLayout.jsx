@@ -46,7 +46,7 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className={`flex min-h-screen ${isDark ? "bg-[#0B0F1A]" : "bg-[#F8FAFC]"}`}>
+    <div className={`min-h-screen ${isDark ? "bg-[#0B0F1A]" : "bg-[#F8FAFC]"} lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]`}>
       {/* Mobile overlay */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -62,12 +62,12 @@ const DashboardLayout = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col transition-transform duration-300 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col overflow-y-auto transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:transition-none ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } ${isDark ? "bg-[#0B0F1A]" : "bg-white"}`}
+        } ${isDark ? "border-r border-white/6 bg-[#0B0F1A]" : "border-r border-slate-200 bg-white"}`}
       >
         {/* Forge glow header */}
-        <div className="relative overflow-hidden border-b px-6 pb-4 pt-6">
+        <div className="relative overflow-hidden border-b px-4 pb-4 pt-6">
           <div
             className={`pointer-events-none absolute inset-0 ${
               isDark
@@ -82,12 +82,12 @@ const DashboardLayout = () => {
           />
 
           <Link to="/" className="group relative flex items-center gap-3">
-            <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/20 transition duration-300 group-hover:scale-105 group-hover:shadow-indigo-500/40">
+            <div className="relative flex h-9 w-11 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/20 transition duration-300 group-hover:scale-105 group-hover:shadow-indigo-500/40">
               <span className="text-sm font-extrabold tracking-wide">CF</span>
               <div className="absolute inset-0 rounded-xl ring-1 ring-white/20" />
               <div className="absolute -inset-1 rounded-xl bg-linear-to-br from-indigo-500/0 via-violet-500/0 to-fuchsia-500/0 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
             </div>
-            <div className="leading-tight">
+            <div>
               <h1
                 className={`text-base font-bold tracking-tight sm:text-lg ${
                   isDark ? "text-white" : "text-slate-900"
@@ -95,13 +95,6 @@ const DashboardLayout = () => {
               >
                 Career<span className="text-indigo-500">Forge</span>
               </h1>
-              <p
-                className={`-mt-0.5 text-[11px] ${
-                  isDark ? "text-slate-500" : "text-slate-400"
-                }`}
-              >
-                Toolshed
-              </p>
             </div>
           </Link>
 
@@ -226,10 +219,10 @@ const DashboardLayout = () => {
       </aside>
 
       {/* Main content */}
-      <div className="flex flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col">
         {/* Top bar */}
         <header
-          className={`sticky top-0 z-30 flex h-16 items-center justify-between border-b px-4 lg:px-8 ${
+          className={`sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b px-4 lg:px-8 ${
             isDark
               ? "border-white/6 bg-[#0B0F1A]/80 backdrop-blur-xl"
               : "border-slate-200 bg-white/80 backdrop-blur-xl"
@@ -334,7 +327,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+        <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 lg:px-8">
           <Outlet />
         </main>
       </div>
