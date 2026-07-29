@@ -23,6 +23,8 @@ import {
   Receipt,
   Settings,
   Users,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -58,7 +60,7 @@ const ADMIN_NAV = [
 
 const DashboardLayout = () => {
   const { user, logOut } = useAuth();
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
   const { role, roleLoading } = useUserRole();
 
@@ -313,82 +315,97 @@ const DashboardLayout = () => {
             />
           </div>
 
-          {/* Right side: user dropdown */}
-          <div className="relative" ref={profileRef}>
+          <div className="flex items-center gap-2">
+            {/* Theme toggle */}
             <button
-              onClick={() => setProfileOpen((prev) => !prev)}
-              className={`flex items-center gap-2 rounded-xl border px-3 py-1.5 transition ${
+              onClick={toggleTheme}
+              className={`rounded-lg p-2 transition ${
                 isDark
-                  ? "border-white/6 hover:bg-white/4"
-                  : "border-slate-200 hover:bg-slate-50"
+                  ? "text-slate-400 hover:bg-white/5 hover:text-white"
+                  : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
               }`}
+              aria-label="Toggle theme"
             >
-              {user?.photoURL ? (
-                <img
-                  src={user.photoURL}
-                  alt={user?.displayName || "User"}
-                  className="h-8 w-8 rounded-lg object-cover"
-                />
-              ) : (
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-indigo-500 to-violet-600 text-xs font-bold text-white">
-                  {user?.displayName?.charAt(0)?.toUpperCase() || "U"}
-                </div>
-              )}
-              <span
-                className={`hidden text-sm font-medium sm:block ${
-                  isDark ? "text-slate-300" : "text-slate-700"
-                }`}
-              >
-                {user?.displayName || "User"}
-              </span>
-              <ChevronDown
-                size={14}
-                className={`transition duration-200 ${
-                  profileOpen ? "rotate-180" : ""
-                } ${isDark ? "text-slate-500" : "text-slate-400"}`}
-              />
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
-            <AnimatePresence>
-              {profileOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -8, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -8, scale: 0.96 }}
-                  transition={{ duration: 0.15 }}
-                  className={`absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border shadow-xl ${
-                    isDark
-                      ? "border-white/6 bg-[#0F1525]"
-                      : "border-slate-200 bg-white"
+            {/* Right side: user dropdown */}
+            <div className="relative" ref={profileRef}>
+              <button
+                onClick={() => setProfileOpen((prev) => !prev)}
+                className={`flex items-center gap-2 rounded-xl border px-3 py-1.5 transition ${
+                  isDark
+                    ? "border-white/6 hover:bg-white/4"
+                    : "border-slate-200 hover:bg-slate-50"
+                }`}
+              >
+                {user?.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt={user?.displayName || "User"}
+                    className="h-8 w-8 rounded-lg object-cover"
+                  />
+                ) : (
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-indigo-500 to-violet-600 text-xs font-bold text-white">
+                    {user?.displayName?.charAt(0)?.toUpperCase() || "U"}
+                  </div>
+                )}
+                <span
+                  className={`hidden text-sm font-medium sm:block ${
+                    isDark ? "text-slate-300" : "text-slate-700"
                   }`}
                 >
-                  <Link
-                    to="/dashboard/profile"
-                    onClick={() => setProfileOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 text-sm transition ${
+                  {user?.displayName || "User"}
+                </span>
+                <ChevronDown
+                  size={14}
+                  className={`transition duration-200 ${
+                    profileOpen ? "rotate-180" : ""
+                  } ${isDark ? "text-slate-500" : "text-slate-400"}`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {profileOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                    transition={{ duration: 0.15 }}
+                    className={`absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border shadow-xl ${
                       isDark
-                        ? "text-slate-300 hover:bg-white/4 hover:text-white"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                        ? "border-white/6 bg-[#0F1525]"
+                        : "border-slate-200 bg-white"
                     }`}
                   >
-                    <User size={15} />
-                    My Profile
-                  </Link>
-                  <div
-                    className={`h-px ${
-                      isDark ? "bg-white/6" : "bg-slate-200"
-                    }`}
-                  />
-                  <button
-                    onClick={handleLogout}
-                    className={`flex w-full items-center gap-3 px-4 py-3 text-sm text-red-500 transition hover:bg-red-500/10`}
-                  >
-                    <LogOut size={15} />
-                    Sign out
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                    <Link
+                      to="/dashboard/profile"
+                      onClick={() => setProfileOpen(false)}
+                      className={`flex items-center gap-3 px-4 py-3 text-sm transition ${
+                        isDark
+                          ? "text-slate-300 hover:bg-white/4 hover:text-white"
+                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                      }`}
+                    >
+                      <User size={15} />
+                      My Profile
+                    </Link>
+                    <div
+                      className={`h-px ${
+                        isDark ? "bg-white/6" : "bg-slate-200"
+                      }`}
+                    />
+                    <button
+                      onClick={handleLogout}
+                      className={`flex w-full items-center gap-3 px-4 py-3 text-sm text-red-500 transition hover:bg-red-500/10`}
+                    >
+                      <LogOut size={15} />
+                      Sign out
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </header>
 
