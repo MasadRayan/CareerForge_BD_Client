@@ -82,10 +82,10 @@ const DashboardLayout = () => {
           />
 
           <Link to="/" className="group relative flex items-center gap-3">
-            <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/20 transition duration-300 group-hover:scale-105 group-hover:shadow-indigo-500/40">
+            <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/20 transition duration-300 group-hover:scale-105 group-hover:shadow-indigo-500/40">
               <span className="text-sm font-extrabold tracking-wide">CF</span>
               <div className="absolute inset-0 rounded-xl ring-1 ring-white/20" />
-              <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-indigo-500/0 via-violet-500/0 to-fuchsia-500/0 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="absolute -inset-1 rounded-xl bg-linear-to-br from-indigo-500/0 via-violet-500/0 to-fuchsia-500/0 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
             </div>
             <div className="leading-tight">
               <h1
@@ -122,7 +122,7 @@ const DashboardLayout = () => {
         <div
           className={`mx-4 mt-4 rounded-xl border p-3 ${
             isDark
-              ? "border-white/[0.06] bg-white/[0.03]"
+              ? "border-white/6 bg-white/3"
               : "border-indigo-100 bg-indigo-50/50"
           }`}
         >
@@ -134,7 +134,7 @@ const DashboardLayout = () => {
                 className="h-10 w-10 rounded-lg object-cover ring-2 ring-indigo-500/20"
               />
             ) : (
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 text-sm font-bold text-white">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-br from-indigo-500 to-violet-600 text-sm font-bold text-white">
                 {user?.displayName?.charAt(0)?.toUpperCase() || "U"}
               </div>
             )}
@@ -171,7 +171,7 @@ const DashboardLayout = () => {
                       ? "bg-indigo-500/15 text-indigo-300 shadow-sm shadow-indigo-500/5"
                       : "bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-500/5"
                     : isDark
-                    ? "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200"
+                    ? "text-slate-400 hover:bg-white/4 hover:text-slate-200"
                     : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                 }`
               }
@@ -201,7 +201,7 @@ const DashboardLayout = () => {
         {/* Bottom section */}
         <div
           className={`border-t px-4 py-4 ${
-            isDark ? "border-white/[0.06]" : "border-slate-200"
+            isDark ? "border-white/6" : "border-slate-200"
           }`}
         >
           <button
@@ -231,7 +231,7 @@ const DashboardLayout = () => {
         <header
           className={`sticky top-0 z-30 flex h-16 items-center justify-between border-b px-4 lg:px-8 ${
             isDark
-              ? "border-white/[0.06] bg-[#0B0F1A]/80 backdrop-blur-xl"
+              ? "border-white/6 bg-[#0B0F1A]/80 backdrop-blur-xl"
               : "border-slate-200 bg-white/80 backdrop-blur-xl"
           }`}
         >
@@ -249,7 +249,7 @@ const DashboardLayout = () => {
             </button>
             <div
               className={`h-5 w-px lg:hidden ${
-                isDark ? "bg-white/[0.06]" : "bg-slate-200"
+                isDark ? "bg-white/6" : "bg-slate-200"
               }`}
             />
           </div>
@@ -260,7 +260,7 @@ const DashboardLayout = () => {
               onClick={() => setProfileOpen((prev) => !prev)}
               className={`flex items-center gap-2 rounded-xl border px-3 py-1.5 transition ${
                 isDark
-                  ? "border-white/[0.06] hover:bg-white/[0.04]"
+                  ? "border-white/6 hover:bg-white/4"
                   : "border-slate-200 hover:bg-slate-50"
               }`}
             >
@@ -271,7 +271,7 @@ const DashboardLayout = () => {
                   className="h-8 w-8 rounded-lg object-cover"
                 />
               ) : (
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 text-xs font-bold text-white">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-indigo-500 to-violet-600 text-xs font-bold text-white">
                   {user?.displayName?.charAt(0)?.toUpperCase() || "U"}
                 </div>
               )}
@@ -299,7 +299,7 @@ const DashboardLayout = () => {
                   transition={{ duration: 0.15 }}
                   className={`absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border shadow-xl ${
                     isDark
-                      ? "border-white/[0.06] bg-[#0F1525]"
+                      ? "border-white/6 bg-[#0F1525]"
                       : "border-slate-200 bg-white"
                   }`}
                 >
@@ -308,7 +308,7 @@ const DashboardLayout = () => {
                     onClick={() => setProfileOpen(false)}
                     className={`flex items-center gap-3 px-4 py-3 text-sm transition ${
                       isDark
-                        ? "text-slate-300 hover:bg-white/[0.04] hover:text-white"
+                        ? "text-slate-300 hover:bg-white/4 hover:text-white"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                     }`}
                   >
@@ -317,7 +317,7 @@ const DashboardLayout = () => {
                   </Link>
                   <div
                     className={`h-px ${
-                      isDark ? "bg-white/[0.06]" : "bg-slate-200"
+                      isDark ? "bg-white/6" : "bg-slate-200"
                     }`}
                   />
                   <button

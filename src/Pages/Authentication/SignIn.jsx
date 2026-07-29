@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
+import useAxios from "../../Hooks/useAxios";
 
 const SignIn = () => {
   const [firebaseError, setFirebaseError] = useState("");
@@ -16,6 +17,7 @@ const SignIn = () => {
   const { signIn, googleSignIn, gitHubSignIn, loading, setLoading } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosInstance = useAxios();
 
 
   const {
@@ -62,6 +64,13 @@ const SignIn = () => {
     setFirebaseError("");
     googleSignIn()
       .then((result) => {
+        const { displayName, email, photoURL } = result.user;
+        axiosInstance.post("/api/users/register", {
+          name: displayName || "User",
+          email,
+          photoURL: photoURL || "",
+        });
+
         console.log(result.user);
         toast.success("Logged in with Google!");
         navigate(location.state?.from?.pathname || "/");
@@ -76,6 +85,13 @@ const SignIn = () => {
     setFirebaseError("");
     gitHubSignIn()
       .then((result) => {
+        const { displayName, email, photoURL } = result.user;
+        axiosInstance.post("/api/users/register", {
+          name: displayName || "User",
+          email,
+          photoURL: photoURL || "",
+        });
+
         console.log(result.user);
         toast.success("Logged in with GitHub!");
         navigate(location.state?.from?.pathname || "/");
