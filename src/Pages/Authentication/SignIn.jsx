@@ -39,7 +39,6 @@ const SignIn = () => {
 
     signIn(email, password)
       .then((result) => {
-        console.log(result.user);
         toast.success("Login successful!");
         navigate(location.state?.from?.pathname || "/");
       })
@@ -63,15 +62,14 @@ const SignIn = () => {
   const handleGoogleSignIn = () => {
     setFirebaseError("");
     googleSignIn()
-      .then((result) => {
+      .then(async (result) => {
         const { displayName, email, photoURL } = result.user;
-        axiosInstance.post("/api/users/register", {
+        await axiosInstance.post("/api/users/register", {
           name: displayName || "User",
           email,
           photoURL: photoURL || "",
         });
 
-        console.log(result.user);
         toast.success("Logged in with Google!");
         navigate(location.state?.from?.pathname || "/");
       })
@@ -84,15 +82,14 @@ const SignIn = () => {
   const handleGithubSignIn = () => {
     setFirebaseError("");
     gitHubSignIn()
-      .then((result) => {
+      .then(async (result) => {
         const { displayName, email, photoURL } = result.user;
-        axiosInstance.post("/api/users/register", {
+        await axiosInstance.post("/api/users/register", {
           name: displayName || "User",
           email,
           photoURL: photoURL || "",
         });
 
-        console.log(result.user);
         toast.success("Logged in with GitHub!");
         navigate(location.state?.from?.pathname || "/");
       })
