@@ -27,6 +27,7 @@ const CVAnalysis = () => {
 
   const [title, setTitle] = useState('')
   const [rawText, setRawText] = useState('')
+  const [interviewDate, setInterviewDate] = useState('')
   const [cv, setCv] = useState(null)
   const [cvLoading, setCvLoading] = useState(true)
   const [cvError, setCvError] = useState(null)
@@ -68,8 +69,8 @@ const CVAnalysis = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!title.trim() || !rawText.trim()) {
-      toast.error('Title and job description text are required')
+    if (!title.trim() || !rawText.trim() || !interviewDate) {
+      toast.error('Title, job description, and interview date are required')
       return
     }
 
@@ -80,6 +81,7 @@ const CVAnalysis = () => {
       const jdRes = await axiosSecure.post('/api/jd', {
         title: title.trim(),
         raw_text: rawText.trim(),
+        interview_date: interviewDate,
       })
 
       if (!jdRes.data.success) {
@@ -115,6 +117,7 @@ const CVAnalysis = () => {
     setAnalysis(null)
     setTitle('')
     setRawText('')
+    setInterviewDate('')
     setAnalysisError(null)
     setViewingExisting(false)
   }
@@ -232,6 +235,20 @@ const CVAnalysis = () => {
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Senior Frontend Developer"
                 className="w-full px-4 py-2.5 rounded-xl border border-base-content/20 bg-base-200 text-base-content placeholder:text-base-content/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-base-content/80 mb-1.5">
+                Interview Date <span className="text-error">*</span>
+              </label>
+              <input
+                type="date"
+                value={interviewDate}
+                onChange={(e) => setInterviewDate(e.target.value)}
+                min={new Date().toISOString().split('T')[0]}
+                required
+                className="w-full px-4 py-2.5 rounded-xl border border-base-content/20 bg-base-200 text-base-content focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors"
               />
             </div>
 
