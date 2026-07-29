@@ -6,15 +6,18 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, User, ImageIcon, ArrowRight } from "lucide-react";
+import useAxios from "../../Hooks/useAxios";
 
 const SignUp = () => {
   const { createUser, setUser, updateUser, loading } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosInstance = useAxios();
 
   const [firebaseError, setFirebaseError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  
   const {
     register,
     handleSubmit,
@@ -42,6 +45,12 @@ const SignUp = () => {
             setUser({
               ...user,
               displayName: name,
+              photoURL: photo,
+            });
+
+            axiosInstance.post("/api/users/register", {
+              name,
+              email,
               photoURL: photo,
             });
 
@@ -74,7 +83,7 @@ const SignUp = () => {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 px-4 py-10 sm:px-6 lg:px-8">
+    <section className="relative min-h-screen overflow-hidden bg-linear-to-br from-slate-50 via-white to-blue-50 px-4 py-10 sm:px-6 lg:px-8">
       {/* background blur */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-0 top-10 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl" />
@@ -94,11 +103,11 @@ const SignUp = () => {
             <div className="absolute -top-6 -left-6 h-24 w-24 rounded-3xl bg-blue-500/10 blur-2xl" />
             <div className="absolute -bottom-6 right-0 h-28 w-28 rounded-3xl bg-violet-500/10 blur-2xl" />
 
-            <div className="rounded-[32px] border border-white/60 bg-white/70 p-5 shadow-[0_25px_80px_rgba(15,23,42,0.10)] backdrop-blur-xl">
+            <div className="rounded-4xl border border-white/60 bg-white/70 p-5 shadow-[0_25px_80px_rgba(15,23,42,0.10)] backdrop-blur-xl">
               <img
                 src={Registeri}
                 alt="Register Illustration"
-                className="w-full rounded-[24px] object-cover"
+                className="w-full rounded-3xl object-cover"
               />
             </div>
 
@@ -124,7 +133,7 @@ const SignUp = () => {
           transition={{ duration: 0.7 }}
           className="mx-auto w-full max-w-xl"
         >
-          <div className="rounded-[32px] border border-white/70 bg-white/80 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:p-8">
+          <div className="rounded-4xl border border-white/70 bg-white/80 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:p-8">
             {/* heading */}
             <div className="mb-6 text-center">
               <h1 className="text-3xl font-bold tracking-tight text-slate-900">
@@ -344,7 +353,7 @@ const SignUp = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-blue-500/30 disabled:cursor-not-allowed disabled:opacity-70"
+                className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-blue-600 via-indigo-600 to-violet-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-blue-500/30 disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {loading ? "Creating account..." : "Register"}
                 {!loading && (
