@@ -13,7 +13,7 @@ const ThemeProvider = ({ children }) => {
 
     if (savedTheme === "light" || savedTheme === "dark") {
       setTheme(savedTheme);
-      document.documentElement.classList.toggle("dark", savedTheme === "dark");
+      document.documentElement.setAttribute("data-theme", savedTheme);
       return;
     }
 
@@ -23,10 +23,7 @@ const ThemeProvider = ({ children }) => {
 
     const initialTheme = systemPrefersDark ? "dark" : "light";
     setTheme(initialTheme);
-    document.documentElement.classList.toggle(
-      "dark",
-      initialTheme === "dark"
-    );
+    document.documentElement.setAttribute("data-theme", initialTheme);
     localStorage.setItem("careerforge-theme", initialTheme);
   }, []);
 
@@ -34,7 +31,7 @@ const ThemeProvider = ({ children }) => {
     setTheme((prev) => {
       const nextTheme = prev === "dark" ? "light" : "dark";
       localStorage.setItem("careerforge-theme", nextTheme);
-      document.documentElement.classList.toggle("dark", nextTheme === "dark");
+      document.documentElement.setAttribute("data-theme", nextTheme);
       return nextTheme;
     });
   };
