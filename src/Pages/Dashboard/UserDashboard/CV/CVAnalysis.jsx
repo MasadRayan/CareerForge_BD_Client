@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../../../Context/AuthProvider'
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
-import { ArrowLeft, Loader2, Target, CheckCircle2, XCircle, Lightbulb, FileText, AlertTriangle } from 'lucide-react'
+import { ArrowLeft, Loader2, Target, CheckCircle2, XCircle, Lightbulb, FileText, AlertTriangle, History } from 'lucide-react'
 
 const getScoreColor = (score) => {
   if (score >= 80) return 'text-success'
@@ -22,6 +22,7 @@ const CVAnalysis = () => {
   const { id: cvId } = useParams()
   const { user } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const axiosSecure = useAxiosSecure()
 
   const [title, setTitle] = useState('')
@@ -31,7 +32,11 @@ const CVAnalysis = () => {
   const [cvError, setCvError] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [analysis, setAnalysis] = useState(null)
+  const [analysisLoading, setAnalysisLoading] = useState(false)
   const [analysisError, setAnalysisError] = useState(null)
+  const [viewingExisting, setViewingExisting] = useState(!!location.state?.analysisId)
+
+  const existingAnalysisId = location.state?.analysisId
 
   useEffect(() => {
     if (!user?.email || !cvId) return
@@ -44,6 +49,22 @@ const CVAnalysis = () => {
       .catch(() => setCvError('Failed to load CV'))
       .finally(() => setCvLoading(false))
   }, [user?.email, cvId, axiosSecure])
+
+  useEffect(() => {
+    if (!user?.email || !existingAnalysisId) return
+    setAnalysisLoading(true)
+    axiosSecure
+      .get(`/api/analysis/${existingAnalysisId}`)
+      .then((res) => {
+        if (res.data.success) setAnalysis(res.data.data)
+        else toast.error('Failed to load analysis')
+      })
+      .catch((err) => {
+        const msg = err?.response?.data?.message || 'Failed to load analysis'
+        toast.error(msg)
+      })
+      .finally(() => setAnalysisLoading(false))
+  }, [user?.email, existingAnalysisId, axiosSecure])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -95,6 +116,7 @@ const CVAnalysis = () => {
     setTitle('')
     setRawText('')
     setAnalysisError(null)
+    setViewingExisting(false)
   }
 
   if (cvLoading) {
@@ -137,18 +159,20 @@ const CVAnalysis = () => {
       >
         {/* Back link */}
         <button
-          onClick={() => navigate(`/dashboard/cvs/${cvId}`)}
+          onClick={() => viewingExisting ? navigate('/dashboard/analyses') : navigate(`/dashboard/cvs/${cvId}`)}
           className="flex items-center gap-2 text-sm text-base-content/60 hover:text-base-content transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to CV
+          {viewingExisting ? 'Back to History' : 'Back to CV'}
         </button>
 
         {/* Header */}
         <div>
           <h1 className="text-2xl font-bold text-base-content">CV Analysis</h1>
           <p className="text-sm text-base-content/60 mt-1">
-            Compare your CV against a job description
+            {viewingExisting
+              ? 'Viewing a previous analysis result'
+              : 'Compare your CV against a job description'}
           </p>
         </div>
 
@@ -180,8 +204,15 @@ const CVAnalysis = () => {
           </div>
         )}
 
+        {/* Loading existing analysis */}
+        {analysisLoading && (
+          <div className="flex items-center justify-center py-16">
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          </div>
+        )}
+
         {/* Form (hidden after successful analysis) */}
-        {!analysis && (
+        {!analysis && !analysisLoading && (
           <form onSubmit={handleSubmit} className="rounded-2xl border border-base-content/10 bg-base-300 p-6 space-y-4">
             <div className="flex items-center gap-3 mb-2">
               <span className="h-px flex-1 bg-base-content/10" />
@@ -414,17 +445,28 @@ const CVAnalysis = () => {
                 </div>
               )}
 
-              {/* Created date + new analysis */}
+              {/* Created date + actions */}
               <div className="flex items-center justify-between pt-2">
                 <p className="text-xs text-base-content/40">
                   Analysis ran {formatDate(analysis.created_at)}
                 </p>
-                <button
-                  onClick={handleReset}
-                  className="text-sm text-primary hover:underline"
-                >
-                  Run another analysis
-                </button>
+                <div className="flex items-center gap-4">
+                  {viewingExisting && (
+                    <button
+                      onClick={() => navigate('/dashboard/analyses')}
+                      className="flex items-center gap-1.5 text-xs text-base-content/40 hover:text-base-content transition-colors"
+                    >
+                      <History className="w-3.5 h-3.5" />
+                      All Analyses
+                    </button>
+                  )}
+                  <button
+                    onClick={handleReset}
+                    className="text-sm text-primary hover:underline"
+                  >
+                    {viewingExisting ? 'New analysis for this CV' : 'Run another analysis'}
+                  </button>
+                </div>
               </div>
             </motion.div>
           )}
