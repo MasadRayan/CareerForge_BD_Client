@@ -324,7 +324,7 @@ const CVAnalysis = () => {
                       <ul className="space-y-1">
                         {analysis.keyword_match_breakdown.formatting_issues.map((issue, i) => (
                           <li key={i} className="text-xs text-base-content/60 flex items-start gap-2">
-                            <span className="mt-1 w-1 h-1 rounded-full bg-amber-500/60 flex-shrink-0" />
+                            <span className="mt-1 w-1 h-1 rounded-full bg-amber-500/60 shrink-0" />
                             {issue}
                           </li>
                         ))}
