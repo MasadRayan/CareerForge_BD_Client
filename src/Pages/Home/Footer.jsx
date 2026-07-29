@@ -20,7 +20,7 @@ const Footer = () => {
           <div
             className={`relative overflow-hidden rounded-3xl border px-5 py-8 sm:px-8 sm:py-10 lg:px-10 ${
               isDark
-                ? "border-white/10 bg-white/[0.05]"
+                ? "border-white/10 bg-white/5"
                 : "border-slate-200 bg-white/70 shadow-[0_10px_40px_rgba(15,23,42,0.06)]"
             }`}
           >
@@ -80,7 +80,7 @@ const Footer = () => {
 
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-indigo-500/35"
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-indigo-500/35"
                   >
                     Subscribe
                     <Send className="h-4 w-4" />

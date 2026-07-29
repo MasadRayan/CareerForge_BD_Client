@@ -20,7 +20,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-md p-6 mt-10 rounded-xl text-center">
+    <div className="max-w-md mx-auto bg-gray-700 shadow-md p-6 mt-10 rounded-xl text-center">
       <h2 className="text-2xl sm:text-3xl font-bold text-blue-700 mb-4">
         Welcome, {user.displayName || "User"}!
       </h2>
