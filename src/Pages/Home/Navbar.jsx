@@ -5,7 +5,7 @@ import { useTheme } from "../../Context/ThemeProvider";
 import {
   Menu,
   X,
- ChevronDown,
+  ChevronDown,
   User,
   LayoutDashboard,
   LogOut,
@@ -22,7 +22,7 @@ const Navbar = () => {
   const profileRef = useRef(null);
 
   const { user, logOut } = useAuth();
-  const { theme, toggleTheme } = useTheme(); // ✅ global theme from provider
+  const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
 
   const handleLogout = async () => {
@@ -44,7 +44,7 @@ const Navbar = () => {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [profileRef, setIsProfileOpen]);
 
   return (
     <header className="sticky top-3 z-50 px-3 sm:px-4">
@@ -52,8 +52,8 @@ const Navbar = () => {
         className={`relative mx-auto max-w-7xl rounded-2xl border shadow-2xl backdrop-blur-2xl transition-colors duration-300
           ${
             isDark
-              ? "border-white/10 bg-slate-950/70 text-white shadow-black/20 supports-[backdrop-filter]:bg-slate-950/55"
-              : "border-orange-200/70 bg-white/75 text-slate-900 shadow-orange-200/30 supports-[backdrop-filter]:bg-white/65"
+              ? "border-white/10 bg-slate-950/70 text-white shadow-black/20 supports-backdrop-filter:bg-slate-950/55"
+              : "border-orange-200/70 bg-white/75 text-slate-900 shadow-orange-200/30 supports-backdrop-filter:bg-white/65"
           }`}
       >
         {/* decorative glow */}
@@ -70,7 +70,7 @@ const Navbar = () => {
           <div className="flex items-center gap-8">
             {/* Logo */}
             <Link to="/" className="group flex items-center gap-3">
-              <div className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/25 transition duration-300 group-hover:scale-105">
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-linear-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/25 transition duration-300 group-hover:scale-105">
                 <span className="text-sm font-extrabold tracking-wide">CF</span>
                 <div className="absolute inset-0 rounded-2xl ring-1 ring-white/20" />
               </div>
@@ -97,7 +97,7 @@ const Navbar = () => {
             <div
               className={`hidden items-center gap-2 rounded-full border p-1 md:flex ${
                 isDark
-                  ? "border-white/10 bg-white/[0.03]"
+                  ? "border-white/10 bg-white/3"
                   : "border-orange-200/70 bg-orange-50/80"
               }`}
             >
@@ -143,7 +143,7 @@ const Navbar = () => {
               aria-label="Toggle theme"
               className={`group flex h-11 w-11 items-center justify-center rounded-2xl border transition duration-300 ${
                 isDark
-                  ? "border-white/10 bg-white/[0.05] text-slate-200 hover:bg-white/[0.08]"
+                  ? "border-white/10 bg-white/5 text-slate-200 hover:bg-white/8"
                   : "border-orange-200 bg-orange-50/80 text-orange-700 hover:bg-orange-100"
               }`}
             >
@@ -273,24 +273,6 @@ const Navbar = () => {
                         isDark={isDark}
                       >
                         My Profile
-                      </DropdownLink>
-
-                      <DropdownLink
-                        to="/dashboard"
-                        icon={<LayoutDashboard size={16} />}
-                        onClick={() => setIsProfileOpen(false)}
-                        isDark={isDark}
-                      >
-                        Dashboard
-                      </DropdownLink>
-
-                      <DropdownLink
-                        to="/roadmap"
-                        icon={<Map size={16} />}
-                        onClick={() => setIsProfileOpen(false)}
-                        isDark={isDark}
-                      >
-                        Roadmap
                       </DropdownLink>
 
                       <div

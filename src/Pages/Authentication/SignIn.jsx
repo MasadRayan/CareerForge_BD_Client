@@ -4,27 +4,21 @@ import github from "../../assets/github.png";
 import login from "../../assets/login-illustration.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
-import {
-  GoogleAuthProvider,
-  GithubAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import auth from "../../Firebase/firebase.init";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
+import useAxios from "../../Hooks/useAxios";
 
 const SignIn = () => {
   const [firebaseError, setFirebaseError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { signIn, loading } = useContext(AuthContext);
+  const { signIn, googleSignIn, gitHubSignIn, loading, setLoading } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosInstance = useAxios();
 
-  const googleProvider = new GoogleAuthProvider();
-  const githubProvider = new GithubAuthProvider();
 
   const {
     register,
@@ -45,7 +39,6 @@ const SignIn = () => {
 
     signIn(email, password)
       .then((result) => {
-        console.log(result.user);
         toast.success("Login successful!");
         navigate(location.state?.from?.pathname || "/");
       })
@@ -68,9 +61,15 @@ const SignIn = () => {
 
   const handleGoogleSignIn = () => {
     setFirebaseError("");
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        console.log(result.user);
+    googleSignIn()
+      .then(async (result) => {
+        const { displayName, email, photoURL } = result.user;
+        await axiosInstance.post("/api/users/register", {
+          name: displayName || "User",
+          email,
+          photoURL: photoURL || "",
+        });
+
         toast.success("Logged in with Google!");
         navigate(location.state?.from?.pathname || "/");
       })
@@ -82,9 +81,15 @@ const SignIn = () => {
 
   const handleGithubSignIn = () => {
     setFirebaseError("");
-    signInWithPopup(auth, githubProvider)
-      .then((result) => {
-        console.log(result.user);
+    gitHubSignIn()
+      .then(async (result) => {
+        const { displayName, email, photoURL } = result.user;
+        await axiosInstance.post("/api/users/register", {
+          name: displayName || "User",
+          email,
+          photoURL: photoURL || "",
+        });
+
         toast.success("Logged in with GitHub!");
         navigate(location.state?.from?.pathname || "/");
       })
@@ -95,7 +100,7 @@ const SignIn = () => {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 px-4 py-10 sm:px-6 lg:px-8">
+    <section className="relative min-h-screen overflow-hidden bg-linear-to-br from-slate-50 via-white to-blue-50 px-4 py-10 sm:px-6 lg:px-8">
       {/* background blur */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-0 top-10 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl" />
@@ -115,11 +120,11 @@ const SignIn = () => {
             <div className="absolute -top-6 -left-6 h-24 w-24 rounded-3xl bg-blue-500/10 blur-2xl" />
             <div className="absolute -bottom-6 right-0 h-28 w-28 rounded-3xl bg-violet-500/10 blur-2xl" />
 
-            <div className="rounded-[32px] border border-white/60 bg-white/70 p-5 shadow-[0_25px_80px_rgba(15,23,42,0.10)] backdrop-blur-xl">
+            <div className="rounded-4xl border border-white/60 bg-white/70 p-5 shadow-[0_25px_80px_rgba(15,23,42,0.10)] backdrop-blur-xl">
               <img
                 src={login}
                 alt="Login Illustration"
-                className="w-full rounded-[24px] object-cover"
+                className="w-full rounded-3xl object-cover"
               />
             </div>
 
@@ -144,7 +149,7 @@ const SignIn = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           className="mx-auto w-full max-w-xl">
-          <div className="rounded-[32px] border border-white/70 bg-white/80 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:p-8">
+          <div className="rounded-4xl border border-white/70 bg-white/80 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:p-8">
             {/* heading */}
             <div className="mb-6 text-center">
               <h1 className="text-3xl font-bold tracking-tight text-slate-900">
@@ -260,7 +265,7 @@ const SignIn = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-blue-500/30 disabled:cursor-not-allowed disabled:opacity-70"
+                className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-blue-600 via-indigo-600 to-violet-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-blue-500/30 disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {loading ? "Logging in..." : "Login"}
                 {!loading && (

@@ -6,10 +6,12 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, User, ImageIcon, ArrowRight } from "lucide-react";
+import useAxios from "../../Hooks/useAxios";
 
 const SignUp = () => {
   const { createUser, setUser, updateUser, loading } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosInstance = useAxios();
 
   const [firebaseError, setFirebaseError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -43,6 +45,12 @@ const SignUp = () => {
             setUser({
               ...user,
               displayName: name,
+              photoURL: photo,
+            });
+
+            axiosInstance.post("/api/users/register", {
+              name,
+              email,
               photoURL: photo,
             });
 

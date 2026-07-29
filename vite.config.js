@@ -10,4 +10,9 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  server: {
+    headers: {
+      "Cross-Origin-Opener-Policy": "unsafe-none",
+    },
+  },
 })
