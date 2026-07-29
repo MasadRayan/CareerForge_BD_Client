@@ -7,9 +7,8 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import auth from '../Firebase/firebase.init';
+import { AuthContext } from './AuthContext';
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -57,16 +56,10 @@ const AuthProvider = ({ children }) => {
     setLoading,
   };
 
-  return (
-    <AuthContext.Provider value={authData}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext value={authData}>
+        {children}
+    </AuthContext>
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
 
 export default AuthProvider;
