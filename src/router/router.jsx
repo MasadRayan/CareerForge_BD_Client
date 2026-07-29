@@ -23,16 +23,16 @@ import CVDetails from "../Pages/Dashboard/UserDashboard/CV/CVDetails";
 import CVAnalysis from "../Pages/Dashboard/UserDashboard/CV/CVAnalysis";
 import AnalysisHistory from "../Pages/Dashboard/UserDashboard/Analysis/AnalysisHistory";
 
-import Roadmap from "../Components/Roadmap/Roadmap";
-import Roadmapdetails from "../Components/Roadmap/Roadmapdetails";
+import Roadmap from "../Pages/Dashboard/UserDashboard/Roadmap/Roadmap";
+import Roadmapdetails from "../Pages/Dashboard/UserDashboard/Roadmap/Roadmapdetails";
 
 import Quiz from "../Pages/Dashboard/UserDashboard/Quiz/Quiz";
 import QuizStats from "../Pages/Dashboard/UserDashboard/Quiz/QuizStats";
 import QuizHistory from "../Pages/Dashboard/UserDashboard/Quiz/QuizHistory";
 
-import MocInterview from "../Components/Interview/MocInterview";
-import InterviewHistory from "../Components/Interview/InterviewHistory";
-import InterviewResult from "../Components/Interview/InterviewResult";
+import MocInterview from "../Pages/Dashboard/UserDashboard/Interview/MocInterview";
+import InterviewHistory from "../Pages/Dashboard/UserDashboard/Interview/InterviewHistory";
+import InterviewResult from "../Pages/Dashboard/UserDashboard/Interview/InterviewResult";
 
 import ReadinessScore from "../Pages/Dashboard/UserDashboard/Readiness/ReadinessScore";
 
