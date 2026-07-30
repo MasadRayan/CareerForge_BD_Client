@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
-  onAuthStateChanged,
+  onIdTokenChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
   const gitHubProvider = new GithubAuthProvider();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onIdTokenChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
     });
