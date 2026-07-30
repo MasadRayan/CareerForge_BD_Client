@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+  import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { toast } from 'react-hot-toast'
@@ -334,7 +334,7 @@ const ReadinessScore = () => {
             <div className="flex items-center gap-8 flex-wrap">
               <ScoreRing score={composite} />
 
-              <div className="flex-1 min-w-[200px]">
+              <div className="flex-1 min-w-50">
                 <span className={`inline-block rounded-lg px-3 py-1 text-xs font-medium mb-3 ${badge.bg}`}>
                   {badge.label}
                 </span>
