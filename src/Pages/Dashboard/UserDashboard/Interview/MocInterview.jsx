@@ -392,7 +392,7 @@ const MocInterview = () => {
                       placeholder="Type your answer here..."
                       rows={6}
                       maxLength={5000}
-                      className="w-full rounded-xl border border-base-content/10 bg-base-200 text-base-content p-4 text-sm focus:outline-none focus:border-primary transition resize-y min-h-[160px] placeholder:text-base-content/30"
+                      className="w-full rounded-xl border border-base-content/10 bg-base-200 text-base-content p-4 text-sm focus:outline-none focus:border-primary transition resize-y min-h-40 placeholder:text-base-content/30"
                       disabled={submitting}
                     />
                     <div className="flex items-center justify-between mt-2 text-xs text-base-content/40">
