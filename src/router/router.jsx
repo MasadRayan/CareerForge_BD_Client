@@ -38,6 +38,8 @@ import ReadinessScore from "../Pages/Dashboard/UserDashboard/Readiness/Readiness
 
 import Subscription from "../Pages/Dashboard/UserDashboard/Subscription/Subscription";
 import PaymentHistory from "../Pages/Dashboard/UserDashboard/Subscription/PaymentHistory";
+import AboutUs from "../Pages/AboutUs/AboutUs";
+import ContactUs from "../Pages/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
         path: "signup",
         element: <Signup />,
       },
+      {
+        path: "aboutUs",
+        Component: AboutUs
+      },
+      {
+        path: "contactUs",
+        Component: ContactUs
+      }
     ],
   },
 

@@ -364,7 +364,7 @@ const Roadmapdetails = () => {
                       className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-base-content/10 bg-base-200 text-xs text-base-content/60 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all"
                     >
                       <Icon className="w-3.5 h-3.5 shrink-0" />
-                      <span className="max-w-[180px] truncate">
+                      <span className="max-w-45 truncate">
                         {res.title}
                       </span>
                       <ExternalLink className="w-3 h-3 shrink-0 opacity-0 -ml-1.5 group-hover:opacity-100 group-hover:ml-0 transition-all" />
@@ -495,12 +495,12 @@ const Roadmapdetails = () => {
           <div className="mt-6 pt-2 px-2">
             <div className="relative">
               {/* Background track */}
-              <div className="absolute left-0 right-0 top-[14px] h-0.5 bg-base-content/10 rounded-full" />
+              <div className="absolute left-0 right-0 top-3.5 h-0.5 bg-base-content/10 rounded-full" />
 
               {/* Progress fill */}
               {completedWeeks > 0 && (
                 <motion.div
-                  className="absolute left-0 top-[14px] h-0.5 bg-primary rounded-full"
+                  className="absolute left-0 top-3.5 h-0.5 bg-primary rounded-full"
                   initial={{ width: 0 }}
                   animate={{
                     width: `${(completedWeeks / weeks.length) * 100}%`,
