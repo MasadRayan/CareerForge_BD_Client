@@ -148,7 +148,7 @@ const Subscription = () => {
             <div className="w-14 h-14 rounded-xl bg-success/10 flex items-center justify-center shrink-0">
               <Crown className="w-7 h-7 text-success" />
             </div>
-            <div className="flex-1 min-w-[200px]">
+            <div className="flex-1 min-w-50">
               <h2 className="text-lg font-semibold text-base-content mb-1">Premium Plan Active</h2>
               <p className="text-sm text-base-content/60 mb-3">
                 You have full access to all features including unlimited analyses, AI feedback, and detailed roadmaps.
