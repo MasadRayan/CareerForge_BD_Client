@@ -51,8 +51,7 @@ const Banner = () => {
       className={`
         relative isolate overflow-hidden
         px-6 md:px-12 lg:px-20
-        pt-32 pb-16 md:pt-36 md:pb-20 lg:pt-40 lg:pb-24
-        -mt-[92px]
+        pt-32 pb-16 md:pt-36 md:pb-20 lg:pt-40 lg:pb-24-mt-[92px]
         transition-colors duration-300
         ${isDark ? "bg-[#050816]" : "bg-[#fffaf2]"}
       `}
@@ -61,8 +60,7 @@ const Banner = () => {
       <div
         className={`absolute inset-0 -z-20 ${
           isDark
-            ? "bg-[#050816]"
-            : "bg-gradient-to-b from-[#fffaf2] via-[#fff7ed] to-[#f8fbff]"
+            ? "bg-[#050816]": "bg-gradient-to-b from-[#fffaf2] via-[#fff7ed] to-[#f8fbff]"
         }`}
       />
 
