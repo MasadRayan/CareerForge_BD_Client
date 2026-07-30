@@ -37,7 +37,7 @@ const Profile = () => {
 
   if (loadingProfile) {
     return (
-      <div className="text-center mt-20 text-xl text-slate-500">
+      <div className="text-center mt-20 text-xl text-base-content/60">
         Loading profile...
       </div>
     );
@@ -52,8 +52,8 @@ const Profile = () => {
   const displayEmail = profile?.email || user?.email || "Not provided";
 
   return (
-    <div className="max-w-md mx-auto bg-gray-700 shadow-md p-6 mt-10 rounded-xl text-center">
-      <h2 className="text-2xl sm:text-3xl font-bold text-blue-700 mb-4">
+    <div className="max-w-md mx-auto bg-base-300 shadow-md p-6 mt-10 rounded-xl text-center">
+      <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-4">
         Welcome, {displayName}!
       </h2>
 
@@ -61,11 +61,11 @@ const Profile = () => {
         <img
           src={displayPhoto}
           alt="Profile"
-          className="w-24 h-24 rounded-full object-cover border-2 border-blue-500"
+          className="w-24 h-24 rounded-full object-cover border-2 border-primary"
         />
       </div>
 
-      <div className="text-left space-y-2">
+      <div className="text-left space-y-2 text-base-content">
         <p><strong>Name:</strong> {displayName}</p>
         <p><strong>Email:</strong> {displayEmail}</p>
         <p><strong>Role:</strong> {profile?.role || "free_user"}</p>

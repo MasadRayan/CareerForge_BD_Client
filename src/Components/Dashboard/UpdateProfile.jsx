@@ -100,7 +100,7 @@ const UpdateProfile = () => {
   if (loadingProfile) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 text-indigo-400 animate-spin" />
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
       </div>
     )
   }
@@ -114,15 +114,15 @@ const UpdateProfile = () => {
       >
         <button
           onClick={() => navigate('/dashboard/profile')}
-          className="flex items-center gap-2 text-sm text-slate-400 hover:text-slate-200 transition-colors mb-8"
+          className="flex items-center gap-2 text-sm text-base-content/60 hover:text-base-content transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Profile
         </button>
 
-        <div className="bg-gray-800 rounded-2xl border border-slate-700/50 p-8">
+        <div className="bg-base-300 rounded-2xl border border-base-content/10 p-8">
           <div className="flex flex-col items-center mb-8">
-            <div className="relative w-36 h-36 rounded-full overflow-hidden bg-slate-700 border-2 border-indigo-500/30 mb-4">
+            <div className="relative w-36 h-36 rounded-full overflow-hidden bg-base-content/20 border-2 border-primary/30 mb-4">
               {watchedPhotoURL && !photoError ? (
                 <img
                   src={watchedPhotoURL}
@@ -131,53 +131,53 @@ const UpdateProfile = () => {
                   onError={() => setPhotoError(true)}
                 />
               ) : (
-                <div className="flex items-center justify-center w-full h-full text-slate-500">
+                <div className="flex items-center justify-center w-full h-full text-base-content/40">
                   <Camera className="w-12 h-12" />
                 </div>
               )}
             </div>
-            <h1 className="text-2xl font-semibold text-slate-100">Update Profile</h1>
-            <p className="text-sm text-slate-400 mt-1">Update your career identity</p>
+            <h1 className="text-2xl font-semibold text-base-content">Update Profile</h1>
+            <p className="text-sm text-base-content/60 mt-1">Update your career identity</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <span className="h-px flex-1 bg-slate-700" />
-                <span className="text-xs font-medium tracking-widest text-slate-500 uppercase">Identity</span>
-                <span className="h-px flex-1 bg-slate-700" />
+                <span className="h-px flex-1 bg-base-content/20" />
+                <span className="text-xs font-medium tracking-widest text-base-content/40 uppercase">Identity</span>
+                <span className="h-px flex-1 bg-base-content/20" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                <label className="block text-sm font-medium text-base-content/80 mb-1.5">
                   Full Name
                 </label>
                 <input
                   {...register('name', { required: 'Name is required' })}
                   type="text"
                   placeholder={currentProfile?.name || 'Enter your full name'}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-colors"
+                  className="w-full px-4 py-2.5 rounded-xl border border-base-content/20 bg-base-200 text-base-content placeholder:text-base-content/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors"
                 />
                 {errors.name && (
-                  <p className="text-xs text-red-400 mt-1">{errors.name.message}</p>
+                  <p className="text-xs text-error mt-1">{errors.name.message}</p>
                 )}
               </div>
             </div>
 
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <span className="h-px flex-1 bg-slate-700" />
-                <span className="text-xs font-medium tracking-widest text-slate-500 uppercase">Career</span>
-                <span className="h-px flex-1 bg-slate-700" />
+                <span className="h-px flex-1 bg-base-content/20" />
+                <span className="text-xs font-medium tracking-widest text-base-content/40 uppercase">Career</span>
+                <span className="h-px flex-1 bg-base-content/20" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                <label className="block text-sm font-medium text-base-content/80 mb-1.5">
                   Experience Level
                 </label>
                 <select
                   {...register('experience_level')}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-colors"
+                  className="w-full px-4 py-2.5 rounded-xl border border-base-content/20 bg-base-200 text-base-content focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors"
                 >
                   <option value="">Select level</option>
                   {EXPERIENCE_LEVELS.map((level) => (
@@ -191,22 +191,22 @@ const UpdateProfile = () => {
 
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <span className="h-px flex-1 bg-slate-700" />
-                <span className="text-xs font-medium tracking-widest text-slate-500 uppercase">Media</span>
-                <span className="h-px flex-1 bg-slate-700" />
+                <span className="h-px flex-1 bg-base-content/20" />
+                <span className="text-xs font-medium tracking-widest text-base-content/40 uppercase">Media</span>
+                <span className="h-px flex-1 bg-base-content/20" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                <label className="block text-sm font-medium text-base-content/80 mb-1.5">
                   Photo URL
                 </label>
                 <input
                   {...register('photoURL')}
                   type="url"
                   placeholder="https://example.com/photo.jpg"
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-colors"
+                  className="w-full px-4 py-2.5 rounded-xl border border-base-content/20 bg-base-200 text-base-content placeholder:text-base-content/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors"
                 />
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-base-content/40 mt-1">
                   Paste a link to your professional headshot
                 </p>
               </div>
@@ -216,7 +216,7 @@ const UpdateProfile = () => {
               <motion.button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-3 px-6 rounded-xl bg-linear-to-r from-indigo-500 to-violet-500 text-white font-semibold text-sm hover:from-indigo-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 px-6 rounded-xl bg-linear-to-r from-indigo-500 to-violet-500 text-white font-semibold text-sm hover:from-indigo-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-base-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
               >
