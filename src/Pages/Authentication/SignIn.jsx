@@ -14,12 +14,10 @@ const SignIn = () => {
   const [firebaseError, setFirebaseError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { signIn, googleSignIn, gitHubSignIn, loading, setLoading } = useContext(AuthContext);
+  const { signIn, googleSignIn, gitHubSignIn, loading } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const axiosInstance = useAxios();
-
-
   const {
     register,
     handleSubmit,

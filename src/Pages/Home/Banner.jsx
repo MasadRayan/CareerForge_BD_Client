@@ -5,9 +5,6 @@ import { motion } from "framer-motion";
 import { useTheme } from "../../Context/ThemeProvider";
 import {
   ArrowRight,
-  Sparkles,
-  CheckCircle2,
-  TrendingUp,
   Star,
   BadgeCheck,
 } from "lucide-react";
@@ -20,21 +17,16 @@ const Banner = () => {
     "perspective(1800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)"
   );
   const cardRef = useRef(null);
-
   const handleMouseMove = (e) => {
     const card = cardRef.current;
     if (!card) return;
-
     const rect = card.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
-
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
     const rotateY = ((x - width / 2) / width) * 16;
     const rotateX = -((y - height / 2) / height) * 16;
-
     setTransform(
       `perspective(1800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03,1.03,1.03)`
     );
@@ -56,62 +48,46 @@ const Banner = () => {
         ${isDark ? "bg-[#050816]" : "bg-[#fffaf2]"}
       `}
     >
-      {/* ================= BACKGROUND ================= */}
-      <div
-        className={`absolute inset-0 -z-20 ${
-          isDark
-            ? "bg-[#050816]": "bg-gradient-to-b from-[#fffaf2] via-[#fff7ed] to-[#f8fbff]"
-        }`}
-      />
+     {/* ================= BACKGROUND ================= */}
+    <div
+      className={`absolute inset-0 -z-20 ${
+        isDark ? "bg-[#050816]" : "bg-white"
+      }`}
+    />
+    {/* Gradient Mesh */}
+    <div className="pointer-events-none absolute inset-0 -z-10">
+      {isDark && (
+        <>
+          <div className="absolute left-[-10%] top-[-8%] h-[420px] w-[420px] rounded-full bg-cyan-500/20 blur-[120px]" />
+          <div className="absolute right-[-8%] top-[10%] h-[420px] w-[420px] rounded-full bg-violet-600/20 blur-[120px]" />
+          <div className="absolute left-[30%] bottom-[-10%] h-[380px] w-[380px] rounded-full bg-blue-500/20 blur-[120px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_30%)]" />
+        </>
+      )}
+    </div>
 
-      {/* gradient mesh */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        {isDark ? (
-          <>
-            <div className="absolute left-[-10%] top-[-8%] h-[420px] w-[420px] rounded-full bg-cyan-500/20 blur-[120px]" />
-            <div className="absolute right-[-8%] top-[10%] h-[420px] w-[420px] rounded-full bg-violet-600/20 blur-[120px]" />
-            <div className="absolute left-[30%] bottom-[-10%] h-[380px] w-[380px] rounded-full bg-blue-500/20 blur-[120px]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_30%)]" />
-          </>
-        ) : (
-          <>
-            <div className="absolute left-[-10%] top-[-8%] h-[420px] w-[420px] rounded-full bg-amber-300/30 blur-[120px]" />
-            <div className="absolute right-[-8%] top-[10%] h-[420px] w-[420px] rounded-full bg-rose-300/25 blur-[120px]" />
-            <div className="absolute left-[30%] bottom-[-10%] h-[380px] w-[380px] rounded-full bg-sky-300/25 blur-[120px]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.55),transparent_30%)]" />
-          </>
-        )}
-      </div>
-
-      {/* grid */}
-      <div
-        className={`pointer-events-none absolute inset-0 -z-10 opacity-[0.15] [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]`}
-      >
+     {/* Grid */}
+    {isDark && (
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.12] [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]">
         <div
           className="h-full w-full"
           style={{
-            backgroundImage: isDark
-              ? `
-                linear-gradient(rgba(255,255,255,0.09) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.09) 1px, transparent 1px)
-              `
-              : `
-                linear-gradient(rgba(148,163,184,0.18) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(148,163,184,0.18) 1px, transparent 1px)
-              `,
-            backgroundSize: "42px 42px",
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)
+            `,backgroundSize: "42px 42px",
           }}
         />
       </div>
-
+    )}
       {/* spotlight */}
+     {isDark && (
       <motion.div
         animate={{ x: [0, 20, 0], y: [0, -15, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className={`pointer-events-none absolute left-1/2 top-10 -z-10 h-[380px] w-[380px] -translate-x-1/2 rounded-full blur-[120px] ${
-          isDark ? "bg-white/10" : "bg-white/40"
-        }`}
+        className="pointer-events-none absolute left-1/2 top-10 -z-10 h-[380px] w-[380px] -translate-x-1/2 rounded-full bg-white/10 blur-[120px]"
       />
+    )}
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-2">
         {/* ================= LEFT ================= */}
@@ -121,62 +97,40 @@ const Banner = () => {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="space-y-7"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.6 }}
-            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl ${
+          <div className="space-y-5">
+           <motion.h1
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.7 }}
+          className={`max-w-3xl font-bold leading-tight tracking-tight
+            text-3xl md:text-4xl lg:text-5xl xl:text-[56px]
+            ${isDark ? "text-white" : "text-slate-900"}`}
+        >
+          Precision Path to
+          <br />
+
+          <span className={isDark ? "text-white" : "text-slate-900"}>
+            Your{" "}
+          </span>
+
+          <span
+            className={`inline-block text-[0.9em] italic ${
               isDark
-                ? "border-white/15 bg-white/10"
-                : "border-slate-200/70 bg-white/70"
+                ? "bg-gradient-to-r from-cyan-300 via-blue-300 to-violet-300 bg-clip-text text-transparent"
+                : "text-slate-900"
             }`}
           >
-            <Sparkles
-              className={`h-4 w-4 ${
-                isDark ? "text-cyan-300" : "text-amber-500"
-              }`}
+            <Typewriter
+              words={["Dream Career.", "Best CV.", "Future Role."]}
+              loop={0}
+              cursor
+              cursorStyle="|"
+              typeSpeed={90}
+              deleteSpeed={45}
+              delaySpeed={1800}
             />
-            <span
-              className={`text-[11px] font-semibold uppercase tracking-[0.22em] md:text-xs ${
-                isDark ? "text-cyan-100" : "text-slate-700"
-              }`}
-            >
-              AI-Powered Career Catalyst
-            </span>
-          </motion.div>
-
-          <div className="space-y-5">
-            <motion.h1
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.7 }}
-              className={`max-w-3xl text-4xl font-bold leading-[1.02] tracking-tight md:text-5xl lg:text-6xl xl:text-[72px] ${
-                isDark ? "text-white" : "text-slate-900"
-              }`}
-            >
-              Precision Path to
-              <br />
-              <span className={isDark ? "text-white/95" : "text-slate-900"}>
-                Your{" "}
-              </span>
-              <span
-                className={`bg-gradient-to-r bg-clip-text italic text-transparent ${
-                  isDark
-                    ? "from-cyan-300 via-blue-300 to-violet-300"
-                    : "from-amber-500 via-orange-500 to-rose-500"
-                }`}
-              >
-                <Typewriter
-                  words={["Dream Career.", "Best CV.", "Future Role."]}
-                  loop={0}
-                  cursor
-                  cursorStyle="|"
-                  typeSpeed={90}
-                  deleteSpeed={45}
-                  delaySpeed={1800}
-                />
-              </span>
-            </motion.h1>
+          </span>
+        </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 24 }}
@@ -186,14 +140,12 @@ const Banner = () => {
                 isDark ? "text-slate-300" : "text-slate-600"
               }`}
             >
-              Unlock your next opportunity with Bangladesh&apos;s AI-powered
+              Unlock your next opportunity with Bangladesh's AI Powered
               career platform optimize your CV for ATS, build a clear career
               roadmap, and practice smarter with interview intelligence built
               for modern job seekers.
             </motion.p>
           </div>
-
-          
 
           <motion.div
             initial={{ opacity: 0, y: 26 }}
@@ -215,17 +167,6 @@ const Banner = () => {
             >
               Explore Roadmap
             </button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.7 }}
-            className="flex flex-wrap items-center gap-5 pt-2"
-          >
-            <TrustItem text="ATS-ready suggestions" isDark={isDark} />
-            <TrustItem text="Personalized roadmap" isDark={isDark} />
-            <TrustItem text="Interview practice insights" isDark={isDark} />
           </motion.div>
         </motion.div>
 
@@ -378,116 +319,9 @@ const Banner = () => {
                       <div className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-600 dark:bg-emerald-400/15 dark:text-emerald-300">
                         +12% improved
                       </div>
-                      <span
-                        className={`hidden text-xs sm:block ${
-                          isDark ? "text-slate-400" : "text-slate-400"
-                        }`}
-                      >
-                        Updated 2m ago
-                      </span>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-
-              {/* floating stat 1 */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1, y: [0, -8, 0] }}
-                transition={{
-                  opacity: { delay: 0.95, duration: 0.5 },
-                  scale: { delay: 0.95, duration: 0.5 },
-                  y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                }}
-                className={`absolute -left-3 top-10 hidden rounded-2xl border px-4 py-3 shadow-xl backdrop-blur-xl md:block ${
-                  isDark
-                    ? "border-white/15 bg-white/10"
-                    : "border-slate-200/70 bg-white/75"
-                }`}
-              >
-                <p
-                  className={`text-[11px] font-semibold uppercase tracking-wide ${
-                    isDark ? "text-slate-300" : "text-slate-500"
-                  }`}
-                >
-                  Interview IQ
-                </p>
-                <p
-                  className={`text-lg font-bold ${
-                    isDark ? "text-white" : "text-slate-900"
-                  }`}
-                >
-                  87%
-                </p>
-              </motion.div>
-
-              {/* floating stat 2 */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1, y: [0, 8, 0] }}
-                transition={{
-                  opacity: { delay: 1.05, duration: 0.5 },
-                  scale: { delay: 1.05, duration: 0.5 },
-                  y: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
-                }}
-                className={`absolute -right-4 top-16 hidden rounded-2xl border px-4 py-3 shadow-xl backdrop-blur-xl lg:block ${
-                  isDark
-                    ? "border-white/15 bg-white/10"
-                    : "border-slate-200/70 bg-white/75"
-                }`}
-              >
-                <p
-                  className={`text-[11px] font-semibold uppercase tracking-wide ${
-                    isDark ? "text-slate-300" : "text-slate-500"
-                  }`}
-                >
-                  Resume Boost
-                </p>
-                <p
-                  className={`text-lg font-bold ${
-                    isDark ? "text-white" : "text-slate-900"
-                  }`}
-                >
-                  +24%
-                </p>
-              </motion.div>
-
-              {/* floating stat 3 */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1, y: [0, -7, 0] }}
-                transition={{
-                  opacity: { delay: 1.15, duration: 0.5 },
-                  scale: { delay: 1.15, duration: 0.5 },
-                  y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-                }}
-                className={`absolute bottom-4 -left-5 hidden rounded-2xl border px-4 py-3 shadow-xl backdrop-blur-xl xl:block ${
-                  isDark
-                    ? "border-white/15 bg-white/10"
-                    : "border-slate-200/70 bg-white/75"
-                }`}
-              >
-                <div
-                  className={`flex items-center gap-2 ${
-                    isDark ? "text-emerald-300" : "text-emerald-600"
-                  }`}
-                >
-                  <TrendingUp className="h-4 w-4" />
-                  <span
-                    className={`text-xs font-semibold uppercase tracking-wide ${
-                      isDark ? "text-slate-300" : "text-slate-500"
-                    }`}
-                  >
-                    Growth
-                  </span>
-                </div>
-                <p
-                  className={`mt-1 text-lg font-bold ${
-                    isDark ? "text-white" : "text-slate-900"
-                  }`}
-                >
-                  +38%
-                </p>
               </motion.div>
             </div>
           </div>
@@ -496,22 +330,5 @@ const Banner = () => {
     </section>
   );
 };
-
-function TrustItem({ text, isDark }) {
-  return (
-    <div
-      className={`flex items-center gap-2 text-sm ${
-        isDark ? "text-slate-300" : "text-slate-600"
-      }`}
-    >
-      <CheckCircle2
-        className={`h-4 w-4 ${
-          isDark ? "text-emerald-400" : "text-emerald-500"
-        }`}
-      />
-      {text}
-    </div>
-  );
-}
 
 export default Banner;
