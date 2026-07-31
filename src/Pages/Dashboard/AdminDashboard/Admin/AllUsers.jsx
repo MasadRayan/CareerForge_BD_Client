@@ -5,11 +5,27 @@ import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import useAuth from "../../../../Hooks/useAuth";
 
+const PAGE_SIZE = 10;
+
+const getPageNumbers = (currentPage, totalPages) => {
+  const pages = [];
+  const start = Math.max(1, currentPage - 2);
+  const end = Math.min(totalPages, currentPage + 2);
+
+  if (start > 1) pages.push(1);
+  if (start > 2) pages.push("...");
+  for (let p = start; p <= end; p++) pages.push(p);
+  if (end < totalPages - 1) pages.push("...");
+  if (end < totalPages) pages.push(totalPages);
+
+  return pages;
+};
+
 const AllUsers = () => {
   const { user } = useAuth();
   const [page, setPage] = useState(1);
   const {
-    data: users = [],
+    data,
     isLoading,
     refetch,
   } = useQuery({
@@ -31,6 +47,15 @@ const AllUsers = () => {
     },
   });
 
+  const users = data?.users ?? [];
+  const pagination = data?.pagination ?? {
+    currentPage: 1,
+    limit: PAGE_SIZE,
+    totalItems: 0,
+    totalPages: 0,
+    hasNextPage: false,
+    hasPreviousPage: false,
+  };
 
   const handleDelete = async (email) => {
     const result = await Swal.fire({
@@ -52,9 +77,17 @@ const AllUsers = () => {
     );
 
     Swal.fire("Deleted!", "", "success");
-    refetch();
+    if (users.length === 1 && page > 1) {
+      setPage(page - 1);
+    } else {
+      refetch();
+    }
   };
 
+  const goToPage = (nextPage) => {
+    if (nextPage < 1 || nextPage > pagination.totalPages) return;
+    setPage(nextPage);
+  };
 
   if (isLoading)
     return <span className="loading loading-spinner loading-lg"></span>;
@@ -79,9 +112,9 @@ const AllUsers = () => {
           <tbody>
             {
               users.map((item, index) => (
-                <tr key={item._id}>
+                <tr key={item.id}>
                   <td>
-                    {(page - 1) * 10 + index + 1}
+                    {(page - 1) * PAGE_SIZE + index + 1}
                   </td>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
@@ -103,24 +136,41 @@ const AllUsers = () => {
           </tbody>
         </table>
       </div>
-      <div className="flex justify-center gap-3 mt-6">
 
-        <button
-          className="btn"
-          disabled={page === 1}
-          onClick={() => setPage(page - 1)}>
-          Prev
-        </button>
-        <span className="btn btn-primary">
-          {page}
-        </span>
+      <div className="flex flex-col items-center justify-center gap-3 mt-6">
+        <div className="flex items-center gap-2">
 
-        <button
-          className="btn"
-          disabled={users.length < 10}
-          onClick={() => setPage(page + 1)}>
-          Next
-        </button>
+          <button
+            className="btn btn-sm"
+            disabled={!pagination.hasPreviousPage}
+            onClick={() => goToPage(page - 1)}>
+            Prev
+          </button>
+
+          {getPageNumbers(pagination.currentPage, pagination.totalPages).map((p, i) =>
+            p === "..." ? (
+              <span key={`ellipsis-${i}`} className="px-1">...</span>
+            ) : (
+              <button
+                key={p}
+                className={`btn btn-sm ${p === page ? "btn-primary" : "btn-ghost"}`}
+                onClick={() => goToPage(p)}>
+                {p}
+              </button>
+            )
+          )}
+
+          <button
+            className="btn btn-sm"
+            disabled={!pagination.hasNextPage}
+            onClick={() => goToPage(page + 1)}>
+            Next
+          </button>
+        </div>
+
+        <p className="text-sm text-base-content/50">
+          Page {pagination.totalPages === 0 ? 0 : pagination.currentPage} of {pagination.totalPages} · {pagination.totalItems} users
+        </p>
       </div>
     </div>
   );
