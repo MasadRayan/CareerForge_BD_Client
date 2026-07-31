@@ -108,6 +108,7 @@ const SignIn = () => {
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-2">
         {/* LEFT SIDE */}
+        
         <motion.div
           initial={{ opacity: 0, x: -35 }}
           animate={{ opacity: 1, x: 0 }}
@@ -115,6 +116,15 @@ const SignIn = () => {
           className="hidden lg:block"
         >
           <div className="relative mx-auto max-w-xl">
+             <div className="mt-5 max-w-lg">
+              <p className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
+                Welcome back
+              </p>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 mb-4">
+                Continue building your dream career with CareerForge BD
+              </h2>
+              
+            </div>
             <div className="absolute -top-6 -left-6 h-24 w-24 rounded-3xl bg-blue-500/10 blur-2xl" />
             <div className="absolute -bottom-6 right-0 h-28 w-28 rounded-3xl bg-violet-500/10 blur-2xl" />
 
@@ -126,18 +136,7 @@ const SignIn = () => {
               />
             </div>
 
-            <div className="mt-5 max-w-lg">
-              <p className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
-                Welcome back
-              </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-                Continue building your dream career with CareerForge BD
-              </h2>
-              <p className="mt-3 leading-7 text-slate-600">
-                Log in to access ATS CV analysis, AI career roadmap, interview
-                preparation and your saved progress — all in one place.
-              </p>
-            </div>
+           
           </div>
         </motion.div>
 

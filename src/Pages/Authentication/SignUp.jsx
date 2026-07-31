@@ -100,6 +100,15 @@ const SignUp = () => {
           className="hidden lg:block"
         >
           <div className="relative mx-auto max-w-xl">
+            <div className="mt-5 max-w-lg">
+              <p className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
+                Join CareerForge BD
+              </p>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 mb-4">
+                Start your career journey with a smarter AI-powered platform
+              </h2>
+             
+            </div>
             <div className="absolute -top-6 -left-6 h-24 w-24 rounded-3xl bg-blue-500/10 blur-2xl" />
             <div className="absolute -bottom-6 right-0 h-28 w-28 rounded-3xl bg-violet-500/10 blur-2xl" />
 
@@ -109,19 +118,6 @@ const SignUp = () => {
                 alt="Register Illustration"
                 className="w-full rounded-3xl object-cover"
               />
-            </div>
-
-            <div className="mt-5 max-w-lg">
-              <p className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
-                Join CareerForge BD
-              </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-                Start your career journey with a smarter AI-powered platform
-              </h2>
-              <p className="mt-3 leading-7 text-slate-600">
-                Create your account to unlock ATS CV analysis, personalized career
-                roadmaps, interview preparation, and more — all in one place.
-              </p>
             </div>
           </div>
         </motion.div>
