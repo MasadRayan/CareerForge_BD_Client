@@ -83,23 +83,35 @@ const RoleMenu = ({ item, isDark, isSelf, onChanged }) => {
   const [busy, setBusy] = useState(false);
   const [menuPos, setMenuPos] = useState(null);
   const btnRef = useRef(null);
+  const menuRef = useRef(null);
   const meta = ROLE_META[item.role] || ROLE_META.free_user;
 
   useEffect(() => {
     if (!open) return;
 
     const onDown = (e) => {
-      if (btnRef.current && !btnRef.current.contains(e.target)) setOpen(false);
+      if (
+        btnRef.current?.contains(e.target) ||
+        menuRef.current?.contains(e.target)
+      ) {
+        return;
+      }
+      setOpen(false);
     };
     const onKey = (e) => {
       if (e.key === "Escape") setOpen(false);
     };
+    const onClose = () => setOpen(false);
 
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onClose, true);
+    window.addEventListener("resize", onClose);
     return () => {
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onClose, true);
+      window.removeEventListener("resize", onClose);
     };
   }, [open]);
 
@@ -171,6 +183,7 @@ const RoleMenu = ({ item, isDark, isSelf, onChanged }) => {
         menuPos &&
         createPortal(
           <div
+            ref={menuRef}
             role="menu"
             aria-label={`Change role for ${item.name}`}
             className={`fixed z-50 w-56 overflow-hidden rounded-xl border shadow-xl backdrop-blur-xl ${
