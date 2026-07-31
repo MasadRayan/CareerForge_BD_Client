@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaUserShield } from "react-icons/fa";
 import useAuth from "../../../../Hooks/useAuth";
 
 const PAGE_SIZE = 10;
@@ -84,6 +84,53 @@ const AllUsers = () => {
     }
   };
 
+  const handleRoleChange = async (item) => {
+    if (item.email === user.email) {
+      Swal.fire("Info", "You cannot change your own role", "info");
+      return;
+    }
+
+    const { value: newRole } = await Swal.fire({
+      title: `Change role for ${item.name}`,
+      input: "select",
+      inputOptions: {
+        free_user: "Free User",
+        premium_user: "Premium User",
+        admin: "Admin",
+      },
+      inputValue: item.role,
+      showCancelButton: true,
+      confirmButtonText: "Update",
+      inputValidator: (value) => {
+        if (!value) return "Please select a role";
+      },
+    });
+
+    if (!newRole || newRole === item.role) return;
+
+    try {
+      const token = await user.getIdToken();
+      const res = await axios.patch(
+        `http://localhost:3000/api/users/role/${item.email}`,
+        { role: newRole },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      Swal.fire("Updated!", `Role changed to ${res.data.data.role}`, "success");
+      refetch();
+    } catch (error) {
+      Swal.fire(
+        "Error",
+        error?.response?.data?.message || "Failed to update role",
+        "error"
+      );
+    }
+  };
+
   const goToPage = (nextPage) => {
     if (nextPage < 1 || nextPage > pagination.totalPages) return;
     setPage(nextPage);
@@ -125,8 +172,15 @@ const AllUsers = () => {
                   </td>
                   <td>
                     <button
+                      onClick={() => handleRoleChange(item)}
+                      className="btn btn-ghost btn-sm"
+                      title="Change role">
+                      <FaUserShield className="text-blue-600" />
+                    </button>
+                    <button
                       onClick={() => handleDelete(item.email)}
-                      className="btn btn-ghost btn-sm">
+                      className="btn btn-ghost btn-sm"
+                      title="Delete user">
                       <FaTrashAlt className="text-red-600" />
                     </button>
                   </td>
