@@ -33,9 +33,7 @@ import QuizHistory from "../Pages/Dashboard/UserDashboard/Quiz/QuizHistory";
 import MocInterview from "../Pages/Dashboard/UserDashboard/Interview/MocInterview";
 import InterviewHistory from "../Pages/Dashboard/UserDashboard/Interview/InterviewHistory";
 import InterviewResult from "../Pages/Dashboard/UserDashboard/Interview/InterviewResult";
-
 import ReadinessScore from "../Pages/Dashboard/UserDashboard/Readiness/ReadinessScore";
-
 import Subscription from "../Pages/Dashboard/UserDashboard/Subscription/Subscription";
 import PaymentHistory from "../Pages/Dashboard/UserDashboard/Subscription/PaymentHistory";
 import AboutUs from "../Pages/AboutUs/AboutUs";
@@ -59,6 +57,7 @@ const router = createBrowserRouter([
         path: "signup",
         element: <Signup />,
       },
+       
       {
         path: "aboutUs",
         Component: AboutUs

@@ -100,8 +100,18 @@ const SignIn = () => {
   };
 
   return (
-    <section className={`relative min-h-screen px-4 py-10 transition duration-500 ${dark?"bg-[#050816]":"bg-gradient-to-br from-slate-50 via-white to-blue-50"}`}>
-
+<section
+  className={`
+    relative min-h-screen
+    px-4 md:px-8 lg:px-16
+    py-10 md:py-16
+    transition-colors duration-500
+    ${dark
+      ? "bg-[#050816]"
+      : "bg-gradient-to-br from-slate-50 via-white to-blue-50"
+    }
+  `}
+>
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-2">
 
         {/* LEFT SIDE */}
@@ -214,8 +224,8 @@ const SignIn = () => {
       {...register("password", {
         required: "Password is required",
         minLength: {
-          value: 5,
-          message: "Password must be at least 5 characters",
+          value: 6,
+          message: "Password must be at least 6 characters",
         },
       })}
     />

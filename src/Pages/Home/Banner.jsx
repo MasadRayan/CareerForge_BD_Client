@@ -37,14 +37,9 @@ const Banner = () => {
 
   return (
     <section
-      className={`
-        relative isolate overflow-hidden
-        px-6 md:px-12 lg:px-20
-        pt-32 pb-16 md:pt-36 md:pb-20 lg:pt-40 lg:pb-24-mt-[92px]
-        transition-colors duration-300
-        ${isDark ? "bg-[#050816]" : "bg-[#fffaf2]"}
-      `}
-    >
+  className={`relative isolate overflow-hidden px-6 md:px-12 lg:px-20 pt-32 pb-16 md:pt-36 md:pb-20 lg:pt-40 lg:pb-24 -mt-[92px]
+    transition-colors duration-300 ${isDark ? "bg-[#050816]" : "bg-[#fffaf2]"}
+  `}>
       {/* ================= BACKGROUND ================= */}
       <div
         className={`absolute inset-0 -z-20 ${
@@ -127,7 +122,7 @@ const Banner = () => {
                 />
               </span>
             </motion.h1>
-
+n
             <motion.p
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
