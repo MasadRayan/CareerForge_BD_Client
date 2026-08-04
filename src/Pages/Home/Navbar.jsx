@@ -9,7 +9,6 @@ import {
   User,
   LayoutDashboard,
   LogOut,
-  Map,
   Info,
   Home,
   Moon,
@@ -70,28 +69,28 @@ const Navbar = () => {
           <div className="flex items-center gap-8">
             {/* Logo */}
             <Link to="/" className="group flex items-center gap-3">
-              <div className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-linear-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/25 transition duration-300 group-hover:scale-105">
-                <span className="text-sm font-extrabold tracking-wide">CF</span>
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-white/20" />
-              </div>
+                  <div className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-linear-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/25 transition duration-300 group-hover:scale-105">
+                    <div className="absolute inset-0 rounded-2xl ring-1 ring-white/20" />
+                  </div>
 
-              <div className="leading-tight">
-                <h1
-                  className={`text-base font-bold tracking-tight sm:text-lg ${
-                    isDark ? "text-white" : "text-slate-900"
-                  }`}
-                >
-                  CareerForge <span className="text-indigo-500">BD</span>
-                </h1>
-                <p
-                  className={`-mt-0.5 text-[11px] ${
-                    isDark ? "text-slate-400" : "text-slate-500"
-                  }`}
-                >
-                  Build smarter careers
-                </p>
-              </div>
+                  <div className="leading-tight">
+                    <h1
+                      className={`text-base font-bold tracking-tight sm:text-lg ${
+                        isDark ? "text-white" : "text-slate-900"
+                      }`}
+                    >
+                      CareerForge <span className="text-indigo-500">BD</span>
+                    </h1>
+                    <p
+                      className={`-mt-0.5 text-[11px] ${
+                        isDark ? "text-slate-400" : "text-slate-500"
+                      }`}
+                    >
+                      Build smarter career
+                    </p>
+                  </div>
             </Link>
+
 
             {/* Desktop nav */}
             <div
@@ -121,14 +120,6 @@ const Navbar = () => {
                     isDark={isDark}
                   >
                     Dashboard
-                  </DesktopNavItem>
-
-                  <DesktopNavItem
-                    to="/roadmap"
-                    icon={<Map size={16} />}
-                    isDark={isDark}
-                  >
-                    Roadmap
                   </DesktopNavItem>
                 </>
               )}
@@ -266,15 +257,6 @@ const Navbar = () => {
                     </div>
 
                     <div className="p-2">
-                      <DropdownLink
-                        to="/updateprofile"
-                        icon={<User size={16} />}
-                        onClick={() => setIsProfileOpen(false)}
-                        isDark={isDark}
-                      >
-                        My Profile
-                      </DropdownLink>
-
                       <div
                         className={`my-2 h-px ${
                           isDark ? "bg-white/10" : "bg-orange-100"
@@ -407,25 +389,6 @@ const Navbar = () => {
                   >
                     Dashboard
                   </MobileNavLink>
-
-                  <MobileNavLink
-                    to="/roadmap"
-                    icon={<Map size={16} />}
-                    onClick={() => setIsOpen(false)}
-                    isDark={isDark}
-                  >
-                    Roadmap
-                  </MobileNavLink>
-
-                  <MobileNavLink
-                    to="/updateprofile"
-                    icon={<User size={16} />}
-                    onClick={() => setIsOpen(false)}
-                    isDark={isDark}
-                  >
-                    My Profile
-                  </MobileNavLink>
-
                   <button
                     onClick={handleLogout}
                     className="mt-2 flex items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium text-red-500 transition hover:bg-red-500/10"
@@ -483,24 +446,6 @@ function DesktopNavItem({ to, children, icon, isDark }) {
     </NavLink>
   );
 }
-
-function DropdownLink({ to, children, icon, onClick, isDark }) {
-  return (
-    <Link
-      to={to}
-      onClick={onClick}
-      className={`flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm transition ${
-        isDark
-          ? "text-slate-300 hover:bg-white/5 hover:text-white"
-          : "text-slate-700 hover:bg-orange-50 hover:text-slate-900"
-      }`}
-    >
-      {icon}
-      <span>{children}</span>
-    </Link>
-  );
-}
-
 function MobileNavLink({ to, children, icon, onClick, isDark }) {
   return (
     <NavLink
