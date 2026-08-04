@@ -433,5 +433,4 @@ function MobileNavItem({
     </NavLink>
   );
 }
-
 export default Navbar;
