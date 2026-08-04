@@ -9,9 +9,11 @@ const Banner = () => {
   const isDark = theme === "dark";
   return (
     <section
-      className={`relative overflow-hidden -mt-[92px] px-6 pt-32 pb-16 transition-colors duration-300 md:px-12 md:pt-36 md:pb-20 lg:px-20 lg:pt-40 lg:pb-24 ${
-        isDark ? "bg-[#050816]" : "bg-white"
-      }`}
+     className={`relative overflow-hidden -mt-[92px] px-6 pt-32 pb-16 transition-colors duration-300 md:px-12 md:pt-36 md:pb-20 lg:px-20 lg:pt-40 lg:pb-24 ${
+      isDark
+        ? "bg-gradient-to-b from-[#050816] via-[#060A1C] to-[#070C20]"
+        : "bg-white"
+    }`}
     >
       <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2">
         {/* Left Content */}
