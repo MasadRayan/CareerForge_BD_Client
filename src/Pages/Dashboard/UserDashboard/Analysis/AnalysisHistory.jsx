@@ -4,7 +4,7 @@ import { useAuth } from '../../../../Context/AuthProvider'
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
-import { BarChart3, Loader2, Target, ArrowRight, FileText } from 'lucide-react'
+import { BarChart3, Target, ArrowRight, FileText } from 'lucide-react'
 
 const getScoreColor = (score) => {
   if (score >= 80) return 'text-success'
