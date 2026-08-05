@@ -403,7 +403,7 @@ const Quiz = () => {
           {/* ── Question Card (flashcard) ── */}
           <div className="rounded-2xl border border-base-content/10 bg-base-300 p-6 relative overflow-hidden mb-4">
             <span
-              className="absolute -top-4 -right-2 text-[120px] font-bold text-base-content/[0.04] select-none pointer-events-none leading-none"
+              className="absolute -top-4 -right-2 text-[120px] font-bold text-base-content/4 select-none pointer-events-none leading-none"
               aria-hidden
             >
               {currentIndex + 1}
