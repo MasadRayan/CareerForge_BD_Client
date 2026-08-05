@@ -16,7 +16,6 @@ import DashboardHome from "../Components/Dashboard/Dashboard";
 import Settings from "../Components/Dashboard/Settings";
 
 import AllUsers from "../Pages/Dashboard/AdminDashboard/Admin/AllUsers";
-import AdminAnalytics from "../Pages/Dashboard/AdminDashboard/Admin/AdminAnalytics";
 
 import CVList from "../Pages/Dashboard/UserDashboard/CV/CVList";
 import CVDetails from "../Pages/Dashboard/UserDashboard/CV/CVDetails";
@@ -95,10 +94,7 @@ const router = createBrowserRouter([
         path: "admin/users",
         element: <AdminRoute><AllUsers /></AdminRoute>,
       },
-      {
-        path: "admin/analytics",
-        element: <AdminRoute><AdminAnalytics /></AdminRoute>,
-      },
+      
 
       // CV & Analysis routes
       {
