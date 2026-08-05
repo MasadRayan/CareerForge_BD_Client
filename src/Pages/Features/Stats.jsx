@@ -6,27 +6,27 @@ import { useTheme } from "../../Context/ThemeProvider";
 
 const STAT_META = [
   {
-    key: "cvsAnalyzed",
+    id: "cvsAnalyzed",
     label: "CVs Analyzed",
     description: "Resume Intelligence",
   },
   {
-    key: "starRewrites",
+    id: "starRewrites",
     label: "STAR Rewrites",
     description: "AI Optimization",
   },
   {
-    key: "careerRoadmaps",
+    id: "careerRoadmaps",
     label: "Career Roadmaps",
     description: "Growth Planning",
   },
   {
-    key: "mockInterviews",
+    id: "mockInterviews",
     label: "Mock Interviews",
     description: "Interview Practice",
   },
   {
-    key: "totalUsers",
+    id: "totalUsers",
     label: "Total Users",
     description: "Growing Community",
   },
@@ -57,7 +57,7 @@ const Stats = () => {
 
   const stats = STAT_META.map((stat) => ({
     ...stat,
-    value: values[stat.key] ?? 0,
+    value: values[stat.id] ?? 0,
   }));
 
   return (
@@ -80,7 +80,7 @@ const Stats = () => {
           {loading
             ? STAT_META.map((stat) => (
                 <div
-                  key={stat.label}
+                  key={stat.id}
                   className={`animate-pulse rounded-3xl border p-6 ${isDark ? "border-white/10 bg-white/5" : "border-slate-200 bg-white shadow-lg"}`}
                 >
                   <div className={`h-10 w-20 rounded-lg ${isDark ? "bg-white/10" : "bg-slate-200"}`} />
@@ -89,7 +89,13 @@ const Stats = () => {
                 </div>
               ))
             : stats.map((stat, index) => (
-                <motion.div key={stat.label} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.12 }}>
+                <motion.div
+                  key={stat.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.12 }}
+                >
                   <StatCard {...stat} isDark={isDark} />
                 </motion.div>
               ))}
