@@ -28,10 +28,10 @@ const AdminAnalytics = () => {
     return <LoadingSpinner />;
   }
   const {
-    totalUsers = 110,
-    activeUsers = 220,
-    adminUsers = 330,
-    totalRoles = 120,
+    totalUsers = 0,
+    activeUsers = 0,
+    adminUsers = 0,
+    totalRoles = 0,
     roleData = [],
     experienceData = [],
     growthData = [],
