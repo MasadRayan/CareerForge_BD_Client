@@ -123,7 +123,8 @@ Update a user's profile.
 {
   "name": "John Updated",          // optional
   "experience_level": "senior",    // optional
-  "photoURL": "https://new.url"    // optional
+  "photoURL": "https://new.url",   // optional
+  "skills": ["React", "TypeScript"] // optional — array of strings
 }
 ```
 
@@ -135,6 +136,8 @@ Update a user's profile.
   "message": "User updated successfully"
 }
 ```
+
+**Error (400):** `{ "success": false, "message": "skills must be an array of strings" }`
 
 ---
 
@@ -220,9 +223,10 @@ Get all users (paginated).
       "email": "john@example.com",
       "role": "free_user",
       "photoURL": "",
-      "target_role": "fullstack",
-      "experience_level": "mid",
-      "created_at": "2026-07-29T10:00:00.000Z",
+    "target_role": "fullstack",
+    "experience_level": "mid",
+    "skills": ["React", "TypeScript", "Node.js"],
+    "created_at": "2026-07-29T10:00:00.000Z",
       "updated_at": "2026-07-29T10:00:00.000Z"
     }
   ]
@@ -428,6 +432,40 @@ Get a single CV by ID (includes `raw_text`).
   }
 }
 ```
+
+---
+
+### `POST /api/cv/:id/skills`
+AI-extract a skill list from a CV's parsed text. Does NOT persist — the client
+merges/edits the result and saves via `PATCH /api/users/update/:email`.
+
+**Auth:** Firebase Token required
+
+**Path Params:** `id` — CV UUID
+
+**Request Body:** none
+
+**Sample Request:**
+
+```
+POST /api/cv/<cvId>/skills
+```
+
+**Success Response (200):**
+
+```json
+{
+  "success": true,
+  "message": "Skills extracted successfully",
+  "data": {
+    "skills": ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker", "AWS", "Git", "Tailwind CSS", "REST APIs"]
+  }
+}
+```
+
+**Errors:**
+- **404:** `{ "success": false, "message": "CV not found" }`
+- **502:** `{ "success": false, "message": "AI service is unavailable. Please try again in a moment." }`
 
 ---
 

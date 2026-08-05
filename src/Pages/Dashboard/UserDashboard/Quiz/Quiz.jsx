@@ -23,7 +23,7 @@ const DIFFICULTIES = [
   { value: 'hard', label: 'Hard' },
 ]
 
-const QUESTION_COUNTS = [10, 20, 30]
+const QUESTION_COUNTS = [10, 20]
 
 const DIFFICULTY_STYLES = {
   easy: 'bg-success/10 text-success',
