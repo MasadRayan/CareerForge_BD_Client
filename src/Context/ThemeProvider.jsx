@@ -5,47 +5,81 @@ const ThemeContext = createContext();
 // eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => useContext(ThemeContext);
 
-const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("dark");
 
-  useEffect(() => {
+const ThemeProvider = ({ children }) => {
+
+  const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("careerforge-theme");
 
-    if (savedTheme === "light" || savedTheme === "dark") {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute("data-theme", savedTheme);
-      return;
+    if (savedTheme === "dark" || savedTheme === "light") {
+      return savedTheme;
     }
 
-    const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
+    return "dark";
+  });
 
-    const initialTheme = systemPrefersDark ? "dark" : "light";
-    setTheme(initialTheme);
-    document.documentElement.setAttribute("data-theme", initialTheme);
-    localStorage.setItem("careerforge-theme", initialTheme);
-  }, []);
+
+
+  useEffect(() => {
+
+    // Save theme
+    localStorage.setItem(
+      "careerforge-theme",
+      theme
+    );
+
+
+    // Tailwind dark mode
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+
+    // DaisyUI support
+    document.documentElement.setAttribute(
+      "data-theme",
+      theme
+    );
+
+
+  }, [theme]);
+
+
 
   const toggleTheme = () => {
-    setTheme((prev) => {
-      const nextTheme = prev === "dark" ? "light" : "dark";
-      localStorage.setItem("careerforge-theme", nextTheme);
-      document.documentElement.setAttribute("data-theme", nextTheme);
-      return nextTheme;
-    });
+
+    setTheme((prevTheme) =>
+      prevTheme === "dark"
+        ? "light"
+        : "dark"
+    );
+
   };
+
+
 
   const value = {
+
     theme,
+
     isDark: theme === "dark",
+
     toggleTheme,
+
     setTheme,
+
   };
 
+
+
   return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>
+      {children}
+    </ThemeContext.Provider>
   );
 };
+
 
 export default ThemeProvider;

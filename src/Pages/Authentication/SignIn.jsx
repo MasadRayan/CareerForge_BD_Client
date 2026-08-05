@@ -9,18 +9,19 @@ import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
 import useAxios from "../../Hooks/useAxios";
+import { useTheme } from "../../Context/ThemeProvider";
 
 const SignIn = () => {
   const [firebaseError, setFirebaseError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { signIn, googleSignIn, gitHubSignIn, loading, setLoading } = useContext(AuthContext);
+  const { signIn, googleSignIn, gitHubSignIn, loading } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const axiosInstance = useAxios();
-
-
-  const {
+  const { theme } = useTheme();
+  const dark = theme === "dark";
+  const { 
     register,
     handleSubmit,
     watch,
@@ -36,9 +37,8 @@ const SignIn = () => {
   const handleLogin = (data) => {
     setFirebaseError("");
     const { email, password } = data;
-
     signIn(email, password)
-      .then((result) => {
+      .then(() => {
         toast.success("Login successful!");
         navigate(location.state?.from?.pathname || "/");
       })
@@ -100,15 +100,10 @@ const SignIn = () => {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-linear-to-br from-slate-50 via-white to-blue-50 px-4 py-10 sm:px-6 lg:px-8">
-      {/* background blur */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-0 top-10 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl" />
-        <div className="absolute right-0 top-20 h-80 w-80 rounded-full bg-violet-200/25 blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-cyan-100/30 blur-3xl" />
-      </div>
+    <section className={`relative min-h-screen px-4 py-10 transition duration-500 ${dark?"bg-[#050816]":"bg-gradient-to-br from-slate-50 via-white to-blue-50"}`}>
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-2">
+
         {/* LEFT SIDE */}
         <motion.div
           initial={{ opacity: 0, x: -35 }}
@@ -117,28 +112,25 @@ const SignIn = () => {
           className="hidden lg:block"
         >
           <div className="relative mx-auto max-w-xl">
-            <div className="absolute -top-6 -left-6 h-24 w-24 rounded-3xl bg-blue-500/10 blur-2xl" />
-            <div className="absolute -bottom-6 right-0 h-28 w-28 rounded-3xl bg-violet-500/10 blur-2xl" />
-
-            <div className="rounded-4xl border border-white/60 bg-white/70 p-5 shadow-[0_25px_80px_rgba(15,23,42,0.10)] backdrop-blur-xl">
-              <img
-                src={login}
-                alt="Login Illustration"
-                className="w-full rounded-3xl object-cover"
-              />
-            </div>
-
-            <div className="mt-5 max-w-lg">
+             <div className="mt-5 max-w-lg">
               <p className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
                 Welcome back
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+            <h2 className={`mt-3 text-3xl font-bold tracking-tight mb-4 ${dark?"text-white":"text-slate-900"}
+            `}>
                 Continue building your dream career with CareerForge BD
               </h2>
-              <p className="mt-3 leading-7 text-slate-600">
-                Log in to access ATS CV analysis, AI career roadmap, interview
-                preparation and your saved progress — all in one place.
-              </p>
+            </div>
+            <div className="absolute -top-6 -left-6 h-24 w-24 rounded-3xl bg-blue-500/10 blur-2xl" />
+            <div className="absolute -bottom-6 right-0 h-28 w-28 rounded-3xl bg-violet-500/10 blur-2xl" />
+          <div className={`rounded-4xl border p-5 shadow-xl backdrop-blur-xl ${ dark  ?"border-slate-700 bg-slate-900/70" :"border-white/60 bg-white/70"  }
+          `}
+          >
+              <img
+                src={login}
+                alt="Login Illustration"
+               className={`w-full rounded-3xl transition duration-500 ${ dark ? "brightness-45" : "brightness-100"}`}
+        />
             </div>
           </div>
         </motion.div>
@@ -149,13 +141,15 @@ const SignIn = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           className="mx-auto w-full max-w-xl">
-          <div className="rounded-4xl border border-white/70 bg-white/80 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:p-8">
+         <div className={` rounded-4xl border p-6 shadow-xl backdrop-blur-2xl sm:p-8 ${ dark ?"border-slate-700 bg-slate-900/70" :"border-white/70 bg-white/80" }
+    `}
+    >
             {/* heading */}
             <div className="mb-6 text-center">
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+              <h1 className={`text-3xl font-bold tracking-tight ${dark?"text-white":"text-slate-900"}`}>
                 Login to your account
               </h1>
-              <p className="mt-2 text-sm text-slate-500">
+              <p className={`mt-2 text-sm ${dark?"text-white" : "text-slate-500"}`}>
                 Welcome back! Please enter your credentials to continue.
               </p>
             </div>
@@ -169,89 +163,83 @@ const SignIn = () => {
               )}
 
               {/* Email */}
-              <div>
-                <label className="mb-2 block text-sm font-semibold text-slate-700">
-                  Email Address
-                </label>
-
-                <div
-                  className={`flex items-center rounded-2xl border bg-white px-4 transition ${
-                    errors.email
-                      ? "border-red-400 ring-2 ring-red-100"
-                      : "border-slate-200"
-                  }`}
-                >
-                  <Mail className="h-5 w-5 text-slate-400" />
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="w-full rounded-2xl bg-transparent px-3 py-3 text-slate-800 outline-none placeholder:text-slate-400"
-                    {...register("email", {
-                      required: "Email is required",
-                      pattern: {
-                        value: /^\S+@\S+\.\S+$/,
-                        message: "Please enter a valid email address",
-                      },
-                    })}
-                  />
-                </div>
-
-                {errors.email && (
-                  <p className="mt-2 text-sm font-medium text-red-500">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-
+            <div>
+            <label className={`mb-1 block text-sm font-semibold ${ dark ? "text-slate-200" : "text-slate-700"
+              }`}
+            >
+            Email Address
+            </label>
+        <div className={`flex items-center rounded-2xl border px-4 transition ${errors.email ? "border-red-400 ring-2 ring-red-100": dark ? "border-slate-700 bg-slate-800" : "border-slate-200 bg-white"
+    }`}
+  >
+    <Mail className={`h-5 w-5 ${dark ? "text-slate-500" : "text-slate-400"}`} />
+    <input
+      type="email"
+      placeholder="Enter your email"
+      className={`w-full rounded-2xl bg-transparent px-3 py-3 outline-none placeholder:text-slate-400 ${
+        dark ? "text-white" : "text-slate-800"
+      }`}
+      {...register("email", {
+        required: "Email is required",
+        pattern: {
+          value: /^\S+@\S+\.\S+$/,
+          message: "Please enter a valid email address",
+        },
+        })}
+        />
+      </div>
+      {errors.email && (
+        <p className="mt-2 text-sm font-medium text-red-500">
+          {errors.email.message}
+        </p>
+      )}
+            </div>
               {/* Password */}
-              <div>
-                <label className="mb-2 block text-sm font-semibold text-slate-700">
-                  Password
-                </label>
-
-                <div
-                  className={`flex items-center rounded-2xl border bg-white px-4 transition ${
-                    errors.password
-                      ? "border-red-400 ring-2 ring-red-100"
-                      : "border-slate-200"
-                  }`}
-                >
-                  <Lock className="h-5 w-5 text-slate-400" />
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
-                    className="w-full bg-transparent px-3 py-3 text-slate-800 outline-none placeholder:text-slate-400"
-                    {...register("password", {
-                      required: "Password is required",
-                      minLength: {
-                        value: 6,
-                        message: "Password must be at least 6 characters",
-                      },
-                    })}
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="text-slate-500 transition hover:text-slate-700"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-5 w-5" />
-                    ) : (
-                      <Eye className="h-5 w-5" />
-                    )}
-                  </button>
-                </div>
-
-                {errors.password && (
-                  <p className="mt-2 text-sm font-medium text-red-500">
-                    {errors.password.message}
-                  </p>
-                )}
-              </div>
-
-              {/* forgot password */}
-              <div className="flex items-center justify-end">
+            <div>
+        <label className={`mb-2 block text-sm font-semibold ${ dark ? "text-slate-200" : "text-slate-700"
+          }`}
+        >
+        Password
+        </label>
+      <div className={`flex items-center rounded-2xl border px-4 transition ${ errors.password ? "border-red-400 ring-2 ring-red-100" : dark ? "border-slate-700 bg-slate-800"  : "border-slate-200 bg-white"
+    }`}
+   >
+    <Lock className={`h-5 w-5 ${dark ? "text-slate-500" : "text-slate-400"}`} />
+    <input
+      type={showPassword ? "text" : "password"}
+      placeholder="Enter your password"
+      className={`w-full bg-transparent px-3 py-3 outline-none placeholder:text-slate-400 ${
+        dark ? "text-white" : "text-slate-800"
+      }`}
+      {...register("password", {
+        required: "Password is required",
+        minLength: {
+          value: 6,
+          message: "Password must be at least 6 characters",
+        },
+      })}
+    />
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className={`transition ${
+        dark ? "text-slate-400 hover:text-white" : "text-slate-500 hover:text-slate-700"
+      }`}
+    >
+      {showPassword ? (
+        <EyeOff className="h-5 w-5" /> ) : (
+        <Eye className="h-5 w-5" />
+      )}
+      </button>
+    </div>
+    {errors.password && (
+    <p className="mt-2 text-sm font-medium text-red-500">
+      {errors.password.message}
+      </p>
+    )}
+    </div>
+       {/* forgot password */}
+        <div className="flex items-center justify-end">
                 <button
                   type="button"
                   onClick={goToForget}
@@ -275,7 +263,7 @@ const SignIn = () => {
 
               {/* register */}
               <p className="pt-1 text-center text-sm text-slate-600">
-                Don&apos;t have an account?{" "}
+                Don't have an account?{" "}
                 <Link
                   className="font-semibold text-blue-600 transition hover:text-blue-700"
                   to="/signup"
@@ -285,36 +273,52 @@ const SignIn = () => {
               </p>
 
               {/* divider */}
-              <div className="relative py-1">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-200" />
-                </div>
-                <div className="relative flex justify-center">
-                  <span className="bg-white px-4 text-sm text-slate-500">
-                    Or continue with
-                  </span>
-                </div>
-              </div>
+             <div className="relative py-1">
+          <div className="absolute inset-0 flex items-center">
+            <div className={`w-full border-t ${ dark ? "border-slate-700" : "border-slate-200"
+              }`}
+            />
+          </div>
+          <div className="relative flex justify-center">
+            <span
+              className={`px-4 text-sm ${
+                dark
+                  ? "bg-[#050816] text-slate-400"
+                  : "bg-white text-slate-500"
+              }`}
+            >
+              Or continue with
+            </span>
+        </div>
+      </div>
 
               {/* social login */}
-              <div className="grid grid-cols-2 gap-4">
-                <button
-                  type="button"
-                  onClick={handleGoogleSignIn}
-                  className="flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50"
-                >
-                  <img src={google} alt="Google" className="h-5 w-5" />
-                  <span>Google</span>
-                </button>
+             <div className="grid grid-cols-2 gap-4">
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          className={`flex items-center justify-center gap-3 rounded-2xl border px-4 py-3 font-medium shadow-sm transition hover:-translate-y-0.5 ${
+            dark
+              ? "border-slate-700 bg-slate-800 text-white hover:border-slate-600 hover:bg-slate-700"
+              : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+          }`}
+        >
+        <img src={google} alt="Google" className="h-5 w-5" />
+        <span>Google</span>
+      </button>
 
-                <button
-                  type="button"
-                  onClick={handleGithubSignIn}
-                  className="flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50"
-                >
-                  <img src={github} alt="GitHub" className="h-5 w-5" />
-                  <span>GitHub</span>
-                </button>
+      <button
+        type="button"
+        onClick={handleGithubSignIn}
+        className={`flex items-center justify-center gap-3 rounded-2xl border px-4 py-3 font-medium shadow-sm transition hover:-translate-y-0.5 ${
+          dark
+            ? "border-slate-700 bg-slate-800 text-white hover:border-slate-600 hover:bg-slate-700"
+            : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+        }`}
+        >
+          <img src={github} alt="GitHub" className="h-5 w-5" />
+          <span>GitHub</span>
+         </button>
               </div>
             </form>
           </div>
@@ -323,5 +327,4 @@ const SignIn = () => {
     </section>
   );
 };
-
 export default SignIn;

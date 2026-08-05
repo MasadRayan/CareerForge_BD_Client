@@ -8,7 +8,6 @@ const Profile = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-
   const [profile, setProfile] = useState(null);
   const [loadingProfile, setLoadingProfile] = useState(true);
 
@@ -52,30 +51,39 @@ const Profile = () => {
   const displayEmail = profile?.email || user?.email || "Not provided";
 
   return (
-    <div className="max-w-md mx-auto bg-base-300 shadow-md p-6 mt-10 rounded-xl text-center">
-      <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-4">
+    <div className="max-w-md mx-auto bg-base-200 shadow-xl p-6 mt-10 rounded-2xl border border-base-300">
+      <h2 className="text-3xl font-bold text-primary text-center mb-5">
         Welcome, {displayName}!
       </h2>
 
-      <div className="flex justify-center mb-4">
+      <div className="flex justify-center mb-5">
         <img
           src={displayPhoto}
           alt="Profile"
-          className="w-24 h-24 rounded-full object-cover border-2 border-primary"
+          className="w-28 h-28 rounded-full object-cover border-4 border-primary shadow-md"
         />
       </div>
 
-      <div className="text-left space-y-2 text-base-content">
-        <p><strong>Name:</strong> {displayName}</p>
-        <p><strong>Email:</strong> {displayEmail}</p>
-        <p><strong>Role:</strong> {profile?.role || "free_user"}</p>
-        <p><strong>Target Role:</strong> {profile?.target_role || "Not set"}</p>
-        <p><strong>Experience Level:</strong> {profile?.experience_level || "Not set"}</p>
+      <div className="space-y-3 text-base-content">
+        <p className="bg-base-300 p-3 rounded-lg">
+          <strong>Name:</strong> {displayName}
+        </p>
+        <p className="bg-base-300 p-3 rounded-lg">
+          <strong>Email:</strong> {displayEmail}
+        </p>
+        <p className="bg-base-300 p-3 rounded-lg">
+          <strong>Role:</strong> {profile?.role || "free_user"}
+        </p>
+        <p className="bg-base-300 p-3 rounded-lg">
+          <strong>Target Role:</strong> {profile?.target_role || "Not set"}
+        </p>
+        <p className="bg-base-300 p-3 rounded-lg">
+          <strong>Experience Level:</strong> {profile?.experience_level || "Not set"}
+        </p>
       </div>
-
       <button
         onClick={handleUpdateProfile}
-        className="mt-6 btn btn-primary w-full sm:w-auto"
+        className="mt-6 btn btn-primary w-full rounded-xl"
       >
         Update Profile
       </button>
