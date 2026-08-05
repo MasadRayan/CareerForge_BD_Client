@@ -80,6 +80,20 @@ const Profile = () => {
         <p className="bg-base-300 p-3 rounded-lg">
           <strong>Experience Level:</strong> {profile?.experience_level || "Not set"}
         </p>
+        <div className="bg-base-300 p-3 rounded-lg">
+          <p className="mb-2"><strong>Skills:</strong></p>
+          {profile?.skills?.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {profile.skills.map((skill, index) => (
+                <span key={index} className="badge badge-primary badge-outline">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-base-content/60">Not set</p>
+          )}
+        </div>
       </div>
       <button
         onClick={handleUpdateProfile}
