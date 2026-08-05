@@ -60,11 +60,11 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: "aboutUs",
+        path: "about",
         Component: AboutUs
       },
       {
-        path: "contactUs",
+        path: "contact",
         Component: ContactUs
       }
     ],
