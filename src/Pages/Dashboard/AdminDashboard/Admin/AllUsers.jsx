@@ -125,7 +125,7 @@ const RoleMenu = ({ item, isDark, isSelf, onChanged }) => {
     try {
       const token = await user.getIdToken();
       await axios.patch(
-        `http://localhost:3000/api/users/role/${item.email}`,
+        `https://sd2-server.vercel.app/api/users/role/${item.email}`,
         { role: value },
         {
           headers: {
@@ -305,7 +305,7 @@ const AllUsers = () => {
     queryFn: async () => {
       const token = await user.getIdToken();
       const res = await axios.get(
-        `http://localhost:3000/api/users/all?page=${page}`,
+        `https://sd2-server.vercel.app/api/users/all?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -368,7 +368,7 @@ const AllUsers = () => {
     try {
       const token = await user.getIdToken();
       await axios.delete(
-        `http://localhost:3000/api/users/delete/${email}`,
+        `https://sd2-server.vercel.app/api/users/delete/${email}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
