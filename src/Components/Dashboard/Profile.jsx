@@ -274,7 +274,7 @@ const Profile = () => {
           >
             <SectionTag acc={acc}>Positioning</SectionTag>
             <div className="space-y-5">
-              <Field label="Target role" value={target} muted={!target} />
+              
               <Field label="Experience" value={expLabel} muted={!expLabel} />
             </div>
           </motion.section>
