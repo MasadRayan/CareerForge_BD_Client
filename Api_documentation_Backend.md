@@ -1,6 +1,6 @@
 # CareerForge BD — API Documentation
 
-> **Base URL:** `http://localhost:8000`  
+> **Base URL:** `https://sd2-server.vercel.app`  
 > **Auth:** Most endpoints require `Authorization: Bearer <Firebase ID Token>`  
 > **Content-Type:** `application/json` (except CV upload which is `multipart/form-data`)
 

@@ -10,6 +10,5 @@ const firebaseConfig = {
   appId:import.meta.env.VITE_FIREBASE_APP_ID,
 };
 const app = initializeApp(firebaseConfig);
-console.log("Firebase Connected", app);
 const auth = getAuth(app);
 export default auth;
