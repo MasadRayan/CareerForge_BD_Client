@@ -19,7 +19,7 @@ const AdminAnalytics = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["adminAnalytics"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/api/admin/analytics");
+      const res = await axiosSecure.get("/api/analytics/admin");
       return res.data;
     },
   });
