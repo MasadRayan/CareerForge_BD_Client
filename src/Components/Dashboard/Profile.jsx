@@ -123,14 +123,8 @@ const Profile = () => {
       </div>
     );
   }
-
-<<<<<<< HEAD
-  const displayName = profile?.name || user?.displayName || "User";
-  const photo = profile?.photoURL || user?.photoURL || "";
-=======
   const displayName = profile?.name || user?.displayName || 'User';
   const photo = profile?.photoURL;
->>>>>>> 6132a158ab57ae739efd8a7ca2e4d3242381e435
   const hasPhoto = Boolean(photo);
   const displayEmail = profile?.email || user?.email || "";
 
