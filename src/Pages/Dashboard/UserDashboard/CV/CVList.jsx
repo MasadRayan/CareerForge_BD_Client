@@ -87,21 +87,6 @@ const CVList = () => {
     }
   }
 
-  const handleExtractSkills = async (id) => {
-    setExtracting(id)
-    try {
-      const res = await axiosSecure.post(`/api/cv/${id}/skills`)
-      if (res.data.success) {
-        const count = res.data.data.skills?.length || 0
-        toast.success(`Extracted ${count} skills from this CV`)
-      }
-    } catch (err) {
-      toast.error(err?.response?.data?.message || 'Skill extraction failed')
-    } finally {
-      setExtracting(null)
-    }
-  }
-
   const handleDrop = (e) => {
     e.preventDefault()
     setDragOver(false)
@@ -271,25 +256,6 @@ const CVList = () => {
                         title="View CV"
                       >
                         <Eye className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => navigate(`/dashboard/cvs/${cv.id}/analysis`)}
-                        className="p-2 rounded-lg text-base-content/40 hover:text-primary hover:bg-primary/10 transition"
-                        title="Analyze CV"
-                      >
-                        <BarChart3 className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => handleExtractSkills(cv.id)}
-                        disabled={extracting === cv.id}
-                        className="p-2 rounded-lg text-base-content/40 hover:text-accent hover:bg-accent/10 transition disabled:opacity-30"
-                        title="Extract skills from CV"
-                      >
-                        {extracting === cv.id ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : (
-                          <Sparkles className="w-4 h-4" />
-                        )}
                       </button>
                       <button
                         onClick={() => handleDelete(cv.id)}

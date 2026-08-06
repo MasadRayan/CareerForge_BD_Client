@@ -228,7 +228,7 @@ const ReadinessScore = () => {
       icon: FileText,
       label: 'ATS Analysis',
       score: atsScore,
-      href: '/dashboard/analyses',
+      href: '/dashboard/compare',
       hint: 'Upload and analyze your CV against job descriptions.'
     },
     {
@@ -301,7 +301,7 @@ const ReadinessScore = () => {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <button
-              onClick={() => navigate('/dashboard/analyses')}
+              onClick={() => navigate('/dashboard/compare')}
               className="rounded-xl bg-primary text-primary-content px-5 py-2.5 text-sm font-medium hover:opacity-90 transition flex items-center gap-2"
             >
               <FileText className="w-4 h-4" />

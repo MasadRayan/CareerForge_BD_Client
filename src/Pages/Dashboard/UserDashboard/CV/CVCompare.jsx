@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../Context/AuthProvider'
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -7,57 +7,53 @@ import toast from 'react-hot-toast'
 import { ArrowLeft, Loader2, Target, FileText, AlertTriangle } from 'lucide-react'
 import AnalysisResults from './AnalysisResults'
 
-const CVAnalysis = () => {
-  const { id: cvId } = useParams()
+const CVCompare = () => {
   const { user } = useAuth()
   const navigate = useNavigate()
-  const location = useLocation()
   const axiosSecure = useAxiosSecure()
 
+  const [cvs, setCvs] = useState([])
+  const [cvsLoading, setCvsLoading] = useState(true)
+  const [cvsError, setCvsError] = useState(null)
+  const [selectedCvId, setSelectedCvId] = useState('')
   const [title, setTitle] = useState('')
   const [rawText, setRawText] = useState('')
   const [interviewDate, setInterviewDate] = useState('')
-  const [cv, setCv] = useState(null)
-  const [cvLoading, setCvLoading] = useState(true)
-  const [cvError, setCvError] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [analysis, setAnalysis] = useState(null)
-  const [analysisLoading, setAnalysisLoading] = useState(false)
   const [analysisError, setAnalysisError] = useState(null)
-  const [viewingExisting, setViewingExisting] = useState(!!location.state?.analysisId)
-
-  const existingAnalysisId = location.state?.analysisId
 
   useEffect(() => {
-    if (!user?.email || !cvId) return
+    if (!user?.email) return
     axiosSecure
-      .get(`/api/cv/${cvId}`)
+      .get('/api/cv')
       .then((res) => {
-        if (res.data.success) setCv(res.data.data)
-        else setCvError('CV not found')
-      })
-      .catch(() => setCvError('Failed to load CV'))
-      .finally(() => setCvLoading(false))
-  }, [user?.email, cvId, axiosSecure])
-
-  useEffect(() => {
-    if (!user?.email || !existingAnalysisId) return
-    setAnalysisLoading(true)
-    axiosSecure
-      .get(`/api/analysis/${existingAnalysisId}`)
-      .then((res) => {
-        if (res.data.success) setAnalysis(res.data.data)
-        else toast.error('Failed to load analysis')
+        if (res.data.success) setCvs(res.data.data)
+        else setCvsError('Failed to load CVs')
       })
       .catch((err) => {
-        const msg = err?.response?.data?.message || 'Failed to load analysis'
+        const msg = err?.response?.data?.message || 'Failed to load CVs'
+        setCvsError(msg)
         toast.error(msg)
       })
-      .finally(() => setAnalysisLoading(false))
-  }, [user?.email, existingAnalysisId, axiosSecure])
+      .finally(() => setCvsLoading(false))
+  }, [user?.email, axiosSecure])
+
+  const selectedCv = cvs.find((cv) => String(cv.id) === String(selectedCvId))
+
+  const formatDate = (dateStr) =>
+    new Date(dateStr).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!selectedCvId) {
+      toast.error('Select a CV to compare against')
+      return
+    }
     if (!title.trim() || !rawText.trim() || !interviewDate) {
       toast.error('Title, job description, and interview date are required')
       return
@@ -81,7 +77,7 @@ const CVAnalysis = () => {
 
       const jdId = jdRes.data.data.id
       const analysisRes = await axiosSecure.post('/api/analysis', {
-        cv_id: cvId,
+        cv_id: selectedCvId,
         jd_id: jdId,
       })
 
@@ -108,27 +104,33 @@ const CVAnalysis = () => {
     setRawText('')
     setInterviewDate('')
     setAnalysisError(null)
-    setViewingExisting(false)
   }
 
-  if (cvLoading) {
+  if (cvsLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh]">
-        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      <div className="max-w-3xl mx-auto py-8 space-y-4">
+        <div className="h-8 w-56 bg-base-content/10 rounded-lg animate-pulse" />
+        <div className="h-4 w-72 bg-base-content/10 rounded animate-pulse" />
+        <div className="space-y-3 pt-4">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-20 bg-base-content/10 rounded-xl animate-pulse" />
+          ))}
+        </div>
       </div>
     )
   }
 
-  if (cvError) {
+  if (cvsError) {
     return (
-      <div className="max-w-3xl mx-auto py-8 text-center">
-        <FileText className="w-16 h-16 mx-auto text-base-content/20 mb-4" />
-        <p className="text-lg font-medium text-base-content/60">{cvError}</p>
+      <div className="max-w-3xl mx-auto py-16 text-center">
+        <FileText className="w-12 h-12 mx-auto text-base-content/20 mb-4" />
+        <p className="text-base font-medium text-base-content/60 mb-2">Could not load your CVs</p>
+        <p className="text-xs text-base-content/40 mb-6">{cvsError}</p>
         <button
-          onClick={() => navigate('/dashboard/cvs')}
-          className="mt-4 text-sm text-primary hover:underline"
+          onClick={() => window.location.reload()}
+          className="rounded-xl bg-primary text-primary-content px-5 py-2 text-sm font-medium hover:opacity-90 transition"
         >
-          Back to CVs
+          Try Again
         </button>
       </div>
     )
@@ -144,22 +146,37 @@ const CVAnalysis = () => {
       >
         {/* Back link */}
         <button
-          onClick={() => viewingExisting ? navigate('/dashboard/analysesHistory') : navigate(`/dashboard/cvs/${cvId}`)}
+          onClick={() => navigate('/dashboard/cvs')}
           className="flex items-center gap-2 text-sm text-base-content/60 hover:text-base-content transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          {viewingExisting ? 'Back to History' : 'Back to CV'}
+          Back to CVs
         </button>
 
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-base-content">CV Analysis</h1>
+          <h1 className="text-2xl font-bold text-base-content">Compare CV with Job Description</h1>
           <p className="text-sm text-base-content/60 mt-1">
-            {viewingExisting
-              ? 'Viewing a previous analysis result'
-              : 'Compare your CV against a job description'}
+            Pick a CV, paste the job description, and see how well you match
           </p>
         </div>
+
+        {/* No CVs empty state */}
+        {cvs.length === 0 && (
+          <div className="rounded-2xl border border-base-content/10 bg-base-300 p-10 text-center">
+            <FileText className="w-12 h-12 mx-auto text-base-content/20 mb-3" />
+            <p className="text-base font-medium text-base-content/80 mb-1">No CVs yet</p>
+            <p className="text-xs text-base-content/40 mb-5">
+              Upload a CV first so you can compare it against a job description
+            </p>
+            <button
+              onClick={() => navigate('/dashboard/cvs')}
+              className="rounded-xl bg-linear-to-r from-indigo-500 to-violet-500 text-white px-5 py-2 text-sm font-medium hover:from-indigo-600 hover:to-violet-600 transition"
+            >
+              Upload a CV
+            </button>
+          </div>
+        )}
 
         {/* Rate limit error */}
         {analysisError === 'limit' && !analysis && (
@@ -189,17 +206,53 @@ const CVAnalysis = () => {
           </div>
         )}
 
-        {/* Loading existing analysis */}
-        {analysisLoading && (
-          <div className="flex items-center justify-center py-16">
-            <Loader2 className="w-8 h-8 text-primary animate-spin" />
-          </div>
-        )}
-
         {/* Form (hidden after successful analysis) */}
-        {!analysis && !analysisLoading && (
+        {cvs.length > 0 && !analysis && (
           <form onSubmit={handleSubmit} className="rounded-2xl border border-base-content/10 bg-base-300 p-6 space-y-4">
             <div className="flex items-center gap-3 mb-2">
+              <span className="h-px flex-1 bg-base-content/10" />
+              <span className="text-xs font-semibold tracking-widest text-base-content/40 uppercase">
+                Your CV
+              </span>
+              <span className="h-px flex-1 bg-base-content/10" />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-base-content/80 mb-1.5">
+                Select CV <span className="text-error">*</span>
+              </label>
+              <select
+                value={selectedCvId}
+                onChange={(e) => setSelectedCvId(e.target.value)}
+                required
+                className="w-full px-4 py-2.5 rounded-xl border border-base-content/20 bg-base-200 text-base-content focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors"
+              >
+                <option value="" disabled>
+                  Choose a CV to compare...
+                </option>
+                {cvs.map((cv) => (
+                  <option key={cv.id} value={cv.id}>
+                    CV v{cv.version_number} — uploaded {formatDate(cv.uploaded_at)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {selectedCv && (
+              <div className="flex items-center gap-3 rounded-xl border border-primary/15 bg-primary/5 px-4 py-3">
+                <FileText className="w-5 h-5 text-primary" />
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-base-content truncate">
+                    Comparing with CV v{selectedCv.version_number}
+                  </p>
+                  <p className="text-xs text-base-content/50">
+                    Uploaded {formatDate(selectedCv.uploaded_at)}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center gap-3 py-2">
               <span className="h-px flex-1 bg-base-content/10" />
               <span className="text-xs font-semibold tracking-widest text-base-content/40 uppercase">
                 Job Description
@@ -274,7 +327,6 @@ const CVAnalysis = () => {
           {analysis && (
             <AnalysisResults
               analysis={analysis}
-              viewingExisting={viewingExisting}
               onReset={handleReset}
             />
           )}
@@ -284,4 +336,4 @@ const CVAnalysis = () => {
   )
 }
 
-export default CVAnalysis
+export default CVCompare
