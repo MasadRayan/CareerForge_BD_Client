@@ -25,6 +25,7 @@ import {
   Users,
   Sun,
   Moon,
+  ScanSearch,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -36,7 +37,8 @@ const COMMON_NAV = [
 const USER_NAV = [
   { section: "Career Tools" },
   { to: "/dashboard/cvs", label: "My CVs", icon: FileText, end: true },
-  { to: "/dashboard/analyses", label: "Analyses", icon: BarChart3 },
+  { to: "/dashboard/compare", label: "Compare CV with Job", icon: ScanSearch },
+  { to: "/dashboard/analysesHistory", label: "Analyses History", icon: BarChart3 },
   { to: "/dashboard/jobs", label: "Find Jobs", icon: Users },
   { to: "/dashboard/roadmaps", label: "Roadmaps", icon: Map },
   { section: "Assessments" },

@@ -91,9 +91,15 @@ const Features = () => {
               >
                 {/* Background Glow */}
 
+<<<<<<< HEAD
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${feature.style} opacity-0 transition duration-500 group-hover:opacity-100`}
                 />
+=======
+                <div className={`absolute inset-0 bg-linear-to-br ${feature.style} opacity-0 transition duration-500 group-hover:opacity-100`} />
+
+
+>>>>>>> 6132a158ab57ae739efd8a7ca2e4d3242381e435
 
                 {/* Number */}
 
@@ -106,9 +112,15 @@ const Features = () => {
                 {/* Icon */}
 
                 <motion.div
+<<<<<<< HEAD
                   animate={{ rotate: [0, 5, -5, 0] }}
                   transition={{ duration: 4, repeat: Infinity }}
                   className={`relative mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${feature.iconBg} text-white shadow-lg`}
+=======
+                  animate={{rotate:[0,5,-5,0]}}
+                  transition={{duration:4,repeat:Infinity}}
+                  className={`relative mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br ${feature.iconBg} text-white shadow-lg`}
+>>>>>>> 6132a158ab57ae739efd8a7ca2e4d3242381e435
                 >
                   <Icon size={24} />
                 </motion.div>

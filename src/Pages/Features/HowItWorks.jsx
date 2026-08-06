@@ -68,7 +68,7 @@ export default function HowItWorks() {
                 <span className="text-blue-500 text-sm font-bold">
                   0{i+1}
                 </span>
-                <div className={`mx-auto mt-3 w-14 h-14 rounded-full bg-gradient-to-br ${color} flex items-center justify-center text-white shadow-xl`}>
+                <div className={`mx-auto mt-3 w-14 h-14 rounded-full bg-linear-to-br ${color} flex items-center justify-center text-white shadow-xl`}>
                   <Icon size={25}/>
                 </div>
                 <h3 className={`mt-3 font-bold ${dark?"text-white":"text-slate-900"}`}>
@@ -83,10 +83,10 @@ export default function HowItWorks() {
         </div>
         {/* Mobile */}
         <div className="md:hidden relative space-y-7">
-          <div className="absolute left-7 top-0 h-full w-[2px] bg-blue-500/40"/>
+          <div className="absolute left-7 top-0 h-full w-0.5 bg-blue-500/40"/>
           {steps.map(([Icon,title,text,color],i)=>(
             <div key={title} className="flex gap-5 relative">
-              <div className={`z-10 w-14 h-14 rounded-full bg-gradient-to-br ${color} flex items-center justify-center text-white`}>
+              <div className={`z-10 w-14 h-14 rounded-full bg-linear-to-br ${color} flex items-center justify-center text-white`}>
                 <Icon size={24}/>
               </div>
               <div>

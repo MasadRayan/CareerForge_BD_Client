@@ -347,7 +347,7 @@ const EmptyDashboard = ({ user }) => (
         <p className="text-sm text-base-content/40 mb-6 max-w-xs mx-auto">Analyze a CV, build a roadmap, or take a quiz. Your metrics will appear here.</p>
         <div className="flex flex-wrap justify-center gap-3">
           {[
-            { href: '/dashboard/analyses', icon: Search, label: 'Analyze your CV' },
+            { href: '/dashboard/compare', icon: Search, label: 'Analyze your CV' },
             { href: '/dashboard/roadmaps', icon: Map, label: 'Start a roadmap' },
             { href: '/dashboard/interview', icon: BookOpen, label: 'Practice interviews' },
           ].map(({ href, icon: Icon, label }) => (
