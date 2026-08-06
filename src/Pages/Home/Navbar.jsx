@@ -170,6 +170,7 @@ const Navbar = () => {
                 >
                   {user?.photoURL ? (
                     <img
+                      referrerPolicy="no-referrer"
                       src={user.photoURL}
                       alt="profile"
                       className="h-9 w-9 rounded-full object-cover"

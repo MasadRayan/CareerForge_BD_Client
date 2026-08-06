@@ -1,6 +1,6 @@
 # CareerForge BD — API Documentation
 
-> **Base URL:** `https://sd2-server.vercel.app`  
+> **Base URL:** `http://localhost:8000`  
 > **Auth:** Most endpoints require `Authorization: Bearer <Firebase ID Token>`  
 > **Content-Type:** `application/json` (except CV upload which is `multipart/form-data`)
 
@@ -123,8 +123,7 @@ Update a user's profile.
 {
   "name": "John Updated",          // optional
   "experience_level": "senior",    // optional
-  "photoURL": "https://new.url",   // optional
-  "skills": ["React", "TypeScript"] // optional — array of strings
+  "photoURL": "https://new.url"    // optional
 }
 ```
 
@@ -136,8 +135,6 @@ Update a user's profile.
   "message": "User updated successfully"
 }
 ```
-
-**Error (400):** `{ "success": false, "message": "skills must be an array of strings" }`
 
 ---
 
@@ -223,10 +220,9 @@ Get all users (paginated).
       "email": "john@example.com",
       "role": "free_user",
       "photoURL": "",
-    "target_role": "fullstack",
-    "experience_level": "mid",
-    "skills": ["React", "TypeScript", "Node.js"],
-    "created_at": "2026-07-29T10:00:00.000Z",
+      "target_role": "fullstack",
+      "experience_level": "mid",
+      "created_at": "2026-07-29T10:00:00.000Z",
       "updated_at": "2026-07-29T10:00:00.000Z"
     }
   ]
@@ -435,40 +431,6 @@ Get a single CV by ID (includes `raw_text`).
 
 ---
 
-### `POST /api/cv/:id/skills`
-AI-extract a skill list from a CV's parsed text. Does NOT persist — the client
-merges/edits the result and saves via `PATCH /api/users/update/:email`.
-
-**Auth:** Firebase Token required
-
-**Path Params:** `id` — CV UUID
-
-**Request Body:** none
-
-**Sample Request:**
-
-```
-POST /api/cv/<cvId>/skills
-```
-
-**Success Response (200):**
-
-```json
-{
-  "success": true,
-  "message": "Skills extracted successfully",
-  "data": {
-    "skills": ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker", "AWS", "Git", "Tailwind CSS", "REST APIs"]
-  }
-}
-```
-
-**Errors:**
-- **404:** `{ "success": false, "message": "CV not found" }`
-- **502:** `{ "success": false, "message": "AI service is unavailable. Please try again in a moment." }`
-
----
-
 ### `DELETE /api/cv/:id`
 Delete a CV.
 
@@ -482,73 +444,6 @@ Delete a CV.
   "message": "CV deleted successfully"
 }
 ```
-
----
-
-## Jobs (`/api/jobs`)
-
-**Auth:** `GET /api/jobs/search` requires Firebase Token
-
-### `GET /api/jobs/search?q=<query>&page=1&limit=10`
-Search BDJOBs (bdjobs.com) roles scraped into the `bdjobs_jobs` table by the local Selenium crawler (`npm run crawl:bdjobs` in the backend repo). The endpoint only reads from the DB — no live scraping at request time — so responses are fast and run fine on Vercel serverless. The client redirects the user to the returned `url` ("View job").
-
-**Query Params:**
-- `q` — search term (e.g. the user's target role, "React Developer")
-- `page` — optional, defaults to `1`
-- `limit` — optional, 1-50, defaults to `10`
-
-**Success Response (200):**
-
-```json
-{
-  "success": true,
-  "message": "Jobs fetched successfully",
-  "data": {
-    "jobs": [
-      {
-        "id": "job-slug",
-        "title": "Senior Frontend Developer",
-        "company": "Acme",
-        "location": "Dhaka",
-        "salary": "Negotiable",
-        "job_type": null,
-        "publication_date": null,
-        "tags": ["Engineering"],
-        "snippet": "",
-        "url": "https://bdjobs.com/job/details/123456"
-      }
-    ],
-    "page": 1,
-    "limit": 10,
-    "page_count": 5,
-    "total_jobs": 47
-  }
-}
-```
-
-**Notes:**
-- If the DB table is empty (crawler not run yet), the response returns an empty `jobs` array.
-- With no `q`, it returns the freshest scraped listings.
-
-**Errors:**
-- **401:** `{ "success": false, "message": "Unauthorized Access" }`
-- **502:** `{ "success": false, "message": "Job search is unavailable. Please try again in a moment." }`
-
-### `POST /api/jobs/refresh-w3schools`
-Internal — refresh the W3Schools tutorial catalog used by roadmap resources. Intended for Vercel Cron.
-**Auth:** `Authorization: Bearer <CRON_SECRET>` (matches the `CRON_SECRET` env var)
-
-**Success Response (200):**
-
-```json
-{
-  "success": true,
-  "message": "W3Schools catalog refreshed (1240 links)",
-  "data": { "count": 1240 }
-}
-```
-
-**Error (401):** `{ "success": false, "message": "Unauthorized" }`
 
 ---
 
@@ -1355,6 +1250,59 @@ Get payment/subscription history for the current user.
 
 ---
 
+### `GET /api/subscription/all-payments`
+Get all subscription/payment records across all users (paginated, searchable).
+
+**Auth:** Firebase Token + Admin role required
+
+**Query Params:**
+
+| Param | Type | Default | Description |
+|-------|------|---------|-------------|
+| `search` | string | — | Filter by user name, user email, Stripe customer ID, or Stripe subscription ID (case-insensitive partial match) |
+| `page` | number | 1 | |
+| `limit` | number | 10 | Max 50 |
+
+**Success Response (200):**
+
+```json
+{
+  "success": true,
+  "message": "Payments fetched successfully",
+  "data": {
+    "payments": [
+      {
+        "id": "uuid",
+        "user_id": "uuid",
+        "plan": "premium",
+        "status": "active",
+        "started_at": "2026-07-29T10:00:00.000Z",
+        "currentPeriodEnd": "2026-08-28T10:00:00.000Z",
+        "created_at": "2026-07-29T10:00:00.000Z",
+        "user": {
+          "name": "John Doe",
+          "email": "john@example.com",
+          "photoURL": "https://..."
+        }
+      }
+    ],
+    "pagination": {
+      "currentPage": 1,
+      "limit": 10,
+      "totalItems": 120,
+      "totalPages": 12,
+      "hasNextPage": true,
+      "hasPreviousPage": false
+    }
+  }
+}
+```
+
+> **Note:** The subscription rate is a fixed **5000 BDT**. Revenue metrics in
+> `/api/analytics/admin` are derived from this rate.
+
+---
+
 ## Analytics (`/api/analytics`)
 
 **Auth:** `/public` requires no auth; `/status` requires Firebase Token; `/admin` requires Firebase Token + Admin role
@@ -1428,6 +1376,8 @@ Get admin-level analytics (requires admin role).
 
 **Auth:** Firebase Token + Admin role required
 
+> **Note:** Revenue is derived from the subscriptions model at a fixed rate of **5000 BDT / subscription** (`mrr` = active subscriptions created this month × 5000; `totalRevenue` = active subscriptions × 5000; `revenueByMonth` = all subscription records grouped by month × 5000).
+
 **Success Response (200):**
 
 ```json
@@ -1435,9 +1385,9 @@ Get admin-level analytics (requires admin role).
   "success": true,
   "message": "Admin analytics retrieved successfully",
   "data": {
-    "mrr": 4999.00,
+    "mrr": 60000,
     "activeSubscribers": 120,
-    "totalRevenue": 45000.00,
+    "totalRevenue": 600000,
     "churnRate": 0.05,
     "totalUsers": 850,
     "userSplit": {
@@ -1446,8 +1396,8 @@ Get admin-level analytics (requires admin role).
       "admin": 3
     },
     "revenueByMonth": [
-      { "month": "2026-01", "revenue": 4000 },
-      { "month": "2026-02", "revenue": 4200 }
+      { "month": "2026-01", "revenue": 20000 },
+      { "month": "2026-02", "revenue": 21000 }
     ],
     "newSignupsThisMonth": 45,
     "newSubscriptionsThisMonth": 12,

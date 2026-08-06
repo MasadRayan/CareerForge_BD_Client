@@ -16,6 +16,7 @@ import {
 import { toast } from "react-hot-toast";
 import useAuth from "../../../../Hooks/useAuth";
 import { useTheme } from "../../../../Context/ThemeProvider";
+import { ScrollRestoration } from "react-router";
 
 const PAGE_SIZE = 10;
 
@@ -583,6 +584,7 @@ const AllUsers = () => {
           </nav>
         </div>
       </div>
+      <ScrollRestoration></ScrollRestoration>
     </div>
   );
 };
