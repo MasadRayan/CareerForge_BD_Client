@@ -1,14 +1,14 @@
 import React from 'react';
 
 const AboutUs = () => {
-  // পুরো পেজ বা সেকশনের মূল কন্টেইনার
+  
   const sectionStyle = {
     padding: '40px 20px',
     textAlign: 'center',
     minHeight: '100vh'
   };
 
-  // ৩টি কার্ডকে পাশাপাশি রাখার জন্য ফ্লেক্সবক্স কন্টেইনার
+  
   const gridStyle = {
     display: 'flex',
     flexWrap: 'wrap',
@@ -17,10 +17,10 @@ const AboutUs = () => {
     marginTop: '40px'
   };
 
-  // প্রতিটি আলাদা কার্ডের স্টাইল
+  
   const cardStyle = {
     width: '100%',
-    maxWidth: '400px', // কার্ডের সাইজ একটু ছোট করা হয়েছে যাতে ৩টি পাশাপাশি ধরে
+    maxWidth: '400px', 
     padding: '40px 20px',
     background: '#18181b',
     borderRadius: '16px',
@@ -42,7 +42,7 @@ const AboutUs = () => {
     fontSize: '0.9rem'
   };
 
-  // ৩ জনের ডাটা একটি Array-তে রাখা হলো
+  
   const teamMembers = [
     {
       name: "Shoriful hoque Nobin",
