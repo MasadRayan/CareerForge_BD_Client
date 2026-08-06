@@ -1,30 +1,30 @@
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, Mail, User, Pencil } from 'lucide-react';
-import { AuthContext } from '../../Context/AuthProvider';
-import { useTheme } from '../../Context/ThemeProvider';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight, Mail, User, Pencil } from "lucide-react";
+import { AuthContext } from "../../Context/AuthProvider";
+import { useTheme } from "../../Context/ThemeProvider";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 // Theme accent — indigo, matching the dashboard navigation's active state
 // (indigo-400/indigo-300 on dark, indigo-600/indigo-700 on light).
-const ACC = { dark: '#818cf8', light: '#4f46e5' };
-const PREMIUM = { dark: '#fbbf24', light: '#f59e0b' };
-const GRADIENT = 'linear-gradient(135deg, #6366f1, #8b5cf6)';
+const ACC = { dark: "#818cf8", light: "#4f46e5" };
+const PREMIUM = { dark: "#fbbf24", light: "#f59e0b" };
+const GRADIENT = "linear-gradient(135deg, #6366f1, #8b5cf6)";
 
 const ROLE_LABELS = {
-  free_user: 'Free Member',
-  premium_user: 'Premium',
-  admin: 'Admin',
+  free_user: "Free Member",
+  premium_user: "Premium",
+  admin: "Admin",
 };
 
 const EXP_LABELS = {
-  entry: 'Entry Level',
-  junior: 'Junior',
-  mid: 'Mid Level',
-  senior: 'Senior',
-  lead: 'Lead',
-  executive: 'Executive',
+  entry: "Entry Level",
+  junior: "Junior",
+  mid: "Mid Level",
+  senior: "Senior",
+  lead: "Lead",
+  executive: "Executive",
 };
 
 const SectionTag = ({ children, acc }) => (
@@ -44,10 +44,10 @@ const Field = ({ label, value, muted }) => (
     </p>
     <p
       className={`mt-1.5 truncate text-sm font-medium ${
-        muted ? 'text-base-content/40' : 'text-base-content'
+        muted ? "text-base-content/40" : "text-base-content"
       }`}
     >
-      {value || 'Not set'}
+      {value || "Not set"}
     </p>
   </div>
 );
@@ -74,7 +74,7 @@ const Profile = () => {
         if (res.data.success) setProfile(res.data.data);
       })
       .catch((err) => {
-        console.error('Failed to fetch profile:', err);
+        console.error("Failed to fetch profile:", err);
       })
       .finally(() => setLoadingProfile(false));
   }, [user?.email, axiosSecure]);
@@ -124,28 +124,34 @@ const Profile = () => {
     );
   }
 
+<<<<<<< HEAD
+  const displayName = profile?.name || user?.displayName || "User";
+  const photo = profile?.photoURL || user?.photoURL || "";
+=======
   const displayName = profile?.name || user?.displayName || 'User';
   const photo = profile?.photoURL;
+>>>>>>> 6132a158ab57ae739efd8a7ca2e4d3242381e435
   const hasPhoto = Boolean(photo);
-  const displayEmail = profile?.email || user?.email || '';
+  const displayEmail = profile?.email || user?.email || "";
 
-  const target = profile?.target_role || '';
-  const exp = profile?.experience_level || '';
-  const expLabel = EXP_LABELS[exp] || '';
-  const roleKey = profile?.role || 'free_user';
+  const target = profile?.target_role || "";
+  const exp = profile?.experience_level || "";
+  const expLabel = EXP_LABELS[exp] || "";
+  const roleKey = profile?.role || "free_user";
   const roleLabel = ROLE_LABELS[roleKey] || roleKey;
-  const roleColor = roleKey === 'premium_user' ? premium : roleKey === 'admin' ? acc : null;
+  const roleColor =
+    roleKey === "premium_user" ? premium : roleKey === "admin" ? acc : null;
 
   const initials =
     displayName
-      .split(' ')
+      .split(" ")
       .filter(Boolean)
       .map((n) => n[0])
       .slice(0, 2)
-      .join('')
-      .toUpperCase() || 'CF';
+      .join("")
+      .toUpperCase() || "CF";
 
-  const handleEdit = () => navigate('/dashboard/updateprofile');
+  const handleEdit = () => navigate("/dashboard/updateprofile");
 
   return (
     <div className="mx-auto max-w-3xl py-4">
@@ -172,8 +178,8 @@ const Profile = () => {
             className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full blur-3xl"
             style={{
               background: isDark
-                ? 'radial-gradient(circle, rgba(99,102,241,0.18), transparent 70%)'
-                : 'radial-gradient(circle, rgba(99,102,241,0.10), transparent 70%)',
+                ? "radial-gradient(circle, rgba(99,102,241,0.18), transparent 70%)"
+                : "radial-gradient(circle, rgba(99,102,241,0.10), transparent 70%)",
             }}
           />
 
@@ -197,7 +203,9 @@ const Profile = () => {
                   ) : (
                     <div
                       className="flex h-full w-full items-center justify-center font-display text-2xl font-semibold text-base-content/70"
-                      style={{ backgroundColor: isDark ? '#1a212c' : '#eef1f6' }}
+                      style={{
+                        backgroundColor: isDark ? "#1a212c" : "#eef1f6",
+                      }}
                     >
                       {initials}
                     </div>
@@ -207,8 +215,8 @@ const Profile = () => {
               <span
                 className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full"
                 style={{
-                  background: roleColor || 'currentColor',
-                  boxShadow: `0 0 0 3px ${isDark ? '#0B0F1A' : '#F8FAFC'}`,
+                  background: roleColor || "currentColor",
+                  boxShadow: `0 0 0 3px ${isDark ? "#0B0F1A" : "#F8FAFC"}`,
                 }}
               />
             </div>
@@ -228,8 +236,12 @@ const Profile = () => {
               <div className="font-data mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[13px]">
                 <p>
                   <span className="text-base-content/40">grade / </span>
-                  <span className={expLabel ? 'text-base-content' : 'text-base-content/40'}>
-                    {expLabel || 'Not set'}
+                  <span
+                    className={
+                      expLabel ? "text-base-content" : "text-base-content/40"
+                    }
+                  >
+                    {expLabel || "Not set"}
                   </span>
                 </p>
               </div>
@@ -240,7 +252,7 @@ const Profile = () => {
               <span className="inline-flex items-center gap-1.5 rounded-full border border-base-content/12 px-3 py-1 font-data text-[11px] uppercase tracking-wider text-base-content/65">
                 <span
                   className="h-1.5 w-1.5 rounded-full"
-                  style={{ background: roleColor || 'currentColor' }}
+                  style={{ background: roleColor || "currentColor" }}
                 />
                 {roleLabel}
               </span>
@@ -256,14 +268,20 @@ const Profile = () => {
           >
             <SectionTag acc={acc}>Contact</SectionTag>
             <div className="space-y-5">
-              <Field label="Name" value={displayName} muted={!profile?.name && !user?.displayName} />
+              <Field
+                label="Name"
+                value={displayName}
+                muted={!profile?.name && !user?.displayName}
+              />
               <div className="min-w-0">
                 <p className="font-data text-[10px] uppercase tracking-[0.18em] text-base-content/40">
                   Email
                 </p>
                 <p className="mt-1.5 flex items-center gap-2 truncate text-sm font-medium text-base-content">
                   <Mail className="h-3.5 w-3.5 shrink-0 text-base-content/40" />
-                  <span className="truncate">{displayEmail || 'Not provided'}</span>
+                  <span className="truncate">
+                    {displayEmail || "Not provided"}
+                  </span>
                 </p>
               </div>
             </div>
@@ -275,7 +293,6 @@ const Profile = () => {
           >
             <SectionTag acc={acc}>Positioning</SectionTag>
             <div className="space-y-5">
-              
               <Field label="Experience" value={expLabel} muted={!expLabel} />
             </div>
           </motion.section>
@@ -294,7 +311,10 @@ const Profile = () => {
                   key={index}
                   className="inline-flex items-center gap-1.5 rounded-full border border-base-content/12 bg-base-200/40 px-3 py-1.5 font-data text-xs text-base-content/80"
                 >
-                  <span className="h-1 w-1 rounded-full" style={{ background: acc }} />
+                  <span
+                    className="h-1 w-1 rounded-full"
+                    style={{ background: acc }}
+                  />
                   {skill}
                 </span>
               ))}
@@ -312,6 +332,16 @@ const Profile = () => {
         </motion.section>
 
         {/* ── Edit action ────────────────────────────────────── */}
+        {/* <motion.button
+          variants={item}
+          whileTap={{ scale: prefersReduced ? 1 : 0.99 }}
+          onClick={handleEdit}
+          className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition-all duration-200 hover:bg-emerald-600 hover:shadow-xl hover:shadow-emerald-500/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F172A] disabled:opacity-50"
+        >
+          <Pencil className="h-4 w-4" />
+          Edit Profile
+          <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </motion.button> */}
         <motion.button
           variants={item}
           whileTap={{ scale: prefersReduced ? 1 : 0.99 }}

@@ -27,14 +27,14 @@ const Footer = () => {
             <Link to="/">
               <h2
                 className={`text-2xl font-bold ${
-                  isDark ? "text-white" : "text-slate-900"
+                  isDark ? "text-white" : "[#0f172A]"
                 }`}>
-              CareerForge <span className="text-indigo-500">BD</span>
+              CareerForge <span className="text-emerald-500">BD</span>
               </h2>
             </Link>
             <p
               className={`mt-2 text-sm max-w-sm ${
-                isDark ? "text-slate-400" : "text-slate-500"
+                isDark ? "[#0f172a]" : "text-slate-500"
               }`}
             >
               AI-powered career platform helping students and job seekers build

@@ -185,20 +185,24 @@ const DashboardLayout = () => {
             }`}
           />
 
-          <Link to="/" className="group relative flex items-center gap-3">
-            <div className="relative flex h-9 w-11 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/20 transition duration-300 group-hover:scale-105 group-hover:shadow-indigo-500/40">
-              <span className="text-sm font-extrabold tracking-wide">CF</span>
-              <div className="absolute inset-0 rounded-xl ring-1 ring-white/20" />
-            </div>
-            <div>
-              <h1
-                className={`text-base font-bold tracking-tight sm:text-lg ${
-                  isDark ? "text-white" : "text-slate-900"
-                }`}
-              >
-                Career<span className="text-indigo-500">Forge</span>
-              </h1>
-            </div>
+         {/* Logo */}
+          <Link to="/" className="flex flex-col">
+            <h1
+              className={`text-xl font-bold tracking-tight ${
+                isDark ? "text-white" : "[#0f172A]"
+              }`}
+            >
+              CareerForge
+              <span className="ml-1 text-emerald-500">BD</span>
+            </h1>
+
+            <span
+              className={`text-[11px] ${
+                isDark ? "text-slate-400" : "text-slate-500"
+              }`}
+            >
+              Build smarter career
+            </span>
           </Link>
 
           {/* Close button for mobile */}

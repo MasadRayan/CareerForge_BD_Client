@@ -17,7 +17,7 @@ export default function HowItWorks() {
     <section className={`py-14 ${dark?"bg-[#050816]":"bg-slate-50"}`}>
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-8">
-          <p className="text-blue-500 text-sm tracking-widest">
+          <p className="text-emerald-500 text-sm tracking-widest">
             SIMPLE PROCESS
           </p>
           <h2 className={`text-3xl font-bold mt-2 ${dark?"text-white":"text-slate-900"}`}>

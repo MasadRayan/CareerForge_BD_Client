@@ -1,22 +1,20 @@
-import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import toast from 'react-hot-toast'
-import useAuth from '../../Hooks/useAuth'
-import { useTheme } from '../../Context/ThemeProvider'
-import { Sun, Moon, User, Mail, ExternalLink } from 'lucide-react'
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import toast from "react-hot-toast";
+import useAuth from "../../Hooks/useAuth";
+import { useTheme } from "../../Context/ThemeProvider";
+import { Sun, Moon, User, Mail, ExternalLink } from "lucide-react";
 
 const MicroPreview = ({ isDark }) => (
   <div
     className={`rounded-lg border-2 overflow-hidden transition-colors duration-500 ${
-      isDark
-        ? 'border-zinc-700 bg-zinc-900'
-        : 'border-zinc-200 bg-white'
+      isDark ? "border-zinc-700 bg-zinc-900" : "border-zinc-200 bg-white"
     }`}
     style={{ width: 180, height: 100 }}
   >
     <div
       className={`h-5 flex items-center px-2 gap-1 transition-colors duration-500 ${
-        isDark ? 'bg-zinc-800' : 'bg-zinc-100'
+        isDark ? "bg-zinc-800" : "bg-zinc-100"
       }`}
     >
       <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
@@ -24,7 +22,7 @@ const MicroPreview = ({ isDark }) => (
       <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
       <div
         className={`ml-auto text-[7px] font-medium transition-colors duration-500 ${
-          isDark ? 'text-zinc-400' : 'text-zinc-500'
+          isDark ? "text-zinc-400" : "text-zinc-500"
         }`}
       >
         careerforge
@@ -33,55 +31,56 @@ const MicroPreview = ({ isDark }) => (
     <div className="p-2 flex gap-1.5">
       <div
         className={`w-3 h-3 rounded transition-colors duration-500 ${
-          isDark ? 'bg-zinc-700' : 'bg-zinc-300'
+          isDark ? "bg-zinc-700" : "bg-zinc-300"
         }`}
       />
       <div className="flex-1 space-y-1">
         <div
           className={`h-1.5 rounded transition-colors duration-500 ${
-            isDark ? 'bg-zinc-700' : 'bg-zinc-300'
+            isDark ? "bg-zinc-700" : "bg-zinc-300"
           }`}
-          style={{ width: '70%' }}
+          style={{ width: "70%" }}
         />
         <div
           className={`h-1.5 rounded transition-colors duration-500 ${
-            isDark ? 'bg-zinc-700' : 'bg-zinc-300'
+            isDark ? "bg-zinc-700" : "bg-zinc-300"
           }`}
-          style={{ width: '45%' }}
+          style={{ width: "45%" }}
         />
         <div
           className={`h-1.5 rounded transition-colors duration-500 ${
-            isDark ? 'bg-purple-500/50' : 'bg-indigo-400/50'
+            isDark ? "bg-purple-500/50" : "bg-indigo-400/50"
           }`}
-          style={{ width: '55%' }}
+          style={{ width: "55%" }}
         />
       </div>
     </div>
   </div>
-)
+);
 
 const Settings = () => {
-  const navigate = useNavigate()
-  const { user } = useAuth()
-  const { theme, isDark, toggleTheme } = useTheme()
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { theme, isDark, toggleTheme } = useTheme();
 
   const handleToggle = () => {
-    toggleTheme()
-    toast.success(
-      `${theme === 'dark' ? 'Light' : 'Dark'} mode activated`,
-      { id: 'theme-toast' }
-    )
-  }
+    toggleTheme();
+    toast.success(`${theme === "dark" ? "Light" : "Dark"} mode activated`, {
+      id: "theme-toast",
+    });
+  };
 
   const sections = [
     {
-      id: 'appearance',
-      title: 'Appearance',
+      id: "appearance",
+      title: "Appearance",
       content: (
         <div className="space-y-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-base-content">Color scheme</p>
+              <p className="text-sm font-medium text-base-content">
+                Color scheme
+              </p>
               <p className="text-xs text-base-content/50 mt-0.5">
                 Switch between light and dark themes
               </p>
@@ -89,13 +88,13 @@ const Settings = () => {
             <button
               onClick={handleToggle}
               className={`relative w-14 h-7 rounded-full transition-colors duration-300 flex items-center px-0.5 ${
-                isDark ? 'bg-primary' : 'bg-base-content/20'
+                isDark ? "bg-primary" : "bg-base-content/20"
               }`}
-              aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+              aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
             >
               <span
                 className={`w-6 h-6 rounded-full bg-base-300 shadow-sm flex items-center justify-center transition-transform duration-300 ${
-                  isDark ? 'translate-x-7' : 'translate-x-0'
+                  isDark ? "translate-x-7" : "translate-x-0"
                 }`}
               >
                 {isDark ? (
@@ -115,8 +114,8 @@ const Settings = () => {
       ),
     },
     {
-      id: 'account',
-      title: 'Account',
+      id: "account",
+      title: "Account",
       content: (
         <div className="space-y-4">
           <div className="flex items-center gap-3">
@@ -125,14 +124,14 @@ const Settings = () => {
             </div>
             <div className="min-w-0">
               <p className="text-sm font-medium text-base-content truncate">
-                {user?.email || 'No email'}
+                {user?.email || "No email"}
               </p>
               <p className="text-xs text-base-content/50">Email address</p>
             </div>
           </div>
 
           <button
-            onClick={() => navigate('/dashboard/profile')}
+            onClick={() => navigate("/dashboard/profile")}
             className="w-full rounded-xl border border-base-content/10 bg-base-200 hover:bg-base-300 transition px-4 py-2.5 text-sm font-medium text-base-content flex items-center justify-between group"
           >
             <span className="flex items-center gap-2">
@@ -144,7 +143,7 @@ const Settings = () => {
         </div>
       ),
     },
-  ]
+  ];
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
@@ -176,7 +175,7 @@ const Settings = () => {
         Changes are saved automatically
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;
