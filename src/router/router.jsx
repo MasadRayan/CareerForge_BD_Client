@@ -20,6 +20,7 @@ import AllUsers from "../Pages/Dashboard/AdminDashboard/Admin/AllUsers";
 import CVList from "../Pages/Dashboard/UserDashboard/CV/CVList";
 import CVDetails from "../Pages/Dashboard/UserDashboard/CV/CVDetails";
 import CVAnalysis from "../Pages/Dashboard/UserDashboard/CV/CVAnalysis";
+import CVCompare from "../Pages/Dashboard/UserDashboard/CV/CVCompare";
 import AnalysisHistory from "../Pages/Dashboard/UserDashboard/Analysis/AnalysisHistory";
 
 import Roadmap from "../Pages/Dashboard/UserDashboard/Roadmap/Roadmap";
@@ -111,7 +112,11 @@ const router = createBrowserRouter([
         element: <UserRoute><CVAnalysis /></UserRoute>,
       },
       {
-        path: "analyses",
+        path: "compare",
+        element: <UserRoute><CVCompare /></UserRoute>,
+      },
+      {
+        path: "analysesHistory",
         element: <UserRoute><AnalysisHistory /></UserRoute>,
       },
 

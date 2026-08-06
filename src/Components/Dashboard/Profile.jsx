@@ -125,7 +125,7 @@ const Profile = () => {
   }
 
   const displayName = profile?.name || user?.displayName || 'User';
-  const photo = profile?.photoURL || user?.photoURL || '';
+  const photo = profile?.photoURL;
   const hasPhoto = Boolean(photo);
   const displayEmail = profile?.email || user?.email || '';
 
@@ -191,6 +191,7 @@ const Profile = () => {
                     <img
                       src={photo}
                       alt={displayName}
+                      referrerPolicy="no-referrer"
                       className="h-full w-full object-cover"
                     />
                   ) : (
