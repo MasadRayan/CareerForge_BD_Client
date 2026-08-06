@@ -187,6 +187,7 @@ const UpdateProfile = () => {
                 <img
                   src={watchedPhotoURL}
                   alt="Profile preview"
+                  referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"
                   onError={() => setPhotoError(true)}
                 />
