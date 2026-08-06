@@ -37,6 +37,7 @@ const USER_NAV = [
   { section: "Career Tools" },
   { to: "/dashboard/cvs", label: "My CVs", icon: FileText, end: true },
   { to: "/dashboard/analyses", label: "Analyses", icon: BarChart3 },
+  { to: "/dashboard/jobs", label: "Find Jobs", icon: Users },
   { to: "/dashboard/roadmaps", label: "Roadmaps", icon: Map },
   { section: "Assessments" },
   { to: "/dashboard/quiz", label: "Quiz", icon: HelpCircle, end: true },

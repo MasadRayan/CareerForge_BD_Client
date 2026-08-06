@@ -485,6 +485,73 @@ Delete a CV.
 
 ---
 
+## Jobs (`/api/jobs`)
+
+**Auth:** `GET /api/jobs/search` requires Firebase Token
+
+### `GET /api/jobs/search?q=<query>&page=1&limit=10`
+Search BDJOBs (bdjobs.com) roles scraped into the `bdjobs_jobs` table by the local Selenium crawler (`npm run crawl:bdjobs` in the backend repo). The endpoint only reads from the DB — no live scraping at request time — so responses are fast and run fine on Vercel serverless. The client redirects the user to the returned `url` ("View job").
+
+**Query Params:**
+- `q` — search term (e.g. the user's target role, "React Developer")
+- `page` — optional, defaults to `1`
+- `limit` — optional, 1-50, defaults to `10`
+
+**Success Response (200):**
+
+```json
+{
+  "success": true,
+  "message": "Jobs fetched successfully",
+  "data": {
+    "jobs": [
+      {
+        "id": "job-slug",
+        "title": "Senior Frontend Developer",
+        "company": "Acme",
+        "location": "Dhaka",
+        "salary": "Negotiable",
+        "job_type": null,
+        "publication_date": null,
+        "tags": ["Engineering"],
+        "snippet": "",
+        "url": "https://bdjobs.com/job/details/123456"
+      }
+    ],
+    "page": 1,
+    "limit": 10,
+    "page_count": 5,
+    "total_jobs": 47
+  }
+}
+```
+
+**Notes:**
+- If the DB table is empty (crawler not run yet), the response returns an empty `jobs` array.
+- With no `q`, it returns the freshest scraped listings.
+
+**Errors:**
+- **401:** `{ "success": false, "message": "Unauthorized Access" }`
+- **502:** `{ "success": false, "message": "Job search is unavailable. Please try again in a moment." }`
+
+### `POST /api/jobs/refresh-w3schools`
+Internal — refresh the W3Schools tutorial catalog used by roadmap resources. Intended for Vercel Cron.
+**Auth:** `Authorization: Bearer <CRON_SECRET>` (matches the `CRON_SECRET` env var)
+
+**Success Response (200):**
+
+```json
+{
+  "success": true,
+  "message": "W3Schools catalog refreshed (1240 links)",
+  "data": { "count": 1240 }
+}
+```
+
+**Error (401):** `{ "success": false, "message": "Unauthorized" }`
+
+---
+
 ## Analysis (`/api/analysis`)
 
 **Auth:** All endpoints require Firebase Token
