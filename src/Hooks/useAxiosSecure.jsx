@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { useEffect } from 'react';
-import useAuth from './useAuth';
+import axios from "axios";
+import { useEffect } from "react";
+import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: 'https://sd2-server.vercel.app',
+  baseURL: "https://sd2-server.vercel.app",
   // baseURL: "http://localhost:3000",
 });
 
@@ -20,19 +20,22 @@ const useAxiosSecure = () => {
         },
         (error) => {
           return Promise.reject(error);
-        }
+        },
       );
 
       const responseInterceptor = axiosSecure.interceptors.response.use(
         (response) => response,
         (error) => {
-          if (error?.response?.status === 401 || error?.response?.status === 403) {
+          if (
+            error?.response?.status === 401 ||
+            error?.response?.status === 403
+          ) {
             logOut()
               .then(() => console.log("Logged out due to invalid token"))
               .catch(console.error);
           }
           return Promise.reject(error);
-        }
+        },
       );
 
       return () => {

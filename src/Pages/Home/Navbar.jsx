@@ -43,8 +43,7 @@ const Navbar = () => {
 
     document.addEventListener("mousedown", closeProfile);
 
-    return () =>
-      document.removeEventListener("mousedown", closeProfile);
+    return () => document.removeEventListener("mousedown", closeProfile);
   }, []);
 
   const handleLogout = async () => {
@@ -58,28 +57,28 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 py-4">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+    <header className=" sticky top-0 z-50">
+      <div className="mx-auto max-w-7xl py-4">
         <nav
-          className={`flex h-16 items-center justify-between rounded-2xl border px-6 transition-all duration-300 ${
+          className={`flex h-18 items-center justify-between rounded-2xl border px-6 transition-all duration-300 ${
             scrolled
               ? isDark
-                ? "border-slate-800 bg-gradient-to-r from-[#07101F]/80 via-[#0B1835]/80 to-[#10284A]/80 backdrop-blur-xl shadow-xl shadow-blue-500/10"
+                ? "border-[#10B981]/30 bg-[#0F172A]/70 backdrop-blur-2xl shadow-2xl shadow-[#10B981]/15"
                 : "border-slate-200 bg-white/80 backdrop-blur-xl shadow-lg"
               : isDark
-              ? "border-slate-800 bg-gradient-to-r from-[#050816] via-[#0B1835] to-[#13284D]"
-              : "border-slate-200 bg-white"
+                ? "border-[#10B981]/20 bg-[#0F172A]/95"
+                : "border-slate-200 bg-white"
           }`}
         >
           {/* Logo */}
           <Link to="/" className="flex flex-col">
             <h1
               className={`text-xl font-bold tracking-tight ${
-                isDark ? "text-white" : "text-slate-900"
+                isDark ? "text-white" : "[#0f172A]"
               }`}
             >
               CareerForge
-              <span className="ml-1 text-blue-600">BD</span>
+              <span className="ml-1 text-emerald-500">BD</span>
             </h1>
 
             <span
@@ -93,11 +92,7 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-6 lg:flex">
-            <DesktopNavItem
-              to="/"
-              icon={<Home size={17} />}
-              isDark={isDark}
-            >
+            <DesktopNavItem to="/" icon={<Home size={17} />} isDark={isDark}>
               Home
             </DesktopNavItem>
 
@@ -119,15 +114,14 @@ const Navbar = () => {
               </DesktopNavItem>
             )}
           </div>
-                    {/* Right Side */}
+          {/* Right Side */}
           <div className="flex items-center gap-2">
-
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
               className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300 ${
                 isDark
-                  ? "border-slate-700 bg-slate-900/60 hover:bg-slate-800"
+                  ? "border-[#10B981]/20 bg-[#0F172A]/70 hover:bg-[#1E293B]"
                   : "border-slate-200 bg-white hover:bg-slate-100"
               }`}
             >
@@ -145,7 +139,7 @@ const Navbar = () => {
                   className={`hidden rounded-xl px-4 py-2 text-sm font-medium transition lg:block ${
                     isDark
                       ? "text-slate-300 hover:text-white"
-                      : "text-slate-700 hover:text-blue-600"
+                      : "text-[#0F172A] hover:text-[#10B981]"
                   }`}
                 >
                   Login
@@ -153,7 +147,7 @@ const Navbar = () => {
 
                 <Link
                   to="/signup"
-                  className="hidden rounded-xl bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-blue-700 lg:block"
+                  className="hidden rounded-xl bg-[#10B981] px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#059669] hover:shadow-lg hover:shadow-[#10B981]/30 lg:block"
                 >
                   Get Started
                 </Link>
@@ -164,7 +158,7 @@ const Navbar = () => {
                   onClick={() => setProfileOpen(!profileOpen)}
                   className={`flex items-center gap-3 rounded-xl border px-2.5 py-1.5 transition-all duration-300 ${
                     isDark
-                      ? "border-slate-700 bg-slate-900/60 hover:bg-slate-800"
+                      ? "border-[#10B981]/20 bg-[#0F172A]/70 hover:bg-[#1E293B]"
                       : "border-slate-200 bg-white hover:bg-slate-100"
                   }`}
                 >
@@ -205,7 +199,7 @@ const Navbar = () => {
                     }`}
                   />
                 </button>
-                                {profileOpen && (
+                {profileOpen && (
                   <div
                     className={`absolute right-0 mt-3 w-64 overflow-hidden rounded-2xl border shadow-xl ${
                       isDark
@@ -216,9 +210,7 @@ const Navbar = () => {
                     {/* User Info */}
                     <div
                       className={`border-b px-5 py-4 ${
-                        isDark
-                          ? "border-slate-800"
-                          : "border-slate-200"
+                        isDark ? "border-slate-800" : "border-slate-200"
                       }`}
                     >
                       <p
@@ -231,9 +223,7 @@ const Navbar = () => {
 
                       <p
                         className={`truncate text-xs ${
-                          isDark
-                            ? "text-slate-400"
-                            : "text-slate-500"
+                          isDark ? "text-slate-400" : "text-slate-500"
                         }`}
                       >
                         {user?.email}
@@ -281,7 +271,7 @@ const Navbar = () => {
           </div>
         </nav>
       </div>
-            {/* Mobile Menu */}
+      {/* Mobile Menu */}
       {menuOpen && (
         <div
           className={`mt-3 overflow-hidden rounded-2xl border lg:hidden ${
@@ -392,12 +382,12 @@ function DesktopNavItem({ to, children, icon, isDark }) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex items-center gap-2 text-sm font-medium transition-all duration-300 ${
+        `flex items-center gap-2  pb-1 text-sm font-medium transition-all duration-300 ${
           isActive
-            ? "text-blue-600"
+            ? "border-[#10B981] text-[#10B981]"
             : isDark
-            ? "text-slate-300 hover:text-white"
-            : "text-slate-700 hover:text-blue-600"
+              ? "border-transparent text-slate-300 hover:border-[#10B981] hover:text-[#10B981]"
+              : "border-transparent text-[#0F172A] hover:border-[#10B981] hover:text-[#10B981]"
         }`
       }
     >
@@ -407,13 +397,7 @@ function DesktopNavItem({ to, children, icon, isDark }) {
   );
 }
 
-function MobileNavItem({
-  to,
-  children,
-  icon,
-  onClick,
-  isDark,
-}) {
+function MobileNavItem({ to, children, icon, onClick, isDark }) {
   return (
     <NavLink
       to={to}
@@ -421,10 +405,10 @@ function MobileNavItem({
       className={({ isActive }) =>
         `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 ${
           isActive
-            ? "bg-blue-600 text-white"
+            ? "bg-[#10B981] text-white"
             : isDark
-            ? "text-slate-300 hover:bg-slate-800 hover:text-white"
-            : "text-slate-700 hover:bg-slate-100"
+              ? "text-slate-300 hover:bg-[#10B981]/10 hover:text-[#10B981]"
+              : "text-[#0F172A] hover:bg-[#10B981]/10 hover:text-[#10B981]"
         }`
       }
     >
