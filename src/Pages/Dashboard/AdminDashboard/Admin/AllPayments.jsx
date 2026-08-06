@@ -64,27 +64,27 @@ const getPageNumbers = (currentPage, totalPages) => {
 };
 
 const SkeletonRow = ({ isDark }) => (
-  <tr className={`border-t ${isDark ? "border-white/[0.06]" : "border-slate-100"}`}>
+  <tr className={`border-t ${isDark ? "border-white/6" : "border-slate-100"}`}>
     <td className="px-5 py-4">
       <div className="flex items-center gap-3">
         <div className={`h-9 w-9 animate-pulse rounded-xl ${isDark ? "bg-white/10" : "bg-slate-200"}`} />
         <div className="space-y-2">
           <div className={`h-3 w-28 animate-pulse rounded ${isDark ? "bg-white/10" : "bg-slate-200"}`} />
-          <div className={`h-2.5 w-36 animate-pulse rounded ${isDark ? "bg-white/[0.06]" : "bg-slate-100"}`} />
+          <div className={`h-2.5 w-36 animate-pulse rounded ${isDark ? "bg-white/6" : "bg-slate-100"}`} />
         </div>
       </div>
     </td>
     <td className="px-5 py-4">
-      <div className={`h-6 w-20 animate-pulse rounded-lg ${isDark ? "bg-white/[0.06]" : "bg-slate-100"}`} />
+      <div className={`h-6 w-20 animate-pulse rounded-lg ${isDark ? "bg-white/6" : "bg-slate-100"}`} />
     </td>
     <td className="px-5 py-4">
-      <div className={`h-5 w-16 animate-pulse rounded ${isDark ? "bg-white/[0.06]" : "bg-slate-100"}`} />
+      <div className={`h-5 w-16 animate-pulse rounded ${isDark ? "bg-white/6" : "bg-slate-100"}`} />
     </td>
     <td className="px-5 py-4">
-      <div className={`ml-auto h-5 w-20 animate-pulse rounded ${isDark ? "bg-white/[0.08]" : "bg-slate-100"}`} />
+      <div className={`ml-auto h-5 w-20 animate-pulse rounded ${isDark ? "bg-white/8" : "bg-slate-100"}`} />
     </td>
     <td className="px-5 py-4">
-      <div className={`ml-auto h-3 w-40 animate-pulse rounded ${isDark ? "bg-white/[0.06]" : "bg-slate-100"}`} />
+      <div className={`ml-auto h-3 w-40 animate-pulse rounded ${isDark ? "bg-white/6" : "bg-slate-100"}`} />
     </td>
   </tr>
 );
@@ -154,8 +154,8 @@ const AllPayments = () => {
     ink: isDark ? "text-[#E8ECF8]" : "text-[#10162B]",
     muted: isDark ? "text-[#9AA3C0]" : "text-[#5A6582]",
     faint: isDark ? "text-[#5F6B8F]" : "text-[#94A0BC]",
-    hairline: isDark ? "border-white/[0.06]" : "border-slate-100",
-    rowHover: isDark ? "hover:bg-white/[0.03]" : "hover:bg-indigo-50/50",
+    hairline: isDark ? "border-white/6" : "border-slate-100",
+    rowHover: isDark ? "hover:bg-white/3" : "hover:bg-indigo-50/50",
     accent: isDark ? "text-indigo-300" : "text-indigo-700",
   };
 
@@ -216,13 +216,13 @@ const AllPayments = () => {
 
   const iconBtn = `inline-flex h-9 items-center justify-center rounded-lg border transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${
     isDark
-      ? "border-white/[0.08] text-slate-400 hover:border-white/15 hover:bg-white/[0.04] hover:text-white"
+      ? "border-white/8 text-slate-400 hover:border-white/15 hover:bg-white/[0.04] hover:text-white"
       : "border-slate-200 text-slate-400 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700"
   }`;
 
   const navBtn = `inline-flex h-8 w-8 items-center justify-center rounded-lg border transition disabled:pointer-events-none disabled:opacity-35 ${
     isDark
-      ? "border-white/[0.08] text-slate-400 hover:border-white/15 hover:bg-white/[0.04] hover:text-white"
+      ? "border-white/8 text-slate-400 hover:border-white/15 hover:bg-white/[0.04] hover:text-white"
       : "border-slate-200 text-slate-400 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700"
   }`;
 
@@ -429,7 +429,7 @@ const AllPayments = () => {
           placeholder="Search name, email, or Stripe ID"
           className={`h-9 w-full rounded-lg border pl-9 pr-3 font-data text-sm outline-none transition focus:ring-2 focus:ring-indigo-500/25 ${
             isDark
-              ? "border-white/[0.08] bg-white/[0.03] text-white placeholder:text-slate-500 focus:border-indigo-400/50"
+              ? "border-white/8 bg-white/3 text-white placeholder:text-slate-500 focus:border-indigo-400/50"
               : "border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:border-indigo-400"
           }`}
         />
@@ -443,7 +443,7 @@ const AllPayments = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className={`${isDark ? "bg-white/[0.02]" : "bg-slate-50/60"}`}>
+              <tr className={`${isDark ? "bg-white/2" : "bg-slate-50/60"}`}>
                 {["Member", "Plan", "Status", "Amount", "Term"].map((label, i) => (
                   <th
                     key={label}
@@ -458,7 +458,7 @@ const AllPayments = () => {
               </tr>
             </thead>
 
-            <tbody className={isDark ? "divide-white/[0.06]" : "divide-slate-100/70"}>
+            <tbody className={isDark ? "divide-white/6" : "divide-slate-100/70"}>
               {renderBody()}
             </tbody>
           </table>
