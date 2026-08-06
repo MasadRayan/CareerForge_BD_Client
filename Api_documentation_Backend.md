@@ -407,6 +407,56 @@ Get all CVs for the authenticated user (list view, no `raw_text`).
 
 ---
 
+### `GET /api/cv/all`
+Get all CVs across all users (paginated, searchable). Admin-only.
+
+**Auth:** Firebase Token + Admin role required
+
+**Query Params:**
+
+| Param | Type | Default | Description |
+|-------|------|---------|-------------|
+| `search` | string | — | Filter by user name or user email (case-insensitive partial match) |
+| `page` | number | 1 | |
+| `limit` | number | 10 | Max 50 |
+
+**Success Response (200):**
+
+```json
+{
+  "success": true,
+  "message": "CVs fetched successfully",
+  "data": {
+    "cvs": [
+      {
+        "id": "uuid",
+        "user_id": "uuid",
+        "version_number": 1,
+        "file_url": "https://res.cloudinary.com/...",
+        "uploaded_at": "2026-07-29T10:00:00.000Z",
+        "user": {
+          "name": "John Doe",
+          "email": "john@example.com",
+          "photoURL": "https://..."
+        }
+      }
+    ],
+    "pagination": {
+      "currentPage": 1,
+      "limit": 10,
+      "totalItems": 120,
+      "totalPages": 12,
+      "hasNextPage": true,
+      "hasPreviousPage": false
+    }
+  }
+}
+```
+
+> **Note:** `raw_text` is omitted from the list view. Order is by `uploaded_at` descending.
+
+---
+
 ### `GET /api/cv/:id`
 Get a single CV by ID (includes `raw_text`).
 
