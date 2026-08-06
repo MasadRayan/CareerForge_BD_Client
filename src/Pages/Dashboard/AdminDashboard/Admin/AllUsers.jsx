@@ -1,5 +1,4 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -15,6 +14,7 @@ import {
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import useAuth from "../../../../Hooks/useAuth";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useTheme } from "../../../../Context/ThemeProvider";
 import { ScrollRestoration } from "react-router";
 
@@ -78,8 +78,7 @@ const ROLE_OPTIONS = [
   { value: "admin", label: "Admin", description: "Manage the platform" },
 ];
 
-const RoleMenu = ({ item, isDark, isSelf, onChanged }) => {
-  const { user } = useAuth();
+const RoleMenu = ({ item, isDark, isSelf, onChanged, axiosSecure }) => {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [menuPos, setMenuPos] = useState(null);
@@ -124,16 +123,7 @@ const RoleMenu = ({ item, isDark, isSelf, onChanged }) => {
 
     setBusy(true);
     try {
-      const token = await user.getIdToken();
-      await axios.patch(
-        `https://sd2-server.vercel.app/api/users/role/${item.email}`,
-        { role: value },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axiosSecure.patch(`/api/users/role/${item.email}`, { role: value });
 
       toast.success(`${item.name} is now ${ROLE_META[value].label}.`);
       setOpen(false);
@@ -291,11 +281,13 @@ const SkeletonRow = ({ isDark }) => (
 
 const AllUsers = () => {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const { isDark } = useTheme();
   const [page, setPage] = useState(1);
   const {
     data,
     isLoading,
+    isError,
     isFetching,
     refetch,
   } = useQuery({
@@ -304,15 +296,9 @@ const AllUsers = () => {
     placeholderData: keepPreviousData,
 
     queryFn: async () => {
-      const token = await user.getIdToken();
-      const res = await axios.get(
-        `https://sd2-server.vercel.app/api/users/all?page=${page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axiosSecure.get("/api/users/all", {
+        params: { page },
+      });
 
       return res.data.data || res.data;
     },
@@ -367,15 +353,7 @@ const AllUsers = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const token = await user.getIdToken();
-      await axios.delete(
-        `https://sd2-server.vercel.app/api/users/delete/${email}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axiosSecure.delete(`/api/users/delete/${email}`);
 
       toast.success(`${name} was removed.`);
       if (users.length === 1 && page > 1) {
@@ -459,6 +437,32 @@ const AllUsers = () => {
                   <SkeletonRow isDark={isDark} />
                   <SkeletonRow isDark={isDark} />
                 </>
+              ) : isError ? (
+                <tr>
+                  <td colSpan={5}>
+                    <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
+                      <div
+                        className={`mb-3 flex h-12 w-12 items-center justify-center rounded-xl ${isDark ? "bg-white/6 text-slate-400" : "bg-slate-100 text-slate-500"}`}
+                      >
+                        <RefreshCw size={20} />
+                      </div>
+                      <p className={`text-sm font-medium ${ink}`}>
+                        Couldn't load members
+                      </p>
+                      <p className={`mt-1 text-xs ${muted}`}>
+                        Check your connection and try again.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => refetch()}
+                        className={`mt-4 inline-flex h-8 items-center gap-2 rounded-lg px-3 text-xs font-medium transition ${isDark ? "bg-white/6 text-slate-300 hover:bg-white/10" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}`}
+                      >
+                        <RefreshCw size={14} className={isFetching ? "animate-spin" : ""} />
+                        Retry
+                      </button>
+                    </div>
+                  </td>
+                </tr>
               ) : users.length === 0 ? (
                 <tr>
                   <td colSpan={5}>
@@ -499,12 +503,13 @@ const AllUsers = () => {
                       </td>
                       <td className={`px-5 py-4 ${muted}`}>{item.email}</td>
                       <td className="px-5 py-4">
-                        <RoleMenu
-                          item={item}
-                          isDark={isDark}
-                          isSelf={item.email === user.email}
-                          onChanged={refetch}
-                        />
+<RoleMenu
+                            item={item}
+                            isDark={isDark}
+                            axiosSecure={axiosSecure}
+                            isSelf={item.email === user.email}
+                            onChanged={refetch}
+                          />
                       </td>
                       <td className="px-5 py-4">
                         <div className="flex items-center justify-end gap-1.5">
