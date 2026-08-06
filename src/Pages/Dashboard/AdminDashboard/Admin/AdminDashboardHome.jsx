@@ -13,8 +13,8 @@ import {
   Users,
 } from "lucide-react";
 import {
-  Area,
-  AreaChart,
+  Bar,
+  BarChart,
   CartesianGrid,
   Cell,
   Pie,
@@ -372,11 +372,11 @@ const AdminDashboardHome = () => {
           ) : (
             <div className="mt-6 h-72">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={revenueByMonth} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+                <BarChart data={revenueByMonth} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
                   <defs>
-                    <linearGradient id="revenueFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#6366F1" stopOpacity={0.38} />
-                      <stop offset="100%" stopColor="#6366F1" stopOpacity={0} />
+                    <linearGradient id="revenueBar" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#A5B4FC" />
+                      <stop offset="100%" stopColor="#6366F1" />
                     </linearGradient>
                   </defs>
                   <CartesianGrid stroke={t.grid} strokeDasharray="3 3" vertical={false} />
@@ -395,17 +395,17 @@ const AdminDashboardHome = () => {
                     domain={[0, "auto"]}
                     tickFormatter={(v) => formatBDT(v, true)}
                   />
-                  <Tooltip content={renderTooltip} cursor={{ stroke: "#6366F1", strokeWidth: 1, strokeDasharray: "4 4" }} />
-                  <Area
-                    type="monotone"
-                    dataKey="revenue"
-                    stroke={accent.line[isDark ? "dark" : "light"]}
-                    strokeWidth={2.5}
-                    fill="url(#revenueFill)"
-                    dot={{ r: 3, fill: accent.line[isDark ? "dark" : "light"], strokeWidth: 0 }}
-                    activeDot={{ r: 5, strokeWidth: 0 }}
+                  <Tooltip
+                    content={renderTooltip}
+                    cursor={{ fill: isDark ? "rgba(255,255,255,0.05)" : "rgba(99,102,241,0.07)" }}
                   />
-                </AreaChart>
+                  <Bar
+                    dataKey="revenue"
+                    fill="url(#revenueBar)"
+                    radius={[5, 5, 0, 0]}
+                    maxBarSize={34}
+                  />
+                </BarChart>
               </ResponsiveContainer>
             </div>
           )}
