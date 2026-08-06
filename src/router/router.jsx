@@ -35,6 +35,7 @@ import InterviewResult from "../Pages/Dashboard/UserDashboard/Interview/Intervie
 import ReadinessScore from "../Pages/Dashboard/UserDashboard/Readiness/ReadinessScore";
 import Subscription from "../Pages/Dashboard/UserDashboard/Subscription/Subscription";
 import PaymentHistory from "../Pages/Dashboard/UserDashboard/Subscription/PaymentHistory";
+import JobSearch from "../Pages/Dashboard/UserDashboard/Jobs/JobSearch";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 
@@ -166,6 +167,12 @@ const router = createBrowserRouter([
       {
         path: "payment-history",
         element: <UserRoute><PaymentHistory /></UserRoute>,
+      },
+
+      // Jobs
+      {
+        path: "jobs",
+        element: <UserRoute><JobSearch /></UserRoute>,
       },
     ],
   },
