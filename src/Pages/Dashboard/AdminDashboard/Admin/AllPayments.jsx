@@ -467,7 +467,7 @@ const AllPayments = () => {
         {/* Footer */}
         <div
           className={`flex flex-col gap-3 border-t px-5 py-3.5 sm:flex-row sm:items-center sm:justify-between ${
-            isDark ? "border-white/[0.06]" : "border-slate-100"
+            isDark ? "border-white/6" : "border-slate-100"
           }`}
         >
           <p className={`font-data text-xs ${t.muted}`}>
