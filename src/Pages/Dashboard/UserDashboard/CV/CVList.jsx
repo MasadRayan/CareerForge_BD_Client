@@ -4,7 +4,7 @@ import { useAuth } from '../../../../Context/AuthProvider'
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
-import { Upload, FileText, Trash2, Eye, BarChart3, Loader2 } from 'lucide-react'
+import { Upload, FileText, Trash2, Eye, BarChart3, Loader2, Sparkles } from 'lucide-react'
 
 const MAX_CVS = 3
 
@@ -18,6 +18,7 @@ const CVList = () => {
   const [uploading, setUploading] = useState(false)
   const [dragOver, setDragOver] = useState(false)
   const [deleting, setDeleting] = useState(null)
+  const [extracting, setExtracting] = useState(null)
 
   const fileInputRef = useRef(null)
 
@@ -255,13 +256,6 @@ const CVList = () => {
                         title="View CV"
                       >
                         <Eye className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => navigate(`/dashboard/cvs/${cv.id}/analysis`)}
-                        className="p-2 rounded-lg text-base-content/40 hover:text-primary hover:bg-primary/10 transition"
-                        title="Analyze CV"
-                      >
-                        <BarChart3 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(cv.id)}

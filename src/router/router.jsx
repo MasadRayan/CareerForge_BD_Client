@@ -16,11 +16,12 @@ import DashboardHome from "../Components/Dashboard/Dashboard";
 import Settings from "../Components/Dashboard/Settings";
 
 import AllUsers from "../Pages/Dashboard/AdminDashboard/Admin/AllUsers";
-import AdminAnalytics from "../Pages/Dashboard/AdminDashboard/Admin/AdminAnalytics";
+import AllPayments from "../Pages/Dashboard/AdminDashboard/Admin/AllPayments";
 
 import CVList from "../Pages/Dashboard/UserDashboard/CV/CVList";
 import CVDetails from "../Pages/Dashboard/UserDashboard/CV/CVDetails";
 import CVAnalysis from "../Pages/Dashboard/UserDashboard/CV/CVAnalysis";
+import CVCompare from "../Pages/Dashboard/UserDashboard/CV/CVCompare";
 import AnalysisHistory from "../Pages/Dashboard/UserDashboard/Analysis/AnalysisHistory";
 
 import Roadmap from "../Pages/Dashboard/UserDashboard/Roadmap/Roadmap";
@@ -36,6 +37,7 @@ import InterviewResult from "../Pages/Dashboard/UserDashboard/Interview/Intervie
 import ReadinessScore from "../Pages/Dashboard/UserDashboard/Readiness/ReadinessScore";
 import Subscription from "../Pages/Dashboard/UserDashboard/Subscription/Subscription";
 import PaymentHistory from "../Pages/Dashboard/UserDashboard/Subscription/PaymentHistory";
+import JobSearch from "../Pages/Dashboard/UserDashboard/Jobs/JobSearch";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 
@@ -96,9 +98,10 @@ const router = createBrowserRouter([
         element: <AdminRoute><AllUsers /></AdminRoute>,
       },
       {
-        path: "admin/analytics",
-        element: <AdminRoute><AdminAnalytics /></AdminRoute>,
+        path: "admin/payments",
+        element: <AdminRoute><AllPayments /></AdminRoute>,
       },
+      
 
       // CV & Analysis routes
       {
@@ -114,7 +117,11 @@ const router = createBrowserRouter([
         element: <UserRoute><CVAnalysis /></UserRoute>,
       },
       {
-        path: "analyses",
+        path: "compare",
+        element: <UserRoute><CVCompare /></UserRoute>,
+      },
+      {
+        path: "analysesHistory",
         element: <UserRoute><AnalysisHistory /></UserRoute>,
       },
 
@@ -170,6 +177,12 @@ const router = createBrowserRouter([
       {
         path: "payment-history",
         element: <UserRoute><PaymentHistory /></UserRoute>,
+      },
+
+      // Jobs
+      {
+        path: "jobs",
+        element: <UserRoute><JobSearch /></UserRoute>,
       },
     ],
   },

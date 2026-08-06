@@ -1,9 +1,10 @@
 import { useAuth } from '../../../../Context/AuthProvider'
 import useDashboardData from './useDashboardData'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import {
   Flame, CalendarDays, Zap, RefreshCw, AlertCircle,
-  HelpCircle, TrendingUp, BookOpen, Search, Map
+  HelpCircle, TrendingUp, BookOpen, Search, Map, Briefcase
 } from 'lucide-react'
 import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend,
@@ -346,7 +347,7 @@ const EmptyDashboard = ({ user }) => (
         <p className="text-sm text-base-content/40 mb-6 max-w-xs mx-auto">Analyze a CV, build a roadmap, or take a quiz. Your metrics will appear here.</p>
         <div className="flex flex-wrap justify-center gap-3">
           {[
-            { href: '/dashboard/analyses', icon: Search, label: 'Analyze your CV' },
+            { href: '/dashboard/compare', icon: Search, label: 'Analyze your CV' },
             { href: '/dashboard/roadmaps', icon: Map, label: 'Start a roadmap' },
             { href: '/dashboard/interview', icon: BookOpen, label: 'Practice interviews' },
           ].map(({ href, icon: Icon, label }) => (
@@ -363,6 +364,7 @@ const EmptyDashboard = ({ user }) => (
 
 const UserDashboardHome = () => {
   const { user } = useAuth()
+  const navigate = useNavigate()
   const { analytics, history, quizStats, isLoading, isError, error } = useDashboardData()
 
   if (isLoading) return <DashboardSkeleton />
@@ -410,6 +412,24 @@ const UserDashboardHome = () => {
               ))}
             </div>
           </div>
+        </motion.div>
+
+        <motion.div variants={itemVariant} className="rounded-2xl border border-base-content/8 bg-base-300/50 p-5 flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-3">
+            <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary">
+              <Briefcase className="w-5 h-5" />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-base-content">Explore remote roles</p>
+              <p className="text-xs text-base-content/40">Search live software jobs for your target role</p>
+            </div>
+          </div>
+          <button
+            onClick={() => navigate('/dashboard/jobs')}
+            className="flex items-center gap-2 text-sm font-medium text-base-content/70 hover:text-base-content px-4 py-2 rounded-xl border border-base-content/10 hover:bg-base-content/5 transition"
+          >
+            Find jobs for my role
+          </button>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
-import { ArrowLeft, Camera, Check, Loader2 } from 'lucide-react'
+import { ArrowLeft, Camera, Check, Loader2, Plus, Sparkles, X } from 'lucide-react'
 import { AuthContext } from '../../Context/AuthProvider'
 import useAxiosSecure from '../../Hooks/useAxiosSecure'
 
@@ -25,6 +25,9 @@ const UpdateProfile = () => {
   const [loadingProfile, setLoadingProfile] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [photoError, setPhotoError] = useState(false)
+  const [skills, setSkills] = useState([])
+  const [newSkill, setNewSkill] = useState('')
+  const [extracting, setExtracting] = useState(false)
 
   const {
     register,
@@ -54,11 +57,67 @@ const UpdateProfile = () => {
           setValue('name', profile.name || '')
           setValue('experience_level', profile.experience_level || '')
           setValue('photoURL', profile.photoURL || '')
+          setSkills(profile.skills || [])
         }
       })
       .catch(() => toast.error('Failed to load profile'))
       .finally(() => setLoadingProfile(false))
   }, [user?.email, axiosSecure, setValue])
+
+  const handleExtractFromCV = async () => {
+    if (!user?.email) return
+    setExtracting(true)
+
+    try {
+      const res = await axiosSecure.get('/api/cv')
+      const cvs = res.data?.data || []
+
+      if (cvs.length === 0) {
+        toast.error('No CV found. Upload a CV first')
+        return
+      }
+
+      const latest = cvs[0]
+      const skillRes = await axiosSecure.post(`/api/cv/${latest.id}/skills`)
+
+      if (skillRes.data.success) {
+        const extracted = skillRes.data.data.skills || []
+        setSkills((prev) => {
+          const seen = new Set(prev.map((s) => s.toLowerCase()))
+          const merged = [...prev]
+          for (const skill of extracted) {
+            const trimmed = skill.trim()
+            if (!trimmed || seen.has(trimmed.toLowerCase())) continue
+            seen.add(trimmed.toLowerCase())
+            merged.push(trimmed)
+          }
+          return merged
+        })
+        toast.success(`Extracted ${extracted.length} skills from your CV`)
+      }
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Failed to extract skills')
+    } finally {
+      setExtracting(false)
+    }
+  }
+
+  const addSkill = () => {
+    const trimmed = newSkill.trim()
+    if (!trimmed) return
+    setSkills((prev) => {
+      if (prev.some((s) => s.toLowerCase() === trimmed.toLowerCase())) {
+        toast.error('Skill already added')
+        return prev
+      }
+      return [...prev, trimmed]
+    })
+    setNewSkill('')
+  }
+
+  const removeSkill = (skillToRemove) => {
+    setSkills((prev) => prev.filter((s) => s !== skillToRemove))
+  }
 
   const onSubmit = async (data) => {
     if (!user?.email) return
@@ -69,6 +128,7 @@ const UpdateProfile = () => {
       if (data.name !== currentProfile?.name) payload.name = data.name
       if (data.experience_level !== currentProfile?.experience_level) payload.experience_level = data.experience_level
       if (data.photoURL !== currentProfile?.photoURL) payload.photoURL = data.photoURL
+      if (JSON.stringify(skills) !== JSON.stringify(currentProfile?.skills || [])) payload.skills = skills
 
       if (Object.keys(payload).length === 0) {
         toast.error('No changes to save')
@@ -127,6 +187,7 @@ const UpdateProfile = () => {
                 <img
                   src={watchedPhotoURL}
                   alt="Profile preview"
+                  referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"
                   onError={() => setPhotoError(true)}
                 />
@@ -209,6 +270,81 @@ const UpdateProfile = () => {
                 <p className="text-xs text-base-content/40 mt-1">
                   Paste a link to your professional headshot
                 </p>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="h-px flex-1 bg-base-content/20" />
+                <span className="text-xs font-medium tracking-widest text-base-content/40 uppercase">Skills</span>
+                <span className="h-px flex-1 bg-base-content/20" />
+              </div>
+
+              <button
+                type="button"
+                onClick={handleExtractFromCV}
+                disabled={extracting}
+                className="mb-3 w-full py-2.5 px-4 rounded-xl border border-primary/40 bg-primary/10 text-primary font-medium text-sm hover:bg-primary/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+              >
+                {extracting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Extracting from CV...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                    Extract from CV
+                  </>
+                )}
+              </button>
+
+              <p className="text-xs text-base-content/40 mb-3">
+                AI reads your latest CV and adds any new skills found &mdash; your existing skills are kept.
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-3">
+                {skills.length > 0 ? (
+                  skills.map((skill) => (
+                    <span key={skill} className="inline-flex items-center gap-1.5 badge badge-primary badge-lg">
+                      {skill}
+                      <button
+                        type="button"
+                        onClick={() => removeSkill(skill)}
+                        className="hover:text-error transition-colors"
+                        aria-label={`Remove ${skill}`}
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </span>
+                  ))
+                ) : (
+                  <p className="text-sm text-base-content/40">No skills added yet.</p>
+                )}
+              </div>
+
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={newSkill}
+                  onChange={(e) => setNewSkill(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      addSkill()
+                    }
+                  }}
+                  placeholder="Add a skill (e.g. TypeScript)"
+                  className="flex-1 px-4 py-2.5 rounded-xl border border-base-content/20 bg-base-200 text-base-content placeholder:text-base-content/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors"
+                />
+                <button
+                  type="button"
+                  onClick={addSkill}
+                  className="px-4 py-2.5 rounded-xl bg-primary/10 text-primary font-medium text-sm hover:bg-primary/20 transition-colors flex items-center gap-1"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add
+                </button>
               </div>
             </div>
 

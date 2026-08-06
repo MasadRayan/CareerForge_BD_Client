@@ -9,11 +9,26 @@ import {
   CheckCircle2
 } from 'lucide-react'
 
+// Real categories from the behavioral_questions table (kept in sync with the
+// backend seed). Dynamic categories returned by the API are also picked up.
 const CATEGORIES = [
-  'Teamwork', 'Leadership', 'Problem Solving', 'Communication',
-  'Conflict Resolution', 'Adaptability', 'Time Management',
-  'Creativity', 'Decision Making', 'Customer Service'
+  { value: 'teamwork', label: 'Teamwork' },
+  { value: 'leadership', label: 'Leadership' },
+  { value: 'problem-solving', label: 'Problem Solving' },
+  { value: 'communication', label: 'Communication' },
+  { value: 'conflict-resolution', label: 'Conflict Resolution' },
 ]
+
+const categoryLabel = (value) => {
+  if (!value) return value
+  const known = CATEGORIES.find((c) => c.value === value)
+  if (known) return known.label
+  return value
+    .split('-')
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
+}
 
 const getScoreColor = (score) => {
   if (score >= 8) return 'text-success border-success bg-success/10'
@@ -243,7 +258,7 @@ const MocInterview = () => {
           <h2 className="text-xl font-semibold text-base-content mb-2">No Questions Found</h2>
           <p className="text-base-content/60 mb-2">
             {selectedCategory
-              ? `No questions available for "${selectedCategory}" category.`
+              ? `No questions available for "${categoryLabel(selectedCategory)}" category.`
               : 'No interview questions are available right now.'}
           </p>
           <p className="text-base-content/40 text-sm mb-6">Try a different category or check back later.</p>
@@ -298,11 +313,11 @@ const MocInterview = () => {
           className="select select-bordered bg-base-300 text-base-content rounded-xl border border-base-content/10 px-4 py-2 text-sm focus:outline-none focus:border-primary"
         >
           <option value="">All Categories</option>
-          {CATEGORIES.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
+          {CATEGORIES.map(({ value, label }) => (
+            <option key={value} value={value}>{label}</option>
           ))}
-          {categories.filter(c => !CATEGORIES.includes(c)).map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
+          {categories.filter((c) => !CATEGORIES.some((k) => k.value === c)).map((cat) => (
+            <option key={cat} value={cat}>{categoryLabel(cat)}</option>
           ))}
         </select>
       </div>
@@ -335,7 +350,7 @@ const MocInterview = () => {
           <h2 className="text-xl font-semibold text-base-content mb-2">All Questions Answered!</h2>
           <p className="text-base-content/60 mb-2">
             You have completed all {totalAnswered} questions
-            {selectedCategory && ` in "${selectedCategory}"`}.
+            {selectedCategory && ` in "${categoryLabel(selectedCategory)}"`}.
           </p>
           <p className="text-base-content/40 text-sm mb-6">
             Review your answers in the history tab or practice with a different category.
@@ -370,7 +385,7 @@ const MocInterview = () => {
                 className="rounded-xl border border-base-content/10 bg-base-300 p-6"
               >
                 <span className="inline-block rounded-lg bg-primary/10 text-primary text-xs font-medium px-3 py-1 mb-4">
-                  {currentQuestion.category || 'General'}
+                  {categoryLabel(currentQuestion.category) || 'General'}
                 </span>
 
                 <h2 className="text-lg font-semibold text-base-content mb-6 leading-relaxed">

@@ -100,9 +100,9 @@ const SignIn = () => {
   };
 
   return (
-    <section className={`relative min-h-screen px-4 py-10 transition duration-500 ${dark?"bg-[#050816]":"bg-gradient-to-br from-slate-50 via-white to-blue-50"}`}>
-
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-2">
+    <section className={`relative min-h-screen px-4 py-10 transition border border-red-700 duration-500 ${dark?"bg-[#050816]":"bg-gradient-to-br from-slate-50 via-white to-blue-50"}`}>
+      
+      <div className="relative mx-auto grid max-w-7xl border border-amber-600 grid-cols-1 items-center gap-8 lg:grid-cols-2">
 
         {/* LEFT SIDE */}
         <motion.div
@@ -111,11 +111,11 @@ const SignIn = () => {
           transition={{ duration: 0.7 }}
           className="hidden lg:block"
         >
-          <div className="relative mx-auto max-w-xl">
+          <div className="relative border border-amber-300 mx-auto max-w-xl">
              <div className="mt-5 max-w-lg">
-              <p className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
-                Welcome back
-              </p>
+            <p className="inline-flex items-center rounded-full border border-[#10B981]/20 bg-[#0F172A] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#10B981]">
+          Welcome back
+        </p>
             <h2 className={`mt-3 text-3xl font-bold tracking-tight mb-4 ${dark?"text-white":"text-slate-900"}
             `}>
                 Continue building your dream career with CareerForge BD
