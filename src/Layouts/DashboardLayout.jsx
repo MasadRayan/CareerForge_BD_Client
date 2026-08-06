@@ -58,6 +58,7 @@ const USER_NAV = [
 const ADMIN_NAV = [
   { section: "Admin" },
   { to: "/dashboard/admin/users", label: "All Users", icon: Users },
+  { to: "/dashboard/admin/payments", label: "All Payments", icon: CreditCard },
 ];
 
 const DashboardLayout = () => {

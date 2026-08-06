@@ -63,11 +63,11 @@ const Navbar = () => {
           className={`flex h-18 items-center justify-between rounded-2xl border px-6 transition-all duration-300 ${
             scrolled
               ? isDark
-                ? "border-[#10B981]/30 bg-[#0F172A]/70 backdrop-blur-2xl shadow-2xl shadow-[#10B981]/15"
+                ? "border-slate-800 bg-linear-to-r from-[#07101F]/80 via-[#0B1835]/80 to-[#10284A]/80 backdrop-blur-xl shadow-xl shadow-blue-500/10"
                 : "border-slate-200 bg-white/80 backdrop-blur-xl shadow-lg"
               : isDark
-                ? "border-[#10B981]/20 bg-[#0F172A]/95"
-                : "border-slate-200 bg-white"
+              ? "border-slate-800 bg-linear-to-r from-[#050816] via-[#0B1835] to-[#13284D]"
+              : "border-slate-200 bg-white"
           }`}
         >
           {/* Logo */}
@@ -164,6 +164,7 @@ const Navbar = () => {
                 >
                   {user?.photoURL ? (
                     <img
+                      referrerPolicy="no-referrer"
                       src={user.photoURL}
                       alt="profile"
                       className="h-9 w-9 rounded-full object-cover"
@@ -176,7 +177,7 @@ const Navbar = () => {
 
                   <div className="text-left">
                     <p
-                      className={`max-w-[130px] truncate text-sm font-semibold ${
+                      className={`max-w-32.5 truncate text-sm font-semibold ${
                         isDark ? "text-white" : "text-slate-900"
                       }`}
                     >
@@ -184,7 +185,7 @@ const Navbar = () => {
                     </p>
 
                     <p
-                      className={`max-w-[130px] truncate text-xs ${
+                      className={`max-w-32.5 truncate text-xs ${
                         isDark ? "text-slate-400" : "text-slate-500"
                       }`}
                     >
@@ -276,7 +277,7 @@ const Navbar = () => {
         <div
           className={`mt-3 overflow-hidden rounded-2xl border lg:hidden ${
             isDark
-              ? "border-slate-800 bg-gradient-to-b from-[#07101F] to-[#0C1F3F]"
+              ? "border-slate-800 bg-linear-to-b from-[#07101F] to-[#0C1F3F]"
               : "border-slate-200 bg-white"
           }`}
         >

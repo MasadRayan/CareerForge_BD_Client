@@ -16,6 +16,7 @@ import DashboardHome from "../Components/Dashboard/Dashboard";
 import Settings from "../Components/Dashboard/Settings";
 
 import AllUsers from "../Pages/Dashboard/AdminDashboard/Admin/AllUsers";
+import AllPayments from "../Pages/Dashboard/AdminDashboard/Admin/AllPayments";
 
 import CVList from "../Pages/Dashboard/UserDashboard/CV/CVList";
 import CVDetails from "../Pages/Dashboard/UserDashboard/CV/CVDetails";
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path: "admin/users",
         element: <AdminRoute><AllUsers /></AdminRoute>,
+      },
+      {
+        path: "admin/payments",
+        element: <AdminRoute><AllPayments /></AdminRoute>,
       },
       
 
