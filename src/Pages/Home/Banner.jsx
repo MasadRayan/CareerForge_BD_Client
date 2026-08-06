@@ -27,8 +27,8 @@ const Banner = () => {
       <div
         className={`absolute inset-0 ${
           isDark
-            ? "bg-gradient-to-b from-[#050816]/95 via-[#050816]/80 to-[#050816]"
-            : "bg-gradient-to-b from-white/90 via-white/80 to-white"
+            ? "bg-linear-to-b from-[#050816]/95 via-[#050816]/80 to-[#050816]"
+            : "bg-linear-to-b from-white/90 via-white/80 to-white"
         }`}
       />
 
