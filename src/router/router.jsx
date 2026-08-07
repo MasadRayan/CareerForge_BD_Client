@@ -38,6 +38,8 @@ import MocInterview from "../Pages/Dashboard/UserDashboard/Interview/MocIntervie
 import InterviewHistory from "../Pages/Dashboard/UserDashboard/Interview/InterviewHistory";
 import InterviewResult from "../Pages/Dashboard/UserDashboard/Interview/InterviewResult";
 import ReadinessScore from "../Pages/Dashboard/UserDashboard/Readiness/ReadinessScore";
+import Certificates from "../Pages/Dashboard/UserDashboard/Certificates/Certificates";
+import CertificateTest from "../Pages/Dashboard/UserDashboard/Certificates/CertificateTest";
 import Subscription from "../Pages/Dashboard/UserDashboard/Subscription/Subscription";
 import PaymentHistory from "../Pages/Dashboard/UserDashboard/Subscription/PaymentHistory";
 import JobSearch from "../Pages/Dashboard/UserDashboard/Jobs/JobSearch";
@@ -182,6 +184,16 @@ const router = createBrowserRouter([
       {
         path: "readiness",
         element: <UserRoute><ReadinessScore /></UserRoute>,
+      },
+
+      // Skill Certificates
+      {
+        path: "certificates",
+        element: <UserRoute><Certificates /></UserRoute>,
+      },
+      {
+        path: "certificates/test/:skill",
+        element: <UserRoute><CertificateTest /></UserRoute>,
       },
 
       // Subscription
