@@ -33,7 +33,7 @@ const Banner = () => {
       />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-5xl px-6 pt-5 text-center">
+      <div className="relative z-10 mx-auto max-w-5xl px-6 -mt-20 text-center">
 
         {/* Heading */}
         <motion.h1

@@ -61,14 +61,14 @@ const ROLE_META = {
     textL: "text-amber-700",
     textD: "text-amber-300",
   },
-  free_user: {
+    free_user: {
     label: "Free",
-    tileL: "bg-slate-500/10 text-slate-600 ring-slate-500/20",
-    tileD: "bg-white/6 text-slate-300 ring-white/10",
-    dotL: "bg-slate-400",
-    dotD: "bg-slate-500",
-    textL: "text-slate-500",
-    textD: "text-slate-400",
+    tileL: "bg-emerald-500/10 text-emerald-700 ring-emerald-500/20",
+    tileD: "bg-emerald-500/10 text-emerald-300 ring-emerald-500/20",
+    dotL: "bg-emerald-500",
+    dotD: "bg-emerald-400",
+    textL: "text-emerald-600",
+    textD: "text-emerald-400",
   },
 };
 
@@ -503,7 +503,7 @@ const AllUsers = () => {
                       </td>
                       <td className={`px-5 py-4 ${muted}`}>{item.email}</td>
                       <td className="px-5 py-4">
-<RoleMenu
+          <RoleMenu
                             item={item}
                             isDark={isDark}
                             axiosSecure={axiosSecure}
@@ -519,7 +519,7 @@ const AllUsers = () => {
                             aria-label={`Remove ${item.name}`}
                             className={`inline-flex h-8 w-8 items-center justify-center rounded-lg border transition ${
                               isDark
-                                ? "border-white/8 text-slate-400 hover:border-rose-400/40 hover:bg-rose-500/10 hover:text-rose-300"
+                                ? "border-white/8 text-slate-400 hover:border-rose-400/40 hover:bg-rose-500/10 hover:text-rose-600"
                                 : "border-slate-200 text-slate-400 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-600"
                             }`}
                           >
