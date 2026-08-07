@@ -100,8 +100,15 @@ const SignIn = () => {
   };
 
   return (
-    <section className={`relative min-h-screen px-4 py-10 transition duration-500 ${dark?"bg-[#050816]":"bg-gradient-to-br from-slate-50 via-white to-blue-50"}`}>
-      <div className="relative mx-auto grid max-w-7xl  grid-cols-1 items-center gap-8 lg:grid-cols-2">
+    <section
+  className={`relative min-h-screen pt-24 ${
+    dark
+      ? "bg-[#050816]"
+      : "bg-gradient-to-br from-slate-50 via-white to-blue-50"
+  }`}
+>
+
+   <div className="relative z-10 mx-auto max-w-7xl grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
 
         {/* LEFT SIDE */}
         <motion.div
