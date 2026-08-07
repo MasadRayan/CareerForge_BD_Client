@@ -26,6 +26,8 @@ import AnalysisHistory from "../Pages/Dashboard/UserDashboard/Analysis/AnalysisH
 
 import Roadmap from "../Pages/Dashboard/UserDashboard/Roadmap/Roadmap";
 import Roadmapdetails from "../Pages/Dashboard/UserDashboard/Roadmap/Roadmapdetails";
+import WeeklyTest from "../Pages/Dashboard/UserDashboard/RoadmapTests/WeeklyTest";
+import FinalExam from "../Pages/Dashboard/UserDashboard/RoadmapTests/FinalExam";
 
 import Quiz from "../Pages/Dashboard/UserDashboard/Quiz/Quiz";
 import QuizStats from "../Pages/Dashboard/UserDashboard/Quiz/QuizStats";
@@ -133,6 +135,14 @@ const router = createBrowserRouter([
       {
         path: "roadmaps/:id",
         element: <UserRoute><Roadmapdetails /></UserRoute>,
+      },
+      {
+        path: "roadmaps/:id/test/:weekId",
+        element: <UserRoute><WeeklyTest /></UserRoute>,
+      },
+      {
+        path: "roadmaps/:id/final-exam",
+        element: <UserRoute><FinalExam /></UserRoute>,
       },
 
       // Quiz routes
