@@ -26,6 +26,7 @@ import {
   Sun,
   Moon,
   ScanSearch,
+  Award,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -49,6 +50,8 @@ const USER_NAV = [
   { to: "/dashboard/interview/history", label: "Behavioral Test History", icon: History },
   { section: "Progress" },
   { to: "/dashboard/readiness", label: "Readiness Score", icon: Activity },
+  { section: "Credentials" },
+  { to: "/dashboard/certificates", label: "Skill Certificates", icon: Award, end: true },
   { section: "Account" },
   { to: "/dashboard/subscription", label: "Subscription", icon: CreditCard },
   { to: "/dashboard/payment-history", label: "Payment History", icon: Receipt },
