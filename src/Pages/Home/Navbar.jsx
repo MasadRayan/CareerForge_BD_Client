@@ -104,6 +104,14 @@ const Navbar = () => {
             >
               About
             </DesktopNavItem>
+            <DesktopNavItem
+              to="/contact"
+              icon={<Info size={17} />}
+              isDark={isDark}
+            >
+              Contact
+
+            </DesktopNavItem>
 
             {user && (
               <DesktopNavItem
