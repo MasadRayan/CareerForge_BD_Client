@@ -58,19 +58,19 @@ const Navbar = () => {
   };
 
   return (
-    <header
-      className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
-        scrolled
-          ? isDark
-            ? "border-slate-800 bg-linear-to-r from-[#07101F]/80 via-[#0B1835]/80 to-[#10284A]/80 backdrop-blur-xl shadow-xl shadow-blue-500/10"
-            : "border-slate-200 bg-white/80 backdrop-blur-xl shadow-lg"
-          : isDark
-            ? "border-slate-800 bg-[#050816]"
-            : "border-slate-200 bg-[#f8fafc]"
-      }`}
-    >
-      <div className="mx-auto max-w-7xl px-6">
-        <nav className="flex h-20 items-center justify-between">
+    <header className=" sticky top-0 z-50">
+      <div className="mx-auto max-w-7xl py-4">
+        <nav
+          className={`flex h-18 items-center justify-between rounded-2xl border px-6 transition-all duration-300 ${
+            scrolled
+              ? isDark
+                ? "border-slate-800 bg-linear-to-r from-[#07101F]/80 via-[#0B1835]/80 to-[#10284A]/80 backdrop-blur-xl shadow-xl shadow-blue-500/10"
+                : "border-slate-200 bg-white/80 backdrop-blur-xl shadow-lg"
+              : isDark
+                ? "border-slate-800 bg-linear-to-r from-[#050816] via-[#0B1835] to-[#13284D]"
+                : "border-slate-200 bg-white"
+          }`}
+        >
           {/* Logo */}
           <Link to="/" className="flex flex-col">
             <h1
@@ -280,7 +280,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div
-          className={`border-t lg:hidden ${
+          className={`mt-3 overflow-hidden rounded-2xl border lg:hidden ${
             isDark
               ? "border-slate-800 bg-linear-to-b from-[#07101F] to-[#0C1F3F]"
               : "border-slate-200 bg-white"

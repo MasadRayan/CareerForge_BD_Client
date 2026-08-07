@@ -43,7 +43,7 @@ export default function FAQ() {
     >
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-12">
-          <span className="text-blue-500 font-semibold tracking-widest uppercase">
+          <span className="text-emerald-600 font-semibold tracking-widest uppercase">
             Frequently Asked Questions
           </span>
 
@@ -85,7 +85,7 @@ export default function FAQ() {
               >
                 <div className="flex items-center gap-3">
                   <HelpCircle
-                    className="text-blue-500 flex-shrink-0"
+                    className="text-emerald-500 flex-shrink-0"
                     size={20}
                   />
 
