@@ -8,7 +8,7 @@ import {
   Route, ChevronLeft, Loader2, CalendarDays, Clock,
   CheckCircle2, Circle, ExternalLink, Play, FileText,
   BookOpen, GraduationCap, Trash2, CheckCheck, X,
-  AlertCircle
+  AlertCircle, Lock, ClipboardList, ClipboardCheck, ArrowRight
 } from 'lucide-react'
 
 const STATUS_STYLES = {
@@ -40,6 +40,8 @@ const Roadmapdetails = () => {
   const [error, setError] = useState(null)
   const [togglingTask, setTogglingTask] = useState(null)
   const [updatingStatus, setUpdatingStatus] = useState(false)
+  const [testPassed, setTestPassed] = useState({})
+  const [testLoaded, setTestLoaded] = useState(false)
 
   const fetchRoadmap = useCallback(async () => {
     if (!user?.email || !id) return
@@ -57,6 +59,47 @@ const Roadmapdetails = () => {
   }, [user?.email, id, axiosSecure])
 
   useEffect(() => { fetchRoadmap() }, [fetchRoadmap])
+
+  // ── Detect which weekly tests have already been passed ──
+  useEffect(() => {
+    const weeks = roadmap?.weeks ?? []
+    if (!roadmap || weeks.length === 0) return
+    let cancelled = false
+
+    const eligible = weeks.filter(
+      (w) =>
+        w.is_unlocked !== false &&
+        w.dailyTasks?.length > 0 &&
+        w.dailyTasks.every((t) => t.is_completed),
+    )
+
+    if (eligible.length === 0) {
+      setTestLoaded(true)
+      return
+    }
+
+    Promise.all(
+      eligible.map((w) =>
+        axiosSecure
+          .get(`/api/roadmap/${id}/weeks/${w.id}/test`)
+          .then((res) => (res?.data?.data?.already_passed ? w.id : null))
+          .catch(() => null),
+      ),
+    )
+      .then((results) => {
+        if (cancelled) return
+        const passed = {}
+        results.forEach((weekId) => {
+          if (weekId) passed[weekId] = true
+        })
+        setTestPassed(passed)
+      })
+      .finally(() => {
+        if (!cancelled) setTestLoaded(true)
+      })
+
+    return () => { cancelled = true }
+  }, [roadmap, id, axiosSecure])
 
   const handleToggleTask = async (taskId) => {
     setTogglingTask(taskId)
@@ -212,6 +255,25 @@ const Roadmapdetails = () => {
   const currentWeekIndex = weeks.findIndex(
     (w) => !w.dailyTasks?.every((t) => t.is_completed),
   )
+
+  // ── Weekly test status per week ──
+  const getTestInfo = (week) => {
+    const tasksDone =
+      week.dailyTasks?.length > 0 &&
+      week.dailyTasks.every((t) => t.is_completed)
+    if (testPassed[week.id]) return { status: 'passed' }
+    if (week.is_unlocked === false) return { status: 'locked' }
+    if (!tasksDone) return { status: 'tasks' }
+    return { status: 'ready' }
+  }
+
+  const passedTestCount = weeks.filter((w) => testPassed[w.id]).length
+  const examReady =
+    testLoaded &&
+    weeks.length > 0 &&
+    weeks.every((w) => testPassed[w.id])
+  const examProgress =
+    weeks.length > 0 ? Math.round((passedTestCount / weeks.length) * 100) : 0
 
   // ── Loading skeleton ──
   if (loading) {
@@ -413,6 +475,55 @@ const Roadmapdetails = () => {
             </div>
           )}
 
+          {/* Weekly test */}
+          <div>
+            <p className="text-[10px] font-semibold tracking-widest text-base-content/30 uppercase mb-2">
+              Weekly Test
+            </p>
+            {(() => {
+              const testInfo = getTestInfo(week)
+              const testIcon = testInfo.status === 'passed'
+                ? CheckCircle2
+                : testInfo.status === 'locked'
+                  ? Lock
+                  : testInfo.status === 'tasks'
+                    ? ClipboardList
+                    : ClipboardCheck
+              const TestIcon = testIcon
+              const testMeta = {
+                passed: { text: 'This week\u2019s test is passed.', tone: 'text-success border-success/20 bg-success/10' },
+                locked: { text: 'Pass the previous week\u2019s test to unlock.', tone: 'text-base-content/40 border-base-content/10 bg-base-200' },
+                tasks: { text: 'Finish the daily tasks above to unlock the test.', tone: 'text-amber-500 border-amber-500/20 bg-amber-500/10' },
+                ready: { text: 'Prove what you learned — pass it to unlock the next week.', tone: 'text-primary border-primary/20 bg-primary/5' },
+              }[testInfo.status]
+
+              return (
+                <div className={`flex flex-wrap items-center gap-3 rounded-xl border px-3 py-2.5 ${testMeta.tone}`}>
+                  <TestIcon className="w-4 h-4 shrink-0" />
+                  <span className="text-xs flex-1 min-w-40">{testMeta.text}</span>
+                  {testInfo.status === 'passed' ? (
+                    <span className="flex items-center gap-1 text-xs font-semibold">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      Passed
+                    </span>
+                  ) : testInfo.status === 'ready' ? (
+                    <button
+                      onClick={() => navigate(`/dashboard/roadmaps/${id}/test/${week.id}`)}
+                      className="flex items-center gap-1.5 rounded-lg bg-primary text-primary-content px-3 py-1.5 text-xs font-medium hover:opacity-90 transition"
+                    >
+                      Take Test
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  ) : (
+                    <span className="text-[10px] font-semibold tracking-wider uppercase opacity-60">
+                      Locked
+                    </span>
+                  )}
+                </div>
+              )
+            })()}
+          </div>
+
           {/* Empty week state */}
           {(!week.resources || week.resources.length === 0) &&
             (!week.dailyTasks || week.dailyTasks.length === 0) && (
@@ -610,6 +721,68 @@ const Roadmapdetails = () => {
             <p className="text-sm text-base-content/60">
               No weeks found in this roadmap
             </p>
+          </div>
+        )}
+
+        {/* ══ Final Exam gate ══ */}
+        {weeks.length > 0 && (
+          <div className="rounded-2xl border border-base-content/10 bg-base-300 p-6">
+            <div className="flex items-start gap-3 mb-4 flex-wrap">
+              <div
+                className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                  examReady || roadmap.status === 'completed'
+                    ? 'bg-success/10 text-success'
+                    : 'bg-base-content/5 text-base-content/30'
+                }`}
+              >
+                <GraduationCap className="w-5 h-5" />
+              </div>
+              <div className="flex-1 min-w-40">
+                <h3 className="text-sm font-semibold text-base-content">Final Exam</h3>
+                <p className="text-xs text-base-content/50 mt-0.5">
+                  30 question cumulative exam to complete the roadmap
+                </p>
+              </div>
+              {testLoaded && (
+                <span className="font-mono text-xs text-base-content/40 shrink-0">
+                  {passedTestCount}/{weeks.length} tests
+                </span>
+              )}
+            </div>
+
+            {roadmap.status === 'completed' ? (
+              <div className="flex items-center gap-2 rounded-xl bg-success/10 border border-success/20 text-success px-4 py-2.5 text-sm font-medium">
+                <CheckCircle2 className="w-4 h-4" />
+                Roadmap completed
+              </div>
+            ) : examReady ? (
+              <button
+                onClick={() => navigate(`/dashboard/roadmaps/${id}/final-exam`)}
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-content px-5 py-2.5 text-sm font-medium hover:opacity-90 transition"
+              >
+                <GraduationCap className="w-4 h-4" />
+                Begin Final Exam
+              </button>
+            ) : (
+              <div className="space-y-3">
+                <div>
+                  <div className="flex items-center justify-between text-xs text-base-content/40 mb-1.5">
+                    <span>Passing weekly tests</span>
+                    <span>{examProgress}%</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-base-content/10 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-success transition-all duration-500"
+                      style={{ width: `${examProgress}%` }}
+                    />
+                  </div>
+                </div>
+                <p className="flex items-center gap-2 text-xs text-base-content/40">
+                  <Lock className="w-3.5 h-3.5 shrink-0" />
+                  Pass every weekly test to unlock the final exam.
+                </p>
+              </div>
+            )}
           </div>
         )}
       </motion.div>
