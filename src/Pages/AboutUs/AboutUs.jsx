@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { FaLinkedinIn, FaGithub, FaMagic, FaUsers, FaAward, FaEye } from "react-icons/fa";
+import { FaLinkedinIn, FaGithub, FaUsers, FaAward, FaEye } from "react-icons/fa";
 import { useTheme } from "../../Context/ThemeProvider";
 
-const Avatar = ({ name }) => {
+const Avatar = ({ src, name }) => {
+  const [error, setError] = useState(false);
   const initials = name
     .split(" ")
     .map((n) => n[0])
@@ -10,10 +12,21 @@ const Avatar = ({ name }) => {
     .slice(0, 2)
     .toUpperCase();
 
+  if (error || !src) {
+    return (
+      <div className="flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 via-teal-500 to-indigo-600 text-3xl font-extrabold text-white shadow-xl border-4 border-emerald-500/20 transform transition-transform duration-500 group-hover:scale-105">
+        {initials}
+      </div>
+    );
+  }
+
   return (
-    <div className="flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 via-teal-500 to-indigo-600 text-3xl font-extrabold text-white shadow-xl border-4 border-emerald-500/20 transform transition-transform duration-500 group-hover:scale-105">
-      {initials}
-    </div>
+    <img
+      src={src}
+      alt={name}
+      onError={() => setError(true)}
+      className="h-28 w-28 rounded-full object-cover border-4 border-emerald-500/20 shadow-xl transition-transform duration-500 group-hover:scale-105"
+    />
   );
 };
 
@@ -23,32 +36,35 @@ const AboutUs = () => {
 
   const teamMembers = [
     {
-        name: "Masad Rayan",
-        role: "Backend Developer",
-        bio: "Develops secure, scalable, and high-performance backend systems with clean APIs and efficient database architecture.",
-        links: {
-          linkedin: "https://www.linkedin.com/in/masad-rayan/",
-          github: "https://github.com/MasadRayan"
-        }
-      },
-      {
-        name: "Shakawath Hossain",
-        role: "Frontend Developer",
-        bio: "Builds modern, responsive, and user-friendly interfaces with a strong focus on performance, accessibility, and seamless user experience.",
-        links: {
-          linkedin: "https://www.linkedin.com/in/shakawath-hossain-3a3561300/",
-          github: "https://github.com/Shakwath?tab=repositories"
-        }
-      },
-      {
-        name: "Shoriful Hoque Nobin",
-        role: "Frontend Developer",
-        bio: "Creates engaging, responsive, and visually polished web interfaces while ensuring smooth interactions and clean, maintainable code.",
-        links: {
-          linkedin: "https://www.linkedin.com/in/shoriful-hoque-nobin-b992b1350",
-          github: "https://github.com/shoriful12win"
-        }
+      name: "Masad Rayan",
+      role: "Backend Developer",
+      bio: "Develops secure, scalable, and high-performance backend systems with clean APIs and efficient database architecture.",
+      image: "https://i.ibb.co.com/mCtZPbg3/Whats-App-Image-2026-08-08-at-12-04-14-AM.jpg",
+      links: {
+        linkedin: "https://www.linkedin.com/in/masad-rayan/",
+        github: "https://github.com/MasadRayan"
       }
+    },
+    {
+      name: "Shakawath Hossain",
+      role: "Frontend Developer",
+      bio: "Builds modern, responsive, and user-friendly interfaces with a strong focus on performance, accessibility, and seamless user experience.",
+      image: "https://i.ibb.co.com/gMrFQPK6/image.png",
+      links: {
+        linkedin: "https://www.linkedin.com/in/shakawath-hossain-3a3561300/",
+        github: "https://github.com/Shakwath?tab=repositories"
+      }
+    },
+    {
+      name: "Shoriful Hoque Nobin",
+      role: "Frontend Developer",
+      bio: "Creates engaging, responsive, and visually polished web interfaces while ensuring smooth interactions and clean, maintainable code.",
+      image: "https://i.ibb.co.com/1fVBrvkp/image.png",
+      links: {
+        linkedin: "https://www.linkedin.com/in/shoriful-hoque-nobin-b992b1350",
+        github: "https://github.com/shoriful12win"
+      }
+    }
   ];
 
   const stats = [
@@ -78,18 +94,16 @@ const AboutUs = () => {
         isDark ? "bg-[#050816] text-white" : "bg-gradient-to-b from-[#f8fafc] via-white to-[#f8fafc] text-slate-900"
       }`}
     >
-    
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* Header Section */}
         <div className="mx-auto mb-16 max-w-3xl text-center">
-          <p className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-emerald-400">
+          <p className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-4 py-1 text-xs font-semibold uppercase text-emerald-400">
             Our Vision
           </p>
 
-          <h2 className="mt-4 text-4xl font-bold tracking-tight md:text-3xl lg:text-4xl">
+          <h2 className="mt-4 text-4xl font-bold tracking-tight md:text-4xl lg:text-4xl">
             Meet the Builders of{" "}
-            CareerForge BD
-  
+              CareerForge BD
           </h2>
 
           <p className={`mx-auto mt-6 max-w-2xl text-lg leading-8 ${isDark ? "text-slate-300" : "text-slate-600"}`}>
@@ -135,7 +149,7 @@ const AboutUs = () => {
             >
               {/* Avatar placeholder */}
               <div className="mb-6 flex justify-center">
-                <Avatar name={member.name} />
+                <Avatar src={member.image} name={member.name} />
               </div>
 
               <h3 className="text-xl font-bold">{member.name}</h3>
