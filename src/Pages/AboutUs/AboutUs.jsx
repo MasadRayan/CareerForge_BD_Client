@@ -1,123 +1,178 @@
-import React from 'react';
+import { motion } from "framer-motion";
+import { FaLinkedinIn, FaGithub, FaMagic, FaUsers, FaAward, FaEye } from "react-icons/fa";
+import { useTheme } from "../../Context/ThemeProvider";
 
-const AboutUs = () => {
-  
-  const sectionStyle = {
-    padding: '40px 20px',
-    textAlign: 'center',
-    minHeight: '100vh'
-  };
-
-  
-  const gridStyle = {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: '30px',
-    marginTop: '40px'
-  };
-
-  
-  const cardStyle = {
-    width: '100%',
-    maxWidth: '400px', 
-    padding: '40px 20px',
-    background: '#18181b',
-    borderRadius: '16px',
-    border: '1px solid rgba(255, 255, 255, 0.05)',
-    boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
-    textAlign: 'center'
-  };
-
-  const socialBtnStyle = {
-    display: 'inline-block',
-    margin: '5px',
-    padding: '8px 16px',
-    background: '#27272a',
-    color: '#fff',
-    borderRadius: '8px',
-    textDecoration: 'none',
-    transition: 'all 0.3s ease',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    fontSize: '0.9rem'
-  };
-
-  
-  const teamMembers = [
-    {
-      name: "Shoriful hoque Nobin",
-      role: "AI & Full-Stack Developer",
-      bio: "Building, deploying, and scaling highly engineered AI and web systems.",
-      image: "/dp_nobin.jpg",
-      links: {
-        linkedin: "https://www.linkedin.com/in/nobin",
-        x: "https://x.com/nobin",
-        facebook: "https://facebook.com/nobin",
-        whatsapp: "https://whatsapp.com/channel/..."
-      }
-    },
-    {
-      name: "Masad Rayran",
-      role: "Software Engineer",
-      bio: "Passionate about creating scalable and efficient applications.",
-      image: "/dp_masad.jpg",
-      links: {
-        linkedin: "https://www.linkedin.com/in/masad",
-        x: "https://x.com/masad",
-        facebook: "https://facebook.com/masad",
-        whatsapp: "https://whatsapp.com/channel/..."
-      }
-    },
-    {
-      name: "Sakawat Hossien",
-      role: "System Designer",
-      bio: "Designing intuitive, secure, and visually stunning user experiences.",
-      image: "/dp_sakawat.jpg",
-      links: {
-        linkedin: "https://www.linkedin.com/in/sakawat",
-        x: "https://x.com/sakawat",
-        facebook: "https://facebook.com/sakawat",
-        whatsapp: "https://whatsapp.com/channel/..."
-      }
-    }
-  ];
+const Avatar = ({ name }) => {
+  const initials = name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
-    <div style={sectionStyle}>
-      <h2 style={{ fontSize: '3rem', color: '#fff', marginBottom: '10px' }}>About Us</h2>
-      <p style={{ color: '#a1a1aa', fontSize: '1.2rem' }}>Meet the team behind the platform.</p>
+    <div className="flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 via-teal-500 to-indigo-600 text-3xl font-extrabold text-white shadow-xl border-4 border-emerald-500/20 transform transition-transform duration-500 group-hover:scale-105">
+      {initials}
+    </div>
+  );
+};
 
-      <div style={gridStyle}>
-        {teamMembers.map((member, index) => (
-          <div key={index} style={cardStyle}>
-            <img
-              src={member.image}
-              alt={member.name}
-              style={{ 
-                width: '150px', 
-                height: '150px', 
-                borderRadius: '50%', 
-                objectFit: 'cover', 
-                border: '4px solid #f97316', 
-                marginBottom: '20px', 
-                boxShadow: '0 4px 20px rgba(249, 115, 22, 0.4)' 
-              }}
-            />
-            <h3 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '5px' }}>{member.name}</h3>
-            <h4 style={{ fontSize: '1.1rem', color: '#f97316', marginBottom: '15px', fontWeight: 'normal' }}>{member.role}</h4>
-            
-            <p style={{ color: '#a1a1aa', fontSize: '1rem', lineHeight: '1.6', marginBottom: '25px' }}>
-              {member.bio}
-            </p>
+const AboutUs = () => {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '5px' }}>
-              <a href={member.links.linkedin} target="_blank" rel="noreferrer" style={{ ...socialBtnStyle, background: 'rgba(59, 130, 246, 0.2)', borderColor: '#3b82f6', color: '#3b82f6' }}>💼 LinkedIn</a>
-              <a href={member.links.x} target="_blank" rel="noreferrer" style={socialBtnStyle}>✖️ X</a>
-              <a href={member.links.facebook} target="_blank" rel="noreferrer" style={{ ...socialBtnStyle, background: 'rgba(24, 119, 242, 0.2)', borderColor: '#1877f2', color: '#1877f2' }}>📘 Facebook</a>
-              <a href={member.links.whatsapp} target="_blank" rel="noreferrer" style={{ ...socialBtnStyle, background: 'rgba(16, 185, 129, 0.2)', borderColor: '#10b981', color: '#10b981' }}>💬 WhatsApp</a>
+  const teamMembers = [
+    {
+        name: "Masad Rayan",
+        role: "Backend Developer",
+        bio: "Develops secure, scalable, and high-performance backend systems with clean APIs and efficient database architecture.",
+        links: {
+          linkedin: "https://www.linkedin.com/in/masad-rayan/",
+          github: "https://github.com/MasadRayan"
+        }
+      },
+      {
+        name: "Shakawath Hossain",
+        role: "Frontend Developer",
+        bio: "Builds modern, responsive, and user-friendly interfaces with a strong focus on performance, accessibility, and seamless user experience.",
+        links: {
+          linkedin: "https://www.linkedin.com/in/shakawath-hossain-3a3561300/",
+          github: "https://github.com/Shakwath?tab=repositories"
+        }
+      },
+      {
+        name: "Shoriful Hoque Nobin",
+        role: "Frontend Developer",
+        bio: "Creates engaging, responsive, and visually polished web interfaces while ensuring smooth interactions and clean, maintainable code.",
+        links: {
+          linkedin: "https://www.linkedin.com/in/shoriful-hoque-nobin-b992b1350",
+          github: "https://github.com/shoriful12win"
+        }
+      }
+  ];
+
+  const stats = [
+    { icon: <FaUsers className="h-6 w-6 text-emerald-400" />, value: "4+", label: "Active Talents" },
+    { icon: <FaAward className="h-6 w-6 text-indigo-400" />, value: "98%", label: "Success Rate" },
+    { icon: <FaEye className="h-6 w-6 text-teal-400" />, value: "15+", label: "Reviews Handled" }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+  };
+
+  return (
+    <div
+      className={`relative min-h-screen overflow-hidden pt-28 pb-20 transition-colors duration-500 ${
+        isDark ? "bg-[#050816] text-white" : "bg-gradient-to-b from-[#f8fafc] via-white to-[#f8fafc] text-slate-900"
+      }`}
+    >
+    
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        {/* Header Section */}
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <p className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-emerald-400">
+            Our Vision
+          </p>
+
+          <h2 className="mt-4 text-4xl font-bold tracking-tight md:text-3xl lg:text-4xl">
+            Meet the Builders of{" "}
+            CareerForge BD
+  
+          </h2>
+
+          <p className={`mx-auto mt-6 max-w-2xl text-lg leading-8 ${isDark ? "text-slate-300" : "text-slate-600"}`}>
+            We are dedicated to building smart AI systems and career analysis tools that guide young professional talents to unlock their true potential.
+          </p>
+        </div>
+
+        {/* Stats Row */}
+        <div className="mx-auto mb-20 grid max-w-4xl grid-cols-3 gap-6 text-center">
+          {stats.map((stat, i) => (
+            <div
+              key={i}
+              className={`rounded-2xl border p-5 transition-all duration-300 ${
+                isDark ? "border-slate-800 bg-[#07101F]/40" : "border-slate-200 bg-white"
+              }`}
+            >
+              <div className="mb-3 flex justify-center">{stat.icon}</div>
+              <div className="text-2xl font-extrabold md:text-3xl">{stat.value}</div>
+              <div className={`mt-1 text-xs font-medium md:text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+                {stat.label}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* Team Members Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3 lg:gap-10"
+        >
+          {teamMembers.map((member, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className={`group relative flex flex-col items-center rounded-3xl border p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                isDark
+                  ? "border-slate-800 bg-[#07101F]/50 hover:border-slate-700"
+                  : "border-slate-200 bg-white hover:border-slate-300"
+              }`}
+            >
+              {/* Avatar placeholder */}
+              <div className="mb-6 flex justify-center">
+                <Avatar name={member.name} />
+              </div>
+
+              <h3 className="text-xl font-bold">{member.name}</h3>
+              <h4 className="mt-1 text-sm font-semibold text-emerald-500 uppercase tracking-wider">{member.role}</h4>
+
+              <p className={`mt-4 text-center text-sm leading-relaxed ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                {member.bio}
+              </p>
+
+              {/* Social Action buttons */}
+              <div className="mt-8 flex justify-center gap-4">
+                <a
+                  href={member.links.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-500 hover:bg-blue-500 hover:text-white transition duration-300 shadow-md"
+                  title="LinkedIn"
+                >
+                  <FaLinkedinIn className="h-5 w-5" />
+                </a>
+                <a
+                  href={member.links.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`flex h-10 w-10 items-center justify-center rounded-xl border transition duration-300 shadow-md ${
+                    isDark
+                      ? "bg-slate-800 border-slate-700 text-white hover:bg-white hover:text-slate-900"
+                      : "bg-slate-100 border-slate-200 text-slate-800 hover:bg-slate-900 hover:text-white"
+                  }`}
+                  title="GitHub"
+                >
+                  <FaGithub className="h-5 w-5" />
+                </a>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </div>
   );
