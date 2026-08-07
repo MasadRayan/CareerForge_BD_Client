@@ -25,6 +25,8 @@ const Avatar = ({ src, name }) => {
       src={src}
       alt={name}
       onError={() => setError(true)}
+      referrerPolicy="no-referrer"
+      loading="lazy"
       className="h-28 w-28 rounded-full object-cover border-4 border-emerald-500/20 shadow-xl transition-transform duration-500 group-hover:scale-105"
     />
   );
@@ -37,7 +39,7 @@ const AboutUs = () => {
   const teamMembers = [
     {
       name: "Masad Rayan",
-      role: "Backend Developer",
+      role: "Team Lead & Backend Developer",
       bio: "Develops secure, scalable, and high-performance backend systems with clean APIs and efficient database architecture.",
       image: "https://i.ibb.co.com/mCtZPbg3/Whats-App-Image-2026-08-08-at-12-04-14-AM.jpg",
       links: {
@@ -111,23 +113,7 @@ const AboutUs = () => {
           </p>
         </div>
 
-        {/* Stats Row */}
-        <div className="mx-auto mb-20 grid max-w-4xl grid-cols-3 gap-6 text-center">
-          {stats.map((stat, i) => (
-            <div
-              key={i}
-              className={`rounded-2xl border p-5 transition-all duration-300 ${
-                isDark ? "border-slate-800 bg-[#07101F]/40" : "border-slate-200 bg-white"
-              }`}
-            >
-              <div className="mb-3 flex justify-center">{stat.icon}</div>
-              <div className="text-2xl font-extrabold md:text-3xl">{stat.value}</div>
-              <div className={`mt-1 text-xs font-medium md:text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}>
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
+        
 
         {/* Team Members Grid */}
         <motion.div
@@ -153,7 +139,7 @@ const AboutUs = () => {
               </div>
 
               <h3 className="text-xl font-bold">{member.name}</h3>
-              <h4 className="mt-1 text-sm font-semibold text-emerald-500 uppercase tracking-wider">{member.role}</h4>
+              <h4 className="mt-1 text-sm font-semibold text-center text-emerald-500 uppercase tracking-wider">{member.role}</h4>
 
               <p className={`mt-4 text-center text-sm leading-relaxed ${isDark ? "text-slate-400" : "text-slate-600"}`}>
                 {member.bio}
