@@ -58,7 +58,7 @@ const Navbar = () => {
 
   return (
     <header className=" sticky top-0 z-50">
-      <div className="mx-auto max-w-7xl py-4">
+      <div className="mx-auto max-w-7xl px-4 py-4">
         <nav
           className={`flex h-18 items-center justify-between rounded-2xl border px-6 transition-all duration-300 ${
             scrolled
