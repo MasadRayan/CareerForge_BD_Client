@@ -1,3 +1,4 @@
+import { ScrollRestoration } from "react-router";
 import AnalysisCV from "../Features/AnalysisCV";
 import FAQ from "../Features/FAQ";
 import Features from "../Features/Features";
@@ -16,6 +17,7 @@ const Home = () => {
             <Features></Features>
             <PricingSection></PricingSection>
             <FAQ></FAQ>
+            <ScrollRestoration></ScrollRestoration>
         </div>
     );
 };

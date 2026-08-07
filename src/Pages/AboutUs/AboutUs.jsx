@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Hammer, Route, ShieldCheck } from "lucide-react";
 import { useTheme } from "../../Context/ThemeProvider";
+import { ScrollRestoration } from "react-router";
 
 /* ------------------------------------------------------------------ */
 /*  Motion primitives — one reveal, reused everywhere                  */
@@ -54,7 +55,7 @@ const Wordmark = ({ isDark }) => (
     >
       CareerForge
     </span>
-    <span className="rounded-sm bg-emerald-500/12 px-1.5 py-[2px] font-mono text-[10px] font-semibold tracking-[0.18em] text-emerald-500">
+    <span className="rounded-sm bg-emerald-500/12 px-1.5 py-0.5 font-mono text-[10px] font-semibold tracking-[0.18em] text-emerald-500">
       BD
     </span>
   </div>
@@ -162,7 +163,7 @@ const AboutUs = () => {
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <Link
                 to="/dashboard"
-                className="group inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                className="group inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
               >
                 Start your path
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -272,7 +273,7 @@ const AboutUs = () => {
                 <Reveal key={station.id} delay={i * 0.06}>
                   <article
                     className={`group h-full p-7 transition-colors md:p-8 ${
-                      isDark ? "hover:bg-white/[0.03]" : "hover:bg-slate-50"
+                      isDark ? "hover:bg-white/3" : "hover:bg-slate-50"
                     }`}
                   >
                     <div className="flex items-center justify-between">
@@ -376,7 +377,7 @@ const AboutUs = () => {
           >
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/60 to-transparent"
+              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-emerald-500/60 to-transparent"
             />
             <div className="max-w-2xl">
               <Eyebrow>Forge your career</Eyebrow>
@@ -391,7 +392,7 @@ const AboutUs = () => {
               </p>
               <Link
                 to="/signup"
-                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
               >
                 Get started free
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -400,6 +401,7 @@ const AboutUs = () => {
           </div>
         </Reveal>
       </section>
+      <ScrollRestoration />
     </main>
   );
 };

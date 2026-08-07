@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaLinkedinIn, FaGithub, FaUsers, FaAward, FaEye } from "react-icons/fa";
 import { useTheme } from "../../Context/ThemeProvider";
+import { ScrollRestoration } from "react-router";
 
 const Avatar = ({ src, name }) => {
   const [error, setError] = useState(false);
@@ -14,7 +15,7 @@ const Avatar = ({ src, name }) => {
 
   if (error || !src) {
     return (
-      <div className="flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 via-teal-500 to-indigo-600 text-3xl font-extrabold text-white shadow-xl border-4 border-emerald-500/20 transform transition-transform duration-500 group-hover:scale-105">
+      <div className="flex h-28 w-28 items-center justify-center rounded-full bg-linear-to-br from-emerald-500 via-teal-500 to-indigo-600 text-3xl font-extrabold text-white shadow-xl border-4 border-emerald-500/20 transform transition-transform duration-500 group-hover:scale-105">
         {initials}
       </div>
     );
@@ -93,7 +94,7 @@ const ContactUs = () => {
   return (
     <div
       className={`relative min-h-screen overflow-hidden pt-28 pb-20 transition-colors duration-500 ${
-        isDark ? "bg-[#050816] text-white" : "bg-gradient-to-b from-[#f8fafc] via-white to-[#f8fafc] text-slate-900"
+        isDark ? "bg-[#050816] text-white" : "bg-linear-to-b from-[#f8fafc] via-white to-[#f8fafc] text-slate-900"
       }`}
     >
       <div className="relative z-10 mx-auto max-w-7xl px-6">
@@ -174,6 +175,7 @@ const ContactUs = () => {
           ))}
         </motion.div>
       </div>
+      <ScrollRestoration></ScrollRestoration>
     </div>
   );
 };
