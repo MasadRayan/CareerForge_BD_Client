@@ -1,26 +1,24 @@
 import { useState } from 'react';
 
 const ContactUs = () => {
-  // ফর্মের ডাটা সেভ রাখার জন্য State
+
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
-  // ইনপুট পরিবর্তনের ফাংশন
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ফর্ম সাবমিট ফাংশন
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(`Thank you ${formData.name}! Your message has been sent.`);
     setFormData({ name: '', email: '', message: '' });
   };
 
-  // --- স্টাইলিং ---
   const sectionStyle = {
     padding: '60px 20px',
-    background: '#09090b', // একটু গাঢ় ব্যাকগ্রাউন্ড
-    minHeight: '100vh',
+    background: '#09090b',
     color: '#fff',
     fontFamily: 'sans-serif'
   };
@@ -69,7 +67,7 @@ const ContactUs = () => {
   const buttonStyle = {
     width: '100%',
     padding: '12px',
-    background: '#f97316', // কমলা রঙের বাটন
+    background: '#f97316',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
@@ -97,14 +95,14 @@ const ContactUs = () => {
     border: '1px solid rgba(255, 255, 255, 0.05)',
   };
 
-  // ৩ জনের কন্টাক্ট ইনফরমেশন
+  
   const teamContacts = [
     {
       name: "Shoriful hoque Nobin",
       role: "AI & Full-Stack Developer",
       email: "nobin@example.com",
       phone: "+880 1XXX-XXXXXX",
-      image: "/dp_nobin.jpg" // এখানে আপনার ছবির লিংক বসাবেন
+      image: "/dp_nobin.jpg" 
     },
     {
       name: "Masad Rayran",
@@ -132,7 +130,7 @@ const ContactUs = () => {
 
         <div style={gridStyle}>
           
-          {/* লেফট সাইড: Contact Form */}
+          
           <div style={formContainerStyle}>
             <h3 style={{ marginBottom: '25px', fontSize: '1.5rem' }}>Send a Message</h3>
             <form onSubmit={handleSubmit}>
@@ -167,7 +165,7 @@ const ContactUs = () => {
             </form>
           </div>
 
-          {/* রাইট সাইড: ৩ জনের ডিরেক্ট কন্টাক্ট ইনফো */}
+          
           <div style={teamContainerStyle}>
             <h3 style={{ marginBottom: '5px', fontSize: '1.5rem' }}>Direct Contact</h3>
             <p style={{ color: '#a1a1aa', marginBottom: '15px' }}>Reach out to us individually.</p>

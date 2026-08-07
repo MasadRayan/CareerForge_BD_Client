@@ -33,25 +33,7 @@ const Banner = () => {
       />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-5xl px-6 pt-28 text-center">
-
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
-        >
-          <span
-            className={`inline-flex rounded-full px-5 py-2 text-sm font-medium ${
-              isDark
-                ? "bg-emerald-400/10 text-emerald-300"
-                : "bg-emerald-100 text-emerald-700"
-            }`}
-          >
-            New: AI Interview Coach v2.0
-          </span>
-        </motion.div>
-
+      <div className="relative z-10 mx-auto max-w-5xl px-6 pt-5 text-center">
 
         {/* Heading */}
         <motion.h1
@@ -103,9 +85,7 @@ const Banner = () => {
               : "text-slate-600"
           }`}
         >
-          Elevate your professional trajectory with intelligent tools.
-          Resume analysis, predictive job matching, and simulated interviews
-          designed to position you ahead of the curve.
+          Create a stronger career with resume analysis, smart job recommendations, and interview practice designed to help you succeed.
         </motion.p>
 
 

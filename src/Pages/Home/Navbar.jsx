@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   Menu,
   X,
@@ -22,6 +22,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
 
   const profileRef = useRef(null);
   useEffect(() => {
@@ -57,19 +58,19 @@ const Navbar = () => {
   };
 
   return (
-    <header className=" sticky top-0 z-50">
-      <div className="mx-auto max-w-7xl py-4">
-        <nav
-          className={`flex h-18 items-center justify-between rounded-2xl border px-6 transition-all duration-300 ${
-            scrolled
-              ? isDark
-                ? "border-slate-800 bg-linear-to-r from-[#07101F]/80 via-[#0B1835]/80 to-[#10284A]/80 backdrop-blur-xl shadow-xl shadow-blue-500/10"
-                : "border-slate-200 bg-white/80 backdrop-blur-xl shadow-lg"
-              : isDark
-              ? "border-slate-800 bg-linear-to-r from-[#050816] via-[#0B1835] to-[#13284D]"
-              : "border-slate-200 bg-white"
-          }`}
-        >
+    <header
+      className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
+        scrolled
+          ? isDark
+            ? "border-slate-800 bg-linear-to-r from-[#07101F]/80 via-[#0B1835]/80 to-[#10284A]/80 backdrop-blur-xl shadow-xl shadow-blue-500/10"
+            : "border-slate-200 bg-white/80 backdrop-blur-xl shadow-lg"
+          : isDark
+            ? "border-slate-800 bg-[#050816]"
+            : "border-slate-200 bg-[#f8fafc]"
+      }`}
+    >
+      <div className="mx-auto max-w-7xl px-6">
+        <nav className="flex h-20 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex flex-col">
             <h1
@@ -134,23 +135,27 @@ const Navbar = () => {
 
             {!user ? (
               <>
-                <Link
-                  to="/signin"
-                  className={`hidden rounded-xl px-4 py-2 text-sm font-medium transition lg:block ${
-                    isDark
-                      ? "text-slate-300 hover:text-white"
-                      : "text-[#0F172A] hover:text-[#10B981]"
-                  }`}
-                >
-                  Login
-                </Link>
+                {pathname !== "/signin" && (
+                  <Link
+                    to="/signin"
+                    className={`hidden rounded-xl px-4 py-2 text-sm font-medium transition lg:block ${
+                      isDark
+                        ? "text-slate-300 hover:text-white"
+                        : "text-[#0F172A] hover:text-[#10B981]"
+                    }`}
+                  >
+                    Login
+                  </Link>
+                )}
 
-                <Link
-                  to="/signup"
-                  className="hidden rounded-xl bg-[#10B981] px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#059669] hover:shadow-lg hover:shadow-[#10B981]/30 lg:block"
-                >
-                  Get Started
-                </Link>
+                {pathname !== "/signup" && (
+                  <Link
+                    to="/signup"
+                    className="hidden rounded-xl bg-[#10B981] px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#059669] hover:shadow-lg hover:shadow-[#10B981]/30 lg:block"
+                  >
+                    Get Started
+                  </Link>
+                )}
               </>
             ) : (
               <div className="relative hidden lg:block" ref={profileRef}>
@@ -275,7 +280,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div
-          className={`mt-3 overflow-hidden rounded-2xl border lg:hidden ${
+          className={`border-t lg:hidden ${
             isDark
               ? "border-slate-800 bg-linear-to-b from-[#07101F] to-[#0C1F3F]"
               : "border-slate-200 bg-white"
@@ -319,25 +324,29 @@ const Navbar = () => {
 
             {!user ? (
               <>
-                <Link
-                  to="/signin"
-                  onClick={() => setMenuOpen(false)}
-                  className={`block rounded-xl px-4 py-3 text-center font-medium transition ${
-                    isDark
-                      ? "text-slate-300 hover:bg-slate-800 hover:text-white"
-                      : "text-slate-700 hover:bg-slate-100"
-                  }`}
-                >
-                  Login
-                </Link>
+                {pathname !== "/signin" && (
+                  <Link
+                    to="/signin"
+                    onClick={() => setMenuOpen(false)}
+                    className={`block rounded-xl px-4 py-3 text-center font-medium transition ${
+                      isDark
+                        ? "text-slate-300 hover:bg-slate-800 hover:text-white"
+                        : "text-slate-700 hover:bg-slate-100"
+                    }`}
+                  >
+                    Login
+                  </Link>
+                )}
 
-                <Link
-                  to="/signup"
-                  onClick={() => setMenuOpen(false)}
-                  className="block rounded-xl bg-blue-600 px-4 py-3 text-center font-semibold text-white transition hover:bg-blue-700"
-                >
-                  Get Started
-                </Link>
+                {pathname !== "/signup" && (
+                  <Link
+                    to="/signup"
+                    onClick={() => setMenuOpen(false)}
+                    className="block rounded-xl bg-blue-600 px-4 py-3 text-center font-semibold text-white transition hover:bg-blue-700"
+                  >
+                    Get Started
+                  </Link>
+                )}
               </>
             ) : (
               <>
