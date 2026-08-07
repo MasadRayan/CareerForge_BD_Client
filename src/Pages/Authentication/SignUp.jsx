@@ -210,8 +210,8 @@ const SignUp = () => {
                         }),
                         ...(name==="email" && {
                           pattern:{
-                            value:/^\S+@\S+$/ ,
-                            message:"Invalid email"
+                            value:/^[^\s@]+@[^\s@]+\.[^\s@]+$/ ,
+                            message:"Invalid email address"
                           }
                         }),
                         ...(name==="photo" && {

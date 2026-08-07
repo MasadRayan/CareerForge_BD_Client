@@ -5,6 +5,7 @@ import Home from "../Pages/Home/Home";
 import Error from "../Pages/ErrorPage";
 import SignIn from "../Pages/Authentication/SignIn";
 import Signup from "../Pages/Authentication/SignUp";
+import ForgetPassword from "../Pages/Authentication/ForgetPassword";
 import ErrorPage from "../Pages/ErrorPage";
 import PrivateRoute from "../Routes/PrivateRoute";
 import AdminRoute from "../Routes/AdminRoute";
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <Signup />,
+      },
+      {
+        path: "forgetpassword",
+        element: <ForgetPassword />,
       },
        
       {
