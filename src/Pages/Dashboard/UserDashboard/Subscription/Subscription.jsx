@@ -121,7 +121,7 @@ const Subscription = () => {
     <div className="max-w-5xl mx-auto py-8 px-4">
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-base-content flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
             <CreditCard className="w-6 h-6 text-primary" />
             Subscription
           </h1>
@@ -205,8 +205,7 @@ const Subscription = () => {
             <button
               onClick={handleUpgrade}
               disabled={checkingOut}
-              className="rounded-xl bg-linear-to-r from-primary to-indigo-500 text-primary-content px-6 py-3 text-sm font-medium hover:opacity-90 transition disabled:opacity-60 flex items-center gap-2"
-            >
+             className="rounded-xl bg-linear-to-r from-primary via-emerald-500 to-amber-400 text-primary-content px-6 py-3 text-sm font-medium hover:opacity-90 transition disabled:opacity-60 flex items-center gap-2">
               {checkingOut ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (

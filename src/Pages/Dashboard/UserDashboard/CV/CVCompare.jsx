@@ -211,7 +211,7 @@ const CVCompare = () => {
           <form onSubmit={handleSubmit} className="rounded-2xl border border-base-content/10 bg-base-300 p-6 space-y-4">
             <div className="flex items-center gap-3 mb-2">
               <span className="h-px flex-1 bg-base-content/10" />
-              <span className="text-xs font-semibold tracking-widest text-base-content/40 uppercase">
+              <span className="text-xs font-semibold tracking-widest text-emerald-600 uppercase">
                 Your CV
               </span>
               <span className="h-px flex-1 bg-base-content/10" />
@@ -254,7 +254,7 @@ const CVCompare = () => {
 
             <div className="flex items-center gap-3 py-2">
               <span className="h-px flex-1 bg-base-content/10" />
-              <span className="text-xs font-semibold tracking-widest text-base-content/40 uppercase">
+              <span className="text-xs font-semibold tracking-widest text-emerald-600 uppercase">
                 Job Description
               </span>
               <span className="h-px flex-1 bg-base-content/10" />
@@ -304,7 +304,7 @@ const CVCompare = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-3 px-6 rounded-xl bg-linear-to-r from-indigo-500 to-violet-500 text-white font-semibold text-sm hover:from-indigo-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-base-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 px-6 rounded-xl bg-primary text-primary-content font-semibold text-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-base-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
               >
                 {submitting ? (
                   <>

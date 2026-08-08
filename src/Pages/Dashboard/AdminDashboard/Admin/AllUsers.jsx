@@ -45,12 +45,12 @@ const getInitials = (name) =>
 const ROLE_META = {
   admin: {
     label: "Admin",
-    tileL: "bg-indigo-500/10 text-indigo-600 ring-indigo-500/25",
-    tileD: "bg-indigo-500/20 text-indigo-300 ring-indigo-400/25",
-    dotL: "bg-indigo-500",
-    dotD: "bg-indigo-400",
-    textL: "text-indigo-600",
-    textD: "text-indigo-300",
+    tileL: "bg-emerald-500/10 text-emerald-600 ring-emerald-500/25",
+    tileD: "bg-emerald-500/20 text-emerald-300 ring-emerald-400/25",
+    dotL: "bg-emerald-500",
+    dotD: "bg-emerald-400",
+    textL: "text-emerald-600",
+    textD: "text-emerald-300",
   },
   premium_user: {
     label: "Premium",
@@ -326,7 +326,7 @@ const AllUsers = () => {
   const cardBorder = isDark ? "border-white/8" : "border-slate-200";
   const headBg = isDark ? "bg-white/[0.03]" : "bg-slate-50/80";
   const rowDivider = isDark ? "divide-white/6" : "divide-slate-100";
-  const rowHover = isDark ? "hover:bg-white/[0.03]" : "hover:bg-indigo-50/40";
+  const rowHover = isDark ? "hover:bg-white/[0.03]" : "hover:bg-emerald-50/40";
   const iconBtn = isDark
     ? "border-white/8 text-slate-400 hover:border-white/15 hover:bg-white/4 hover:text-white"
     : "border-slate-200 text-slate-400 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700";
@@ -373,7 +373,7 @@ const AllUsers = () => {
 
   const pageBtn = (active) =>
     active
-      ? "inline-flex h-8 min-w-8 items-center justify-center rounded-lg bg-indigo-500 px-2 text-xs font-semibold text-white shadow-sm shadow-indigo-500/30"
+      ? "inline-flex h-8 min-w-8 items-center justify-center rounded-lg bg-emerald-500 px-2 text-xs font-semibold text-white shadow-sm shadow-emerald-500/30"
       : `inline-flex h-8 min-w-8 items-center justify-center rounded-lg px-2 text-xs font-medium transition ${
           isDark
             ? "text-slate-400 hover:bg-white/6 hover:text-white"

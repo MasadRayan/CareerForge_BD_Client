@@ -155,8 +155,8 @@ const AllPayments = () => {
     muted: isDark ? "text-[#9AA3C0]" : "text-[#5A6582]",
     faint: isDark ? "text-[#5F6B8F]" : "text-[#94A0BC]",
     hairline: isDark ? "border-white/6" : "border-slate-100",
-    rowHover: isDark ? "hover:bg-white/3" : "hover:bg-indigo-50/50",
-    accent: isDark ? "text-indigo-300" : "text-indigo-700",
+    rowHover: isDark ? "hover:bg-white/3" : "hover:bg-emerald-50/50",
+    accent: isDark ? "text-emerald-300" : "text-emerald-700",
   };
 
   const statusMeta = (statusKey) => {
@@ -207,14 +207,14 @@ const AllPayments = () => {
 
   const pageBtn = (active) =>
     active
-      ? "inline-flex h-8 min-w-8 items-center justify-center rounded-lg bg-indigo-500 px-2 font-data text-xs font-semibold text-white shadow-sm shadow-indigo-500/30"
+      ? "inline-flex h-8 min-w-8 items-center justify-center rounded-lg bg-emerald-500 px-2 font-data text-xs font-semibold text-white shadow-sm shadow-emerald-500/30"
       : `inline-flex h-8 min-w-8 items-center justify-center rounded-lg px-2 font-data text-xs font-medium transition ${
           isDark
             ? "text-slate-400 hover:bg-white/6 hover:text-white"
             : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
         }`;
 
-  const iconBtn = `inline-flex h-9 items-center justify-center rounded-lg border transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${
+  const iconBtn = `inline-flex h-9 items-center justify-center rounded-lg border transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ${
     isDark
       ? "border-white/8 text-slate-400 hover:border-white/15 hover:bg-white/[0.04] hover:text-white"
       : "border-slate-200 text-slate-400 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700"
@@ -247,7 +247,7 @@ const AllPayments = () => {
             <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
               <div
                 className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl ${
-                  isDark ? "bg-indigo-500/15 text-indigo-300" : "bg-indigo-50 text-indigo-600"
+                  isDark ? "bg-emerald-500/15 text-emerald-300" : "bg-emerald-50 text-emerald-600"
                 }`}
               >
                 <CreditCard size={20} />
@@ -285,8 +285,8 @@ const AllPayments = () => {
       const startDate = record.started_at || record.created_at;
       const user = record.user || {};
       const initialsTile = isDark
-        ? "bg-linear-to-br from-indigo-500 to-violet-600 text-white ring-white/10"
-        : "bg-linear-to-br from-indigo-500 to-violet-600 text-white ring-white/20";
+        ? "bg-linear-to-br from-emerald-500 to-teal-600 text-white ring-white/10"
+        : "bg-linear-to-br from-emerald-500 to-teal-600 text-white ring-white/20";
 
       return (
         <motion.tr
@@ -308,7 +308,7 @@ const AllPayments = () => {
                 />
               ) : (
                 <div
-                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 to-violet-600 text-xs font-bold text-white ring-1 ${initialsTile}`}
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-emerald-500 to-teal-600 text-xs font-bold text-white ring-1 ${initialsTile}`}
                 >
                   {getInitials(user.name)}
                 </div>
@@ -427,10 +427,10 @@ const AllPayments = () => {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search name, email, or Stripe ID"
-          className={`h-9 w-full rounded-lg border pl-9 pr-3 font-data text-sm outline-none transition focus:ring-2 focus:ring-indigo-500/25 ${
+           className={`h-9 w-full rounded-lg border pl-9 pr-3 font-data text-sm outline-none transition focus:ring-2 focus:ring-emerald-500/25 ${
             isDark
-              ? "border-white/8 bg-white/3 text-white placeholder:text-slate-500 focus:border-indigo-400/50"
-              : "border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:border-indigo-400"
+              ? "border-white/8 bg-white/3 text-white placeholder:text-slate-500 focus:border-emerald-400/50"
+              : "border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:border-emerald-400"
           }`}
         />
       </motion.div>

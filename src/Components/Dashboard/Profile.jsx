@@ -9,7 +9,7 @@ import { ScrollRestoration } from "react-router";
 
 // Theme accent — indigo, matching the dashboard navigation's active state
 // (indigo-400/indigo-300 on dark, indigo-600/indigo-700 on light).
-const ACC = { dark: "#818cf8", light: "#4f46e5" };
+const ACC = { dark: "#34d399", light: "#059669" };
 const PREMIUM = { dark: "#fbbf24", light: "#f59e0b" };
 const GRADIENT = "linear-gradient(135deg, #6366f1, #8b5cf6)";
 
@@ -168,12 +168,11 @@ const Profile = () => {
           variants={item}
           className="relative overflow-hidden rounded-3xl border border-base-content/10 bg-base-300/60 p-6 sm:p-8"
         >
-          <div
-            aria-hidden
+          <div aria-hidden
             className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full blur-3xl"
             style={{
               background: isDark
-                ? "radial-gradient(circle, rgba(99,102,241,0.18), transparent 70%)"
+                ? "radial-gradient(circle, rgba(16,185,129,0.18), transparent 70%)"
                 : "radial-gradient(circle, rgba(99,102,241,0.10), transparent 70%)",
             }}
           />
@@ -187,7 +186,7 @@ const Profile = () => {
                   background: `linear-gradient(135deg, ${acc}, transparent 62%)`,
                 }}
               >
-                <div className="h-full w-full overflow-hidden rounded-full bg-base-200 ring-1 ring-white/10">
+                <div className="h-full w-full overflow-hidden rounded-full bg-base-200 ring-1 ring-emerald-500/10">
                   {hasPhoto ? (
                     <img
                       src={photo}
@@ -221,7 +220,7 @@ const Profile = () => {
               <p className="font-data text-[10px] uppercase tracking-[0.24em] text-base-content/45">
                 Identity Record
               </p>
-              <h1 className="font-display mt-1.5 text-3xl font-semibold tracking-tight text-base-content sm:text-4xl">
+              <h1 className="font-display mt-1.5 text-3xl font-semibold tracking-tight text-emerald-content sm:text-4xl">
                 {displayName}
               </h1>
               <div
@@ -244,7 +243,7 @@ const Profile = () => {
 
             {/* Role badge */}
             <div className="self-start sm:self-auto">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-base-content/12 px-3 py-1 font-data text-[11px] uppercase tracking-wider text-base-content/65">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 px-3 py-1 font-data text-[11px] uppercase tracking-wider text-emerald-600 dark:border-emerald-400/20 dark:text-emerald-400">
                 <span
                   className="h-1.5 w-1.5 rounded-full"
                   style={{ background: roleColor || "currentColor" }}
@@ -327,7 +326,7 @@ const Profile = () => {
         </motion.section>
 
         {/* ── Edit action ────────────────────────────────────── */}
-        {/* <motion.button
+        <motion.button
           variants={item}
           whileTap={{ scale: prefersReduced ? 1 : 0.99 }}
           onClick={handleEdit}
@@ -336,18 +335,8 @@ const Profile = () => {
           <Pencil className="h-4 w-4" />
           Edit Profile
           <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </motion.button> */}
-        <motion.button
-          variants={item}
-          whileTap={{ scale: prefersReduced ? 1 : 0.99 }}
-          onClick={handleEdit}
-          className="group flex w-full items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-base-300 disabled:opacity-50"
-          style={{ background: GRADIENT }}
-        >
-          <Pencil className="h-4 w-4" />
-          Edit profile
-          <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </motion.button>
+        
       </motion.div>
       <ScrollRestoration></ScrollRestoration>
     </div>

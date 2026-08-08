@@ -55,14 +55,14 @@ const formatMonth = (month) => {
 };
 
 const accent = {
-  text: { dark: "text-indigo-300", light: "text-indigo-700" },
-  chip: { dark: "bg-indigo-500/15 text-indigo-300", light: "bg-indigo-50 text-indigo-700" },
-  soft: { dark: "bg-indigo-500/10", light: "bg-indigo-500/10" },
-  glow: "shadow-indigo-500/20",
-  line: { dark: "#A5B4FC", light: "#6366F1" },
+  text: { dark: "text-emerald-300", light: "text-emerald-700" },
+  chip: { dark: "bg-emerald-500/15 text-emerald-300", light: "bg-emerald-50 text-emerald-700" },
+  soft: { dark: "bg-emerald-500/10", light: "bg-emerald-500/10" },
+  glow: "shadow-emerald-500/20",
+  line: { dark: "#34D399", light: "#10B981" },
 };
 
-const GRADIENT = "bg-linear-to-r from-indigo-500 via-violet-500 to-fuchsia-500";
+const GRADIENT = "bg-linear-to-r from-emerald-500 via-teal-500 to-indigo-500";
 
 const AdminDashboardHome = () => {
   const axiosSecure = useAxiosSecure();
@@ -100,7 +100,7 @@ const AdminDashboardHome = () => {
     name:
       key === "free_user" ? "Free" : key === "premium_user" ? "Premium" : "Admin",
     value: Number(value) || 0,
-    fill: key === "premium_user" ? "#F5C04B" : key === "admin" ? "#6366F1" : "#7A87A8",
+    fill: key === "premium_user" ? "#F5C04B" : key === "admin" ? "#10B981" : "#7A87A8",
   }));
   const splitTotal = userSplit.reduce((sum, s) => sum + s.value, 0);
 
@@ -139,7 +139,9 @@ const AdminDashboardHome = () => {
     return (
       <div
         className={`rounded-xl border px-3 py-2.5 shadow-xl backdrop-blur ${
-          isDark ? "border-white/10 bg-[#0B0F1A]/95" : "border-slate-200 bg-white/95"
+          isDark
+            ? "border-emerald-400/10 bg-[#0B0F1A]/95"
+            : "border-emerald-600/10 bg-white/95"
         }`}
       >
         {label && (
@@ -173,7 +175,7 @@ const AdminDashboardHome = () => {
         </p>
         <button
           onClick={() => refetch()}
-          className="mt-5 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-content transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+          className="mt-5 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-content transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
         >
           <RefreshCw className="h-4 w-4" />
           Reload
@@ -190,7 +192,7 @@ const AdminDashboardHome = () => {
           <p className={`font-data text-[11px] font-medium uppercase tracking-[0.2em] ${accent.text[isDark ? "dark" : "light"]}`}>
             CareerForge BD · Operations
           </p>
-          <h2 className={`mt-2 text-2xl font-bold tracking-tight sm:text-3xl ${t.ink}`}>
+          <h2 className={`mt-2 text-2xl font-bold text-primary tracking-tight sm:text-3xl ${t.ink}`}>
             Business overview
           </h2>
           <p className={`mt-1 text-sm ${t.muted}`}>
@@ -201,7 +203,7 @@ const AdminDashboardHome = () => {
         <button
           onClick={() => refetch()}
           disabled={isFetching}
-          className={`inline-flex items-center gap-2 rounded-xl border px-3.5 py-2 font-data text-xs font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:opacity-60 ${
+          className={`inline-flex items-center gap-2 rounded-xl border px-3.5 py-2 font-data text-xs font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 disabled:opacity-60 ${
             isDark
               ? "border-white/10 text-[#9AA3C0] hover:border-white/20 hover:text-white"
               : "border-slate-200 text-[#5A6582] hover:border-slate-300 hover:text-[#10162B]"
@@ -221,10 +223,9 @@ const AdminDashboardHome = () => {
         >
           <div
             className={`pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full blur-3xl ${
-              isDark ? "bg-indigo-500/15" : "bg-indigo-500/10"
+              isDark ? "bg-emerald-500/15" : "bg-emerald-500/10"
             }`}
           />
-
           <div className="relative">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>

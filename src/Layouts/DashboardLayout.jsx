@@ -100,8 +100,8 @@ const DashboardLayout = () => {
     `group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
       isActive
         ? isDark
-          ? "bg-indigo-500/15 text-indigo-300 shadow-sm shadow-indigo-500/5"
-          : "bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-500/5"
+          ? "bg-emerald-500/15 text-emerald-300 shadow-sm shadow-emerald-500/5"
+          : "bg-emerald-100 text-emerald-700 shadow-sm shadow-emerald-500/5"
         : isDark
         ? "text-slate-400 hover:bg-white/4 hover:text-slate-200"
         : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
@@ -111,8 +111,8 @@ const DashboardLayout = () => {
     `flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200 ${
       isActive
         ? isDark
-          ? "bg-indigo-500/20 text-indigo-300"
-          : "bg-indigo-100 text-indigo-600"
+          ? "bg-emerald-500/20 text-emerald-300"
+          : "bg-emerald-100 text-emerald-600"
         : isDark
         ? "text-slate-500 group-hover:text-slate-300"
         : "text-slate-400 group-hover:text-slate-700"
@@ -225,8 +225,8 @@ const DashboardLayout = () => {
         <div
           className={`mx-4 mt-4 rounded-xl border p-3 ${
             isDark
-              ? "border-white/6 bg-white/3"
-              : "border-indigo-100 bg-indigo-50/50"
+              ? "border-emerald-500/6 bg-white/3"
+              : "border-emerald-100 bg-emerald-50/50"
           }`}
         >
           <div className="flex items-center gap-3">
@@ -234,10 +234,10 @@ const DashboardLayout = () => {
               <img
                 src={user.photoURL}
                 alt={user?.displayName || "User"}
-                className="h-10 w-10 rounded-lg object-cover ring-2 ring-indigo-500/20"
+                className="h-10 w-10 rounded-lg object-cover ring-2 ring-emerald-500/20"
               />
             ) : (
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-br from-indigo-500 to-violet-600 text-sm font-bold text-white">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-br from-emerald-500 to-violet-600 text-sm font-bold text-white">
                 {user?.displayName?.charAt(0)?.toUpperCase() || "U"}
               </div>
             )}
@@ -251,7 +251,7 @@ const DashboardLayout = () => {
               </p>
               <p
                 className={`truncate text-xs ${
-                  isDark ? "text-slate-500" : "text-slate-400"
+                  isDark ? "text-emerald-500" : "text-slate-400"
                 }`}
               >
                 {user?.email || "Signed in"}

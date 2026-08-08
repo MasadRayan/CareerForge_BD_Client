@@ -114,6 +114,7 @@ const UpdateProfile = () => {
     })
     setNewSkill('')
   }
+  
 
   const removeSkill = (skillToRemove) => {
     setSkills((prev) => prev.filter((s) => s !== skillToRemove))
@@ -181,8 +182,8 @@ const UpdateProfile = () => {
         </button>
 
         <div className="bg-base-300 rounded-2xl border border-base-content/10 p-8">
-          <div className="flex flex-col items-center mb-8">
-            <div className="relative w-36 h-36 rounded-full overflow-hidden bg-base-content/20 border-2 border-primary/30 mb-4">
+        <div className="flex flex-col items-center mb-8">
+          <div className="relative w-36 h-36 rounded-full overflow-hidden bg-base-content/20 border-2 border-emerald-500/30 mb-4">
               {watchedPhotoURL && !photoError ? (
                 <img
                   src={watchedPhotoURL}
@@ -197,17 +198,21 @@ const UpdateProfile = () => {
                 </div>
               )}
             </div>
-            <h1 className="text-2xl font-semibold text-base-content">Update Profile</h1>
+            <h1 className="text-2xl font-semibold text-emerald-600 dark:text-emerald-400">Update Profile</h1>
             <p className="text-sm text-base-content/60 mt-1">Update your career identity</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
+              <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className="h-px flex-1 bg-base-content/20" />
-                <span className="text-xs font-medium tracking-widest text-base-content/40 uppercase">Identity</span>
+                <span className="text-xs font-medium tracking-widest text-emerald-500 uppercase">
+                  Identity
+                </span>
                 <span className="h-px flex-1 bg-base-content/20" />
               </div>
+            </div>
 
               <div>
                 <label className="block text-sm font-medium text-base-content/80 mb-1.5">
@@ -228,7 +233,9 @@ const UpdateProfile = () => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className="h-px flex-1 bg-base-content/20" />
-                <span className="text-xs font-medium tracking-widest text-base-content/40 uppercase">Career</span>
+                <span className="text-xs font-medium tracking-widest text-emerald-500 uppercase">
+                  Career
+                </span>
                 <span className="h-px flex-1 bg-base-content/20" />
               </div>
 
@@ -253,7 +260,7 @@ const UpdateProfile = () => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className="h-px flex-1 bg-base-content/20" />
-                <span className="text-xs font-medium tracking-widest text-base-content/40 uppercase">Media</span>
+                <span className="text-xs font-medium tracking-widest text-emerald-500 uppercase">Media</span>
                 <span className="h-px flex-1 bg-base-content/20" />
               </div>
 
@@ -276,7 +283,7 @@ const UpdateProfile = () => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className="h-px flex-1 bg-base-content/20" />
-                <span className="text-xs font-medium tracking-widest text-base-content/40 uppercase">Skills</span>
+                <span className="text-xs font-medium tracking-widest text-emerald-500 uppercase">Skills</span>
                 <span className="h-px flex-1 bg-base-content/20" />
               </div>
 
@@ -349,13 +356,12 @@ const UpdateProfile = () => {
             </div>
 
             <div className="pt-2">
-              <motion.button
-                type="submit"
-                disabled={submitting}
-                className="w-full py-3 px-6 rounded-xl bg-linear-to-r from-indigo-500 to-violet-500 text-white font-semibold text-sm hover:from-indigo-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-base-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-              >
+              <motion.button type="submit"
+              disabled={submitting}
+              className="w-full py-3 px-6 rounded-xl bg-linear-to-r from-emerald-500 to-teal-500 text-white font-semibold text-sm hover:from-emerald-600 hover:to-teal-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-base-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+            >
                 {submitting ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
