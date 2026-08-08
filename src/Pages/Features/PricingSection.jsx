@@ -53,7 +53,7 @@ const PricingSection = () => {
 
   return (
     <section
-      className={`relative overflow-hidden py-24 transition-colors duration-500 ${
+      className={`relative overflow-hidden py-16 transition-colors duration-500 ${
         isDark
           ? "bg-[#050816] text-white"
           : "bg-gradient-to-b from-[#f8fafc] via-white to-[#f8fafc] text-slate-900"
@@ -61,18 +61,40 @@ const PricingSection = () => {
     >
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* Header */}
-        <div className="mx-auto mb-16 max-w-3xl text-center">
-          <p className="mb-3 inline-flex items-center gap-1.5 px-4.5 py-1 text-xs font-semibold uppercase tracking-widest text-emerald-400">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto mb-16 max-w-2xl text-center"
+        >
+          <span
+            className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${
+              isDark
+                ? "border-slate-700 bg-slate-900/70 text-slate-400"
+                : "border-slate-200 bg-white text-slate-500"
+            }`}
+          >
             Pricing Plans
-          </p>
+          </span>
 
           <h2
-            className={`mt-4 text-2xl font-bold tracking-tight md:text-4xl lg:text-4xl ${
+            className={`mt-5 font-bold tracking-tight text-4xl md:text-5xl ${
               isDark ? "text-white" : "text-slate-900"
             }`}
           >
-            Invest in Your Future with <span className="">Smart Guidance</span>
+            Invest in your future with{" "}
+            <span className="text-emerald-500">smart guidance</span>
           </h2>
+
+          <p
+            className={`mx-auto mt-4 max-w-xl text-base leading-7 ${
+              isDark ? "text-slate-400" : "text-slate-600"
+            }`}
+          >
+            Pick the plan that fits where you are in your career — upgrade
+            whenever you need more.
+          </p>
 
           {/* Toggle Switch */}
           <div className="mt-10 flex items-center justify-center gap-4">
@@ -120,7 +142,7 @@ const PricingSection = () => {
               </span>
             </span>
           </div>
-        </div>
+        </motion.div>
 
         {/* Pricing Cards Grid */}
         <motion.div

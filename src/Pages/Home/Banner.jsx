@@ -94,7 +94,7 @@ const Banner = () => {
           initial={{opacity:0,y:20}}
           animate={{opacity:1,y:0}}
           transition={{delay:.5}}
-          className="mt-10 flex flex-col justify-center gap-4 sm:flex-row"
+          className="mt-10 flex flex-col justify-center gap-4 sm:flex-row items-center"
         >
 
           <Link to="/dashboard/cvs">

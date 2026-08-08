@@ -57,21 +57,40 @@ const Features = () => {
       <div className="mx-auto max-w-7xl px-6">
         {/* Heading */}
 
-        <div className="mx-auto mb-10 max-w-2xl text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-emerald-400">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto mb-12 max-w-2xl text-center"
+        >
+          <span
+            className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${
+              isDark
+                ? "border-slate-700 bg-slate-900/70 text-slate-400"
+                : "border-slate-200 bg-white text-slate-500"
+            }`}
+          >
             AI Powered Features
-          </p>
+          </span>
 
           <h2
-            className={`text-3xl font-bold md:text-4xl ${isDark ? "text-white" : "text-slate-900"}`}
+            className={`mt-5 font-bold tracking-tight text-4xl md:text-5xl ${
+              isDark ? "text-white" : "text-slate-900"
+            }`}
           >
-            Everything You Need To Get Hired
+            Everything You Need To{" "}
+            <span className="text-emerald-500">Get Hired</span>
           </h2>
 
-          <p className={`mt-3 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+          <p
+            className={`mx-auto mt-4 max-w-xl text-base leading-7 ${
+              isDark ? "text-slate-400" : "text-slate-600"
+            }`}
+          >
             Smart AI tools to analyze, improve and accelerate your career.
           </p>
-        </div>
+        </motion.div>
 
         {/* Cards */}
 

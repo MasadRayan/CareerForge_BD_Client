@@ -42,28 +42,41 @@ export default function FAQ() {
       className={`py-16 ${dark ? "bg-[#050816]" : "bg-slate-50"}`}
     >
       <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <span className="text-emerald-600 font-semibold tracking-widest uppercase">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto mb-12 max-w-2xl text-center"
+        >
+          <span
+            className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${
+              dark
+                ? "border-slate-700 bg-slate-900/70 text-slate-400"
+                : "border-slate-200 bg-white text-slate-500"
+            }`}
+          >
             Frequently Asked Questions
           </span>
 
           <h2
-            className={`text-3xl md:text-4xl font-bold mt-2 ${
+            className={`mt-5 font-bold tracking-tight text-4xl lg:text-5xl ${
               dark ? "text-white" : "text-slate-900"
             }`}
           >
-            Got Questions?
+            Got{" "}
+            <span className="text-emerald-500">Questions?</span>
           </h2>
 
           <p
-            className={`mt-3 ${
+            className={`mx-auto mt-4 max-w-xl text-base leading-7 ${
               dark ? "text-slate-400" : "text-slate-600"
             }`}
           >
             Find answers to the most common questions about our AI Resume
             Analyzer.
           </p>
-        </div>
+        </motion.div>
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
@@ -85,7 +98,7 @@ export default function FAQ() {
               >
                 <div className="flex items-center gap-3">
                   <HelpCircle
-                    className="text-emerald-500 flex-shrink-0"
+                    className="text-emerald-500 shrink-0"
                     size={20}
                   />
 
