@@ -80,7 +80,7 @@ const ForgeSeal = ({ isDark }) => (
       isDark ? "border-emerald-400/40 bg-emerald-400/10" : "border-emerald-500/30 bg-emerald-500/10"
     }`}
   >
-    <span className="h-3.5 w-3.5 rotate-45 rounded-[2px] bg-gradient-to-br from-emerald-400 to-teal-500" />
+    <span className="h-3.5 w-3.5 rotate-45 rounded-xs bg-linear-to-br from-emerald-400 to-teal-500" />
   </span>
 );
 
@@ -142,7 +142,6 @@ const Footer = () => {
           {/* A. Brand */}
           <div className="lg:col-span-4">
             <Link to="/" className={`${focusRing} inline-flex items-center gap-3`}>
-              <ForgeSeal isDark={isDark} />
               <span className={`text-2xl font-bold tracking-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
                 CareerForge <span className="text-emerald-500">BD</span>
               </span>

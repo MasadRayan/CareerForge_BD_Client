@@ -40,7 +40,7 @@ const ContactUs = () => {
   const teamMembers = [
     {
       name: "Masad Rayan",
-      role: "Team Lead & Backend Developer",
+      role: "Team Lead & Full Stack Developer",
       bio: "Develops secure, scalable, and high-performance backend systems with clean APIs and efficient database architecture.",
       image: "https://i.ibb.co.com/mCtZPbg3/Whats-App-Image-2026-08-08-at-12-04-14-AM.jpg",
       links: {

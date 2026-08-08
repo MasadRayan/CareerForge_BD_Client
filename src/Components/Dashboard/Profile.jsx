@@ -5,6 +5,7 @@ import { ArrowUpRight, Mail, User, Pencil } from "lucide-react";
 import { AuthContext } from "../../Context/AuthProvider";
 import { useTheme } from "../../Context/ThemeProvider";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { ScrollRestoration } from "react-router";
 
 // Theme accent — indigo, matching the dashboard navigation's active state
 // (indigo-400/indigo-300 on dark, indigo-600/indigo-700 on light).
@@ -348,6 +349,7 @@ const Profile = () => {
           <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </motion.button>
       </motion.div>
+      <ScrollRestoration></ScrollRestoration>
     </div>
   );
 };
